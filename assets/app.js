@@ -126,7 +126,10 @@ function einpassen(el, max = 2.2, min = .4){
   if (passt(max)) return;
   let lo = min, hi = max;
   for (let i = 0; i < 14; i++){ const m = (lo + hi) / 2; passt(m) ? lo = m : hi = m; }
-  el.style.fontSize = Math.max(min, Math.round(lo * 100) / 100) + 'rem';
+  /* abrunden, nicht runden: aufgerundet passt die gefundene Größe nicht mehr */
+  let g = Math.max(min, Math.floor(lo * 100) / 100);
+  while (g > min && !passt(g)) g = Math.round((g - .02) * 100) / 100;
+  el.style.fontSize = g + 'rem';
 }
 
 /* ---------- Start ---------------------------------------------------- */
@@ -335,7 +338,7 @@ function zeichneWurzelfolie(){
       if (!an){ n.innerHTML = esc(wort); return; }
       const t = wurzelTreffer(wort, w.buchstaben);
       n.innerHTML = t.ok
-        ? [...wort].map((c,i) => t.treffer.includes(i) ? `<span class="m-zeichen">${esc(c)}</span>` : esc(c)).join('')
+        ? [...wort].map((c,i) => t.treffer.includes(i) ? `<span class="m-wurzel">${esc(c)}</span>` : esc(c)).join('')
         : esc(wort);
     });
     el.querySelector('#wb').classList.toggle('an', an);
