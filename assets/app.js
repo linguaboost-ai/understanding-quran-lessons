@@ -48,7 +48,7 @@ function zeileHtml(zeile, marks = []){
    Bedeutung. Solche Zeilen werden als Raster gesetzt, damit sie untereinander
    stehen bleiben. */
 const spalten = z => z.trim().split(/\s{2,}/).filter(Boolean);
-function spaltenHtml(zeilen, marks, markZeile){
+function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
   const n = spalten(zeilen[0]).length;
   const reihen = zeilen.map(z => {
     const teile = [];
@@ -62,7 +62,7 @@ function spaltenHtml(zeilen, marks, markZeile){
     }
     return teile.join('');
   });
-  return `<div class="raster" style="grid-template-columns:repeat(${n},auto)">${reihen.join('')}</div>`;
+  return `<div class="raster${verdeckt}" style="grid-template-columns:repeat(${n},auto)">${reihen.join('')}</div>`;
 }
 
 /* die Kopula in Klammern setzen — am Rohtext, nicht am fertigen HTML */
@@ -73,13 +73,17 @@ function deutschHtml(z){
   return esc(z.slice(0, i)) + `<span class="m-de">(${esc(m[2])})</span>` + esc(z.slice(i + m[2].length));
 }
 
+/* Es werden immer alle Schritte gesetzt; die noch nicht aufgedeckten bleiben
+   unsichtbar, behalten aber ihren Platz. So bleibt die Schriftgröße beim
+   Aufdecken stehen und die schon sichtbaren Zeilen springen nicht. */
 function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
   const out = [];
-  for (let s = 0; s <= bisSchritt && s < folie.schritte.length; s++){
+  for (let s = 0; s < folie.schritte.length; s++){
+    const verdeckt = s > bisSchritt ? ' verdeckt' : '';
     const zeilen = folie.schritte[s];
     for (let i = 0; i < zeilen.length; i++){
       const z = zeilen[i].trim();
-      if (!z){ out.push('<div class="luecke"></div>'); continue; }
+      if (!z){ out.push(`<div class="luecke${verdeckt}"></div>`); continue; }
       const wz = wortzeile(z);
       if (wz){
         const off = z.indexOf(wz.wort);
@@ -87,7 +91,7 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
           ? marks.filter(m => m.s >= off && m.e <= off + wz.wort.length)
                  .map(m => ({...m, s:m.s-off, e:m.e-off}))
           : [];
-        out.push(`<div class="zl wz"><span class="mk">${esc(wz.markierung)}</span>`
+        out.push(`<div class="zl wz${verdeckt}"><span class="mk">${esc(wz.markierung)}</span>`
                + `<bdi class="ar">${zeileHtml(wz.wort, eig)}</bdi>`
                + `<span class="bd">— ${esc(wz.bedeutung)}</span></div>`);
         continue;
@@ -97,11 +101,11 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
       if (n > 1){
         const block = [zeilen[i]];
         while (i+1 < zeilen.length && zeilen[i+1].trim() && spalten(zeilen[i+1]).length === n){ block.push(zeilen[++i]); }
-        if (block.length > 1 || n > 1){ out.push(spaltenHtml(block, marks, markZeile)); continue; }
+        if (block.length > 1 || n > 1){ out.push(spaltenHtml(block, marks, markZeile, verdeckt)); continue; }
       }
       const eigene = (z === markZeile) ? marks : [];
       const inhalt = (z === istZeile) ? deutschHtml(z) : zeileHtml(z, eigene);
-      out.push(`<div class="zl ${istArabisch(z) ? '' : 'de'}">${inhalt}</div>`);
+      out.push(`<div class="zl ${istArabisch(z) ? '' : 'de'}${verdeckt}">${inhalt}</div>`);
     }
   }
   return out.join('');
@@ -211,23 +215,35 @@ function deutschIst(){
   return false;
 }
 
-function zeichneFolien(){
-  const box = $('#folien');
+/* Oben der Vorschaustreifen: fünf Kästchen nebeneinander, jedes mit dem
+   vollständigen Inhalt seiner Folie — auch das der aktuellen. Hier wird
+   nichts Schritt für Schritt aufgedeckt und nichts hervorgehoben. */
+function zeichneVorschau(){
+  const box = $('#vorschau');
   box.replaceChildren();
-  const m = marken(), mz = zielZeile();
   for (let p = 0; p < 5; p++){
     const i = fenster + p;
     const d = document.createElement('div');
-    d.className = 'folie' + (i === idx ? ' jetzt' : '') + (i >= lek.folien.length ? ' leer' : '');
+    d.className = 'vk' + (i === idx ? ' jetzt' : '') + (i >= lek.folien.length ? ' leer' : '');
     if (i < lek.folien.length){
-      const bis = i === idx ? schritt : lek.folien[i].schritte.length - 1;
-      const iz = (i === idx && deutschIst()) ? zielDeutsch() : null;
-      d.appendChild(hueller(folieHtml(lek.folien[i], bis, i === idx ? m : [], i === idx ? mz : null, iz)));
+      const f = lek.folien[i];
+      d.appendChild(hueller(folieHtml(f, f.schritte.length - 1, [], null, null)));
       d.addEventListener('click', () => { if (!wurzelOffen){ idx = i; schritt = 0; setzeFenster(); zeichne(); } });
     }
     box.appendChild(d);
   }
-  box.querySelectorAll('.folie').forEach(el => einpassen(el, 2.2));
+  box.querySelectorAll('.vk').forEach(el => einpassen(el, 1.3, .3));
+}
+
+/* In der Mitte die Folie selbst, mit allem Platz, der da ist. Sie zeigt nur,
+   was bis zum aktuellen Schritt aufgedeckt ist, und trägt die Markierungen. */
+function zeichneFolie(){
+  const box = $('#folie');
+  box.replaceChildren();
+  const f = lek.folien[idx];
+  const iz = deutschIst() ? zielDeutsch() : null;
+  box.appendChild(hueller(folieHtml(f, schritt, marken(), zielZeile(), iz)));
+  einpassen(box, 6, .6);
 }
 
 function zeichneWurzeln(){
@@ -358,7 +374,7 @@ function setzeFenster(){
 function zeichne(){
   /* Lektionen ohne Wurzelkästen: die Erklärbox bekommt die ganze Breite. */
   $('#unten').classList.toggle('ohne-wurzeln', lek.wurzeln.length === 0);
-  zeichneFolien(); zeichneWurzeln(); zeichneErklaer(); zeichneKnoepfe(); zeichneWurzelfolie();
+  zeichneVorschau(); zeichneFolie(); zeichneWurzeln(); zeichneErklaer(); zeichneKnoepfe(); zeichneWurzelfolie();
   $('#gesperrt').classList.toggle('an', wurzelOffen !== null);
 }
 
