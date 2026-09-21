@@ -1,7 +1,7 @@
 /* Die Präsentation. Alle Inhalte kommen zur Laufzeit aus
    Folien-Lektion-01-22.txt — im Code steht kein Lektionsinhalt. */
-import { parse, ARAB, istArabisch, satzzeile, wortzeile, skelett } from './parser.js';
-import { hervorhebung, wortTreffer } from './treffer.js';
+import { parse, ARAB, istArabisch, wortzeile, zielTeil } from './parser.js';
+import { hervorhebung, wortTreffer, wortTrefferZiel } from './treffer.js';
 
 /* Pfad relativ zum Modul, nicht zur Seite — so stimmt er von überall. */
 const QUELLE = new URL('../Folien-Lektion-01-22.txt', import.meta.url);
@@ -151,8 +151,12 @@ function zielZeile(){
   const f = lek.folien[idx];
   for (let s = Math.min(schritt, f.schritte.length-1); s >= 0; s--){
     const zeilen = f.schritte[s];
-    for (let i = zeilen.length-1; i >= 0; i--)
-      if (istArabisch(zeilen[i]) && !zeilen[i].includes('→')) return zeilen[i].trim();
+    for (let i = zeilen.length-1; i >= 0; i--){
+      const z = zeilen[i].trim();
+      /* Eine Pfeilzeile zählt nur, wenn hinter dem Pfeil Arabisch steht —
+         „مَا → Dinge" ist keine Zeile zum Markieren. */
+      if (istArabisch(z) && istArabisch(zielTeil(z).text)) return z;
+    }
   }
   return null;
 }
@@ -188,7 +192,7 @@ function marken(){
   const alle = [];
   if (z){
     for (const w of aktiv.wort)
-      for (const [s,e] of wortTreffer(w, z)) alle.push({s, e, typ:'wort'});
+      for (const [s,e] of wortTrefferZiel(w, z)) alle.push({s, e, typ:'wort'});
     for (const name of aktiv.gram){
       const b = lek.hervorhebungen.find(h => h.name === name);
       if (!b) continue;
@@ -277,7 +281,7 @@ function zeichneKnoepfe(){
   const aufFolie = f.schritte.slice(0, schritt+1).flat().join('\n');
   for (const w of WOERTER){
     if (!wortTreffer(w.wort, aufFolie).length) continue;
-    const greift = z && wortTreffer(w.wort, z).length > 0;
+    const greift = z && wortTrefferZiel(w.wort, z).length > 0;
     const b = document.createElement('button');
     b.className = 'knopf' + (aktiv.wort.has(w.wort) ? ' an' : '');
     b.innerHTML = `<span class="w">${esc(w.wort)}</span>`;

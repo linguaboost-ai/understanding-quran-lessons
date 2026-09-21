@@ -82,3 +82,20 @@ export function wortzeile(z){
    Vokabelzeile und keine Umformung. Der Gedankenstrich allein schließt nichts
    aus — „مَنْ هٰذَا؟ — هٰذَا رَجُلٌ." ist ein Satz, keine Vokabel. */
 export const satzzeile = z => istArabisch(z) && !wortzeile(z) && !z.includes('→');
+
+/* Auf welchem Stück einer Zeile wird markiert?
+     Vokabelzeile „Emoji Wort — Bedeutung"  →  nur das arabische Wort
+     Pfeilzeile   „X → Y"                   →  nur das Ergebnis hinter dem Pfeil
+     sonst                                 →  die ganze Zeile
+   So trifft keine Regel die deutsche Bedeutung oder die Ausgangsform. */
+export function zielTeil(zeile){
+  const wz = wortzeile(zeile);
+  if (wz) return { text: wz.wort, off: zeile.indexOf(wz.wort) };
+  const i = zeile.lastIndexOf('→');
+  if (i >= 0){
+    const rest = zeile.slice(i + 1);
+    const v = rest.search(/\S/);
+    if (v >= 0) return { text: rest.slice(v), off: i + 1 + v };
+  }
+  return { text: zeile, off: 0 };
+}

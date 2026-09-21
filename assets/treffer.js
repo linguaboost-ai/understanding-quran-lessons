@@ -3,7 +3,7 @@
      wort    — ganze Wörter oder Wortgruppen, farbig
      zeichen — einzelne Vokalzeichen, farbig und vergrößert
      deutsch — Sonderfall „Kein ist": Markierung in der deutschen Zeile */
-import { skelett, ARAB } from './parser.js';
+import { skelett, ARAB, wortzeile, zielTeil } from './parser.js';
 import { wurzelTreffer } from './wurzel.js';
 
 const SATZZEICHEN = /[.,؟?·—→«»]/;
@@ -25,8 +25,13 @@ const spanne = (a, b) => [a.s, b.e];
    steht davor — also erst den Anhang abschneiden. */
 const ANHANG = ['هُمْ','هِمْ','هُنَّ','كُمْ','كُنَّ','هَا','نَا','هُ','هِ','كَ','كِ'];
 function ohneAnhang(tok){
-  for (const a of ANHANG)
-    if (tok.t.endsWith(a) && tok.t.length > a.length + 1) return tok.e - a.length;
+  for (const a of ANHANG){
+    if (!tok.t.endsWith(a) || tok.t.length <= a.length + 1) continue;
+    /* Vor dem Anhang muß die Kasusendung stehen — sonst ist es kein Anhang,
+       sondern Teil des Wortes wie das ه in اللهُ. */
+    const stamm = tok.t.slice(0, tok.t.length - a.length);
+    if (DIAKRIT.test(stamm.slice(-1))) return tok.e - a.length;
+  }
   return tok.e;
 }
 /* letztes Vokalzeichen eines Wortes = seine Endung */
@@ -52,6 +57,12 @@ const woerter = (z, liste) => tokens(z).filter(t => inListe(t, liste)).map(t => 
 const ZEIGE  = ['هٰذَا','هٰذِهِ','ذٰلِكَ','تِلْكَ','أُولٰئِكَ','هٰؤُلَاءِ'].map(skelett);
 const PRAEP  = ['فِي','مِنْ','عَلَىٰ','إِلَىٰ','مَعَ','بَيْنَ','عِنْدَ','قَبْلَ','بَعْدَ','دُونَ'].map(skelett);
 const FRAGE  = ['مَا','مَنْ'].map(skelett);
+const PRONOM = ['هُوَ','هِيَ','هُمْ','أَنَا','أَنْتَ','أَنْتُمْ','نَحْنُ'].map(skelett);
+/* Urwörter: Zeigewörter, Fragewörter, Präpositionen, Pronomen. An ihnen hängt
+   kein Possessiv — das هِ in هٰذِهِ gehört zum Wort selbst.
+   Nur das nackte Wort zählt: فِيهَا ist keins mehr. */
+const URWORT = [...ZEIGE, ...FRAGE, ...PRAEP, ...PRONOM];
+const istUrwort = t => URWORT.includes(skelett(t.t));
 
 /* Wort direkt hinter einem Anker */
 function hinter(z, anker){
@@ -85,13 +96,25 @@ setze(5,'Angleichung',   (l,b,z) => { const tk=tokens(z); const t=tk[tk.length-1
                                       const i=t.t.lastIndexOf('ة'); return i<0?leer():{wort:[],zeichen:[[t.s+i,t.s+i+1]]}; });
 setze(5,'Gleiche Endung',(l,b,z) => ({ wort:[], zeichen: zeichenAlle(z,'ٌ') }));
 // L6
-setze(6,'Der Artikel',   (l,b,z) => ({ wort: tokens(z).flatMap(t=>{const i=t.t.search(/ال|ال/); 
-                                        const p=t.t.match(/^[وف]?[ً-ْ]?(ال)/); 
-                                        if(!p) return []; const at=t.t.indexOf('ا'); return [[t.s+at,t.s+at+2]];}), zeichen:[] }));
-setze(6,'Die Endung',    (l,b,z) => { const t=tokens(z).find(x=>/ال/.test(x.t)); if(!t) return leer();
+/* الـ am Wortanfang, auch hinter وَ oder فَ. Gibt die Stelle des ال zurück. */
+function artikel(t){
+  if (!/^[وف]?[ً-ْ]?ال/.test(t.t)) return null;
+  const at = t.t.indexOf('ا');
+  return [t.s + at, t.s + at + 2];
+}
+setze(6,'Der Artikel',   (l,b,z) => ({ wort: tokens(z).map(artikel).filter(Boolean), zeichen:[] }));
+setze(6,'Die Endung',    (l,b,z) => { const t=tokens(z).find(artikel); if(!t) return leer();
                                       const e=endung(t); return e?{wort:[],zeichen:[e]}:leer(); });
-setze(6,'Das Eigenschaftswort',(l,b,z)=>{ const tk=tokens(z); return tk.length?{wort:[[tk[tk.length-1].s,tk[tk.length-1].e]],zeichen:[]}:leer(); });
-setze(6,'Zweimal الـ',   (l,b,z) => R['6|Der Artikel'](l,b,z));
+/* „das Adjektiv am Satzende": mindestens zwei Wörter, und das letzte trägt
+   kein الـ — sonst ist es eine Wortgruppe und noch keine Aussage. */
+setze(6,'Das Eigenschaftswort',(l,b,z)=>{ const tk=tokens(z); if(tk.length<2) return leer();
+                                      const t=tk[tk.length-1];
+                                      return artikel(t) ? leer() : {wort:[[t.s,t.e]],zeichen:[]}; });
+/* „beide الـ, am Nomen und am Adjektiv": zwei aufeinanderfolgende Wörter mit الـ. */
+setze(6,'Zweimal الـ',   (l,b,z) => { const tk=tokens(z);
+                                      for(let i=0;i<tk.length-1;i++){ const a=artikel(tk[i]), c=artikel(tk[i+1]);
+                                        if(a&&c) return {wort:[a,c],zeichen:[]}; }
+                                      return leer(); });
 // L7
 setze(7,'Zeigewort',     (l,b,z) => R['3|Zeigewort'](l,b,z));
 // L8
@@ -103,7 +126,10 @@ setze(9,'Die Endung',    (l,b,z) => { const t=hinter(z,PRAEP); if(!t) return lee
                                       const e=endung(t); return e?{wort:[],zeichen:[e]}:leer(); });
 // L10
 setze(10,'Das angeklebte Wort',(l,b,z)=>({ wort:[], zeichen: tokens(z).flatMap(t=>/^[بل][ً-ْ]/.test(t.t)?[[t.s,t.s+2]]:[]) }));
-setze(10,'Die Endung',   (l,b,z) => { const t=tokens(z).find(x=>/^[بل][ً-ْ]/.test(x.t)); if(!t) return leer();
+/* Die Endung sitzt am Nomen dahinter — auf dem nackten بِـ der Vokabelzeile
+   gibt es keins, also auch nichts zu zeigen. */
+setze(10,'Die Endung',   (l,b,z) => { const t=tokens(z).find(x=>/^[بل][ً-ْ]/.test(x.t) && skelett(x.t).length > 2);
+                                      if(!t) return leer();
                                       const e=endung(t); return e?{wort:[],zeichen:[e]}:leer(); });
 setze(10,'Die Verschmelzung',(l,b,z)=>({ wort: tokens(z).flatMap(t=>/^ل[ً-ْ]?ل/.test(t.t)?[[t.s,t.s+3]]:[]), zeichen:[] }));
 // L11 / L12
@@ -117,19 +143,37 @@ setze(11,'Kein „ist"',   keinIst(['هُوَ','هِيَ','هُمْ']));
 setze(12,'Das Pronomen', (l,b,z) => ({ wort: woerter(z, ['أَنَا','أَنْتُمْ','أَنْتَ','نَحْنُ'].map(skelett)), zeichen:[] }));
 setze(12,'Kein „ist"',   keinIst(['أَنَا','أَنْتُمْ','أَنْتَ','نَحْنُ']));
 // L13 / L14 / L15 — angehängte Endungen
+/* Ein Anhang sitzt hinter der Kasusendung des Nomens. Steht dort keine —
+   اللهِ — oder ist das Wort ein Urwort — هٰذِهِ —, ist es kein Anhang. */
+function anhang(t, liste){
+  if (istUrwort(t)) return null;
+  for (const s of liste){
+    if (!t.t.endsWith(s) || skelett(t.t) === skelett(s)) continue;
+    const stamm = t.t.slice(0, t.t.length - s.length);
+    if (DIAKRIT.test(stamm.slice(-1))) return s;
+  }
+  return null;
+}
 const endeAuf = liste => (l,b,z) => ({ wort:[], zeichen: tokens(z).flatMap(t=>{
-  for (const s of liste) if (t.t.endsWith(s) && skelett(t.t) !== skelett(s)) return [[t.e-s.length, t.e]];
-  return []; }) });
+  const s = anhang(t, liste); return s ? [[t.e-s.length, t.e]] : []; }) });
 const wortMitEndung = liste => (l,b,z) => ({ wort: tokens(z).flatMap(t=>{
-  for (const s of liste) if (t.t.endsWith(s) && skelett(t.t) !== skelett(s)) return [[t.s,t.e]];
-  return []; }), zeichen:[] });
+  return anhang(t, liste) ? [[t.s,t.e]] : []; }), zeichen:[] });
 setze(13,'Die Endung',   endeAuf(['هُ','هِ','هَا','هُمْ']));
 setze(13,'Kein الـ',     wortMitEndung(['هُ','هِ','هَا','هُمْ']));
 setze(14,'Die Endung',   endeAuf(['كَ','كُمْ','نَا']));
 setze(14,'Kein الـ',     wortMitEndung(['كَ','كُمْ','نَا']));
-setze(15,'Der Vokal davor',(l,b,z)=>{ for(const t of tokens(z)) for(const s of ['هِ','هِمْ','هُ','هُمْ','كُمْ']){
-    if(t.t.endsWith(s)){ const p=t.e-s.length-1; return p>=t.s?{wort:[],zeichen:[[p,p+1]]}:leer(); } } return leer(); });
-setze(15,'Die veränderte Endung', endeAuf(['هِ','هِمْ']));
+/* ـهُ allein ist die nackte Endung aus der Aufgabenstellung, kein Wort. */
+const nacktesEnde = t => /^ـ/.test(t.t);
+setze(15,'Der Vokal davor',(l,b,z)=>{ for(const t of tokens(z)){ if(istUrwort(t)||nacktesEnde(t)) continue;
+    for(const s of ['هِ','هِمْ','هُ','هُمْ','كُمْ'])
+      if(t.t.endsWith(s)){ const p=t.e-s.length-1; return p>=t.s?{wort:[],zeichen:[[p,p+1]]}:leer(); } } return leer(); });
+/* Hier zählt nur die Form am Wortende. Vor ـهِ steht in فِيهِ oder عَلَيْهِ
+   keine Kasusendung, sondern ein langer Vokal — genau darum geht die Lektion. */
+setze(15,'Die veränderte Endung',(l,b,z)=>({ wort:[], zeichen: tokens(z).flatMap(t=>{
+  if (istUrwort(t) || nacktesEnde(t)) return [];
+  for (const e of ['هِمْ','هِ'])
+    if (t.t.endsWith(e) && skelett(t.t) !== skelett(e)) return [[t.e-e.length, t.e]];
+  return []; }) }));
 setze(15,'Das veränderte Wort',(l,b,z)=>({ wort:[], zeichen: tokens(z).flatMap(t=>/^لَ/.test(t.t)?[[t.s,t.s+2]]:[]) }));
 // L16 / L17 / L18
 setze(16,'Die Mehrzahlendung',(l,b,z)=>({ wort:[], zeichen: tokens(z).flatMap(t=>/ُونَ?$/.test(t.t)?[[t.e-(/َ$/.test(t.t)?4:3), t.e]]:[]) }));
@@ -176,10 +220,20 @@ setze(22,'Die Ausnahme', (l,b,z)=>{ const tk=tokens(z); const i=tk.findIndex(t=>
   return i<0?leer():{wort:[[tk[i].s, z.length]],zeichen:[]}; });
 
 /* Öffentlich: liefert die Markierungen für einen Hervorhebungsblock. */
+/* Die Regel arbeitet nur auf dem markierbaren Stück der Zeile (zielTeil):
+   sonst träfe „das Eigenschaftswort" die deutsche Bedeutung „wissend"
+   oder „الـ am Wortanfang" die Ausgangsform vor dem Pfeil. */
+const ohneArabisch = z => !ARAB.test(z);
 export function hervorhebung(lektion, block, zeile){
   const fn = R[lektion.nr + '|' + block.name];
   if (!fn || !zeile) return leer();
-  try { return fn(lektion, block, zeile) || leer(); } catch(e){ return leer(); }
+  const { text, off } = zielTeil(zeile);
+  let r;
+  try { r = fn(lektion, block, text) || leer(); } catch(e){ return leer(); }
+  const sauber = liste => (liste || [])
+    .map(([x,y]) => [x + off, y + off])
+    .filter(([x,y]) => !ohneArabisch(zeile.slice(x,y)) || /[\u064B-\u0652\u0670\u06E1]/.test(zeile.slice(x,y)));
+  return { wort: sauber(r.wort), zeichen: sauber(r.zeichen), deutsch: r.deutsch };
 }
 
 /* Wortknopf: das neue Wort im Satz finden. Treffer nur, wenn das Skelett den
@@ -205,4 +259,10 @@ export function wortTreffer(wort, zeile){
       if (ts === v + kk + n) return [[t.s,t.e]];
     return [];
   });
+}
+
+/* Wortknopf auf der Zielzeile — dieselbe Einschränkung wie bei den Regeln. */
+export function wortTrefferZiel(wort, zeile){
+  const { text, off } = zielTeil(zeile);
+  return wortTreffer(wort, text).map(([a,b]) => [a + off, b + off]);
 }
