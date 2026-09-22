@@ -30,6 +30,10 @@ const spanne = (a, b) => [a.s, b.e];
    steht davor — also erst den Anhang abschneiden. */
 const ANHANG = ['هُمْ','هِمْ','هُنَّ','كُمْ','كُنَّ','هَا','نَا','هُ','هِ','كَ','كِ'];
 function ohneAnhang(tok){
+  /* Der Gottesname endet auf ـه, das zum Namen gehört. Die Prüfung „steht
+     davor eine Kasusendung?" trägt hier nicht: in ٱللّٰه steht davor das
+     Dolch-Alif, und ـهِ sähe aus wie das angehängte „sein". */
+  if (istGottesname(tok)) return tok.e;
   for (const a of ANHANG){
     if (!tok.t.endsWith(a) || tok.t.length <= a.length + 1) continue;
     /* Vor dem Anhang muß die Kasusendung stehen — sonst ist es kein Anhang,
@@ -67,7 +71,12 @@ const PRONOM = ['هُوَ','هِيَ','هُمْ','أَنَا','أَنْتَ','أ
    kein Possessiv — das هِ in هٰذِهِ gehört zum Wort selbst.
    Nur das nackte Wort zählt: فِيهَا ist keins mehr. */
 const URWORT = [...ZEIGE, ...FRAGE, ...PRAEP, ...PRONOM];
-const istUrwort = t => URWORT.includes(skelett(t.t));
+/* Der Gottesname zählt hier mit: an ihm hängt nie ein Possessiv. Beide
+   Schreibweisen, mit und ohne Hamzat wasl — skelett läßt den Buchstaben ٱ
+   stehen, weil er ein Buchstabe ist und kein Vokalzeichen. */
+const GOTTESNAME = ['\u0671\u0644\u0644\u0647', '\u0627\u0644\u0644\u0647'];
+const istGottesname = t => GOTTESNAME.includes(skelett(t.t));
+const istUrwort = t => URWORT.includes(skelett(t.t)) || istGottesname(t);
 
 /* Wort direkt hinter einem Anker */
 function hinter(z, anker){

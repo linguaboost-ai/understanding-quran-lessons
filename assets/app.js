@@ -73,7 +73,13 @@ function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
   /* Steht in der ersten Zeile Arabisch, laufen die Spalten von rechts nach
      links — sonst stünde das erste Wort links. Blöcke mit → bleiben, wie die
      Datei sie zeigt: der Pfeil gibt dort die Richtung vor. */
-  const rtl = istArabisch(zeilen[0]) && !zeilen.some(z => z.includes('→'));
+  /* Verwandlungen laufen von rechts nach links, wie Arabisch gelesen wird:
+     die Ausgangsform rechts, das Ergebnis links. Ausgenommen sind Ketten mit
+     deutschen Gliedern (ة → weiblich → هٰذِهِ): dort gibt die deutsche
+     Leserichtung den Ausschlag. */
+  const deutscheKette = zeilen.some(z => z.includes('→')) &&
+                        zeilen.some(z => spalten(z).some(c => /[A-Za-z]/.test(c)));
+  const rtl = istArabisch(zeilen[0]) && !deutscheKette;
   const reihen = zeilen.map(z => {
     const teile = [];
     let pos = 0;
@@ -86,7 +92,12 @@ function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
          ein deutscher Text — in einem rtl-Raster rutschte „kein" sonst nach
          rechts neben den Buchstaben. Der Browser richtet sich nach dem
          ersten starken Zeichen der Zelle, und das ist hier das k. */
-      teile.push(`<div class="sp ${istArabisch(c) ? '' : 'de'}" dir="auto">${zeileHtml(c, eig)}</div>`);
+      /* Läuft die Reihe nach links, muß der Pfeil mitgehen — sonst zeigt er
+         gegen die Richtung, in der gelesen wird. Nur die Anzeige: in der
+         Datei bleibt → das Zeichen, an dem die Verwandlung erkannt wird.
+         Gleiche Länge, also stimmen die Stellen der Markierungen weiter. */
+      const gezeigt = (rtl && c === '→') ? '←' : c;
+      teile.push(`<div class="sp ${istArabisch(c) ? '' : 'de'}" dir="auto">${zeileHtml(gezeigt, eig)}</div>`);
     }
     return teile.join('');
   });

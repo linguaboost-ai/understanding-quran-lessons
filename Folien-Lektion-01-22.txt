@@ -326,8 +326,8 @@ Dies ist eine Ortschaft.
 Dies ist eine Stunde.
 
 #### FOLIE
-قَرۡيَ‍ةٌ
-سَاعَ‍ةٌ
+قَرۡيَةٌ
+سَاعَةٌ
 +
 ة  →  weiblich  →  هٰذِهِ
 > Endet ein Wort auf ta marbûtah, ist es weiblich. Dann heißt das Zeigewort nicht hâdhâ, sondern hâdhihi.
@@ -411,7 +411,7 @@ Dies ist ein Wind.
 Dies ist eine Hand.
 
 #### FOLIE
-قَرۡيَ‍ةٌ  —  ة
+قَرۡيَةٌ  —  ة
 شَمۡسٌ  —  kein ة
 +
 beide  →  هٰذِهِ
@@ -496,7 +496,7 @@ Dies ist ein gewaltiges Zeichen.
 #### FOLIE
 رَجُلٌ عَلِيمٌ
 +
-آيَ‍ةٌ عَظِيمَ‍ةٌ
+آيَةٌ عَظِيمَةٌ
 +
 ة  →  ة
 > Trägt das Nomen ein ة, trägt das Eigenschaftswort auch eines. Das Adjektiv wiederholt, was am Nomen steht.
@@ -612,10 +612,10 @@ Das Wasser ist gut.
 Die Sonne ist gewaltig.
 
 #### FOLIE
-اللهُ إِلٰهٌ وَاحِدٌ
+ٱللّٰهُ إِلٰهٌ وَاحِدٌ
 Allah ist ein einziger Gott.
 +
-اللهُ عَلِيمٌ حَكِيمٌ
+ٱللّٰهُ عَلِيمٌ حَكِيمٌ
 Allah ist wissend und weise.
 > Ein Name ist von sich aus bestimmt. Er braucht kein الـ und folgt trotzdem demselben Muster.
 
@@ -787,7 +787,10 @@ Zwei Wörter, ein Begriff
 كِتَابٌ
 ein Buch
 +
-كِتَابُ اللهِ
+الۡكِتَابُ
+das Buch
++
+كِتَابُ ٱللّٰهِ
 das Buch Allahs
 > Das erste Wort verliert beides: kein الـ, kein Tanwîn. Das zweite bekommt die Endung ‑i. Daran erkennt man die Verbindung.
 
@@ -887,14 +890,14 @@ Der Mann ist in der Moschee.
 Das Wasser ist in der Erde.
 
 #### FOLIE
-هٰذَا كِتَابٌ مِنَ اللهِ
+هٰذَا كِتَابٌ مِنَ ٱللّٰهِ
 Das ist ein Buch von Allah.
 +
-الرَّحۡمَةُ مِنَ اللهِ
+الرَّحۡمَةُ مِنَ ٱللّٰهِ
 Die Barmherzigkeit ist von Allah.
 
 #### FOLIE
-رَحۡمَةُ اللهِ عَلَى الۡأَرۡضِ
+رَحۡمَةُ ٱللّٰهِ عَلَى الۡأَرۡضِ
 Allahs Barmherzigkeit ist auf der Erde.
 +
 الرَّجُلُ عَلَىٰ صِرَاطٍ مُسۡتَقِيمٍ
@@ -948,22 +951,22 @@ mit der Wahrheit
 > Das بِـ klebt vorn am Wort, das الـ bleibt stehen. Dahinter dieselbe Endung ‑i wie in Lektion 9.
 
 #### FOLIE
-بِسۡمِ اللهِ
+بِسۡمِ ٱللّٰهِ
 Im Namen Allahs
 +
-الۡحَيَاةُ بِرَحۡمَةِ اللهِ
+الۡحَيَاةُ بِرَحۡمَةِ ٱللّٰهِ
 Das Leben ist durch Allahs Barmherzigkeit.
 +
-هٰذَا بِعِلۡمِ اللهِ
+هٰذَا بِعِلۡمِ ٱللّٰهِ
 Das geschieht mit dem Wissen Allahs.
 
 #### FOLIE
-اللهُ عَلِيمٌ بِالۡقَلۡبِ
+ٱللّٰهُ عَلِيمٌ بِالۡقَلۡبِ
 Allah weiß um das Herz.
 > Hier heißt بِـ nicht mit oder durch. Manche Wörter ziehen ein festes kleines Wort nach sich — im Deutschen genauso: warten auf, denken an, wissen um. Das auf bedeutet dort nichts für sich. Bei عَلِيم gehört das بِـ einfach dazu.
 
 #### FOLIE
-لِ + اللّٰه  →  لِلّٰهِ
+لِ + ٱللّٰه  →  لِلّٰهِ
 +
 لِ + الرَّجُل  →  لِلرَّجُلِ
 > Bei لِـ verschmelzen die beiden. Das Alif von الـ verschwindet.
@@ -990,7 +993,7 @@ Die Erde gehört Allah.
 Dieses Haus gehört dem Mann.
 
 #### FOLIE
-هٰذَا سَبِيلٌ إِلَى اللهِ
+هٰذَا سَبِيلٌ إِلَى ٱللّٰهِ
 Das ist ein Weg zu Allah.
 +
 مِنَ الۡبَيۡتِ إِلَى الۡمَسۡجِدِ
@@ -1053,10 +1056,10 @@ Er ist wissend.
 > Zwei Wörter, ein ganzer Satz — wie in Lektion 1. Ein Wort für „ist" gibt es weiterhin nicht.
 
 #### FOLIE
-هُوَ اللهُ أَحَدٌ
+هُوَ ٱللّٰهُ أَحَدٌ
 Er ist Allah, ein Einziger.
 +
-هُوَ رَسُولُ اللهِ
+هُوَ رَسُولُ ٱللّٰهِ
 Er ist der Gesandte Allahs.
 
 #### FOLIE
@@ -1065,7 +1068,7 @@ Er ist die Wahrheit.
 > Hinter einem Pronomen darf auch ein Wort mit الـ stehen. Es bleibt eine Aussage.
 
 #### FOLIE
-هِيَ رَحۡمَةٌ مِنَ اللهِ
+هِيَ رَحۡمَةٌ مِنَ ٱللّٰهِ
 Sie ist eine Barmherzigkeit von Allah.
 +
 هِيَ الۡحَيَاةُ الدُّنۡيَا
@@ -1086,7 +1089,7 @@ Sie sind auf einem geraden Weg.
 🧕  هِيَ  —  sie
 👥  هُمۡ  —  sie, mehrere
 
-هُوَ اللهُ أَحَدٌ
+هُوَ ٱللّٰهُ أَحَدٌ
 Er ist Allah, ein Einziger.
 
 #### HERVORHEBUNG | Das Pronomen
@@ -1123,7 +1126,7 @@ Ich, du, wir
 أَنَا مُسۡلِمٌ
 Ich bin ein Muslim.
 +
-أَنَا عَبۡدُ اللهِ
+أَنَا عَبۡدُ ٱللّٰهِ
 Ich bin ein Diener Allahs.
 
 #### FOLIE
@@ -1144,7 +1147,7 @@ Wir sind aus einer einzigen Ortschaft.
 أَنۡتُمۡ  —  mehrere
 أَنۡتَ  —  einer
 +
-أَنۡتَ رَسُولُ اللهِ
+أَنۡتَ رَسُولُ ٱللّٰهِ
 Du bist der Gesandte Allahs.
 > Dazu geschenkt: die Einzahl von أَنۡتُمۡ.
 
@@ -1163,7 +1166,7 @@ Du bist der Gesandte Allahs.
 🫵  أَنۡتُمۡ  —  ihr
 👨‍👩‍👦  نَحۡنُ  —  wir
 
-أَنَا عَبۡدُ اللهِ
+أَنَا عَبۡدُ ٱللّٰهِ
 Ich bin ein Diener Allahs.
 
 #### HERVORHEBUNG | Das Pronomen
@@ -1225,7 +1228,7 @@ Das Haus gehört dem Propheten.
 Das ist sein Haus.
 
 #### FOLIE
-هٰذِهِ رَحۡمَةُ اللهِ
+هٰذِهِ رَحۡمَةُ ٱللّٰهِ
 Das ist die Barmherzigkeit Allahs.
 +
 رَحۡمَتُهُ عَظِيمَةٌ
@@ -1243,7 +1246,7 @@ Ihr Haus ist in der Ortschaft.
 مَرۡيَمُ مُسۡلِمَةٌ
 Maryam ist eine Muslimin.
 +
-رَبُّهَا اللهُ
+رَبُّهَا ٱللّٰهُ
 Ihr Herr ist Allah.
 
 #### FOLIE
@@ -1310,7 +1313,7 @@ Dein, unser, euer
 > Nur die Endung wechselt. Das Wort davor bleibt unverändert.
 
 #### FOLIE
-اللهُ رَبُّكَ
+ٱللّٰهُ رَبُّكَ
 Allah ist dein Herr.
 +
 هٰذَا بَيۡتُكَ
@@ -1325,14 +1328,14 @@ Das ist euer Buch.
 > Bei أُمَّة wird aus dem ة wieder ein ت — dieselbe Regel wie in Lektion 13.
 
 #### FOLIE
-اللهُ رَبُّنَا
+ٱللّٰهُ رَبُّنَا
 Allah ist unser Herr.
 +
 هٰذَا مَسۡجِدُنَا
 Das ist unsere Moschee.
 
 #### FOLIE
-اللهُ رَبُّنَا وَرَبُّكُمۡ
+ٱللّٰهُ رَبُّنَا وَرَبُّكُمۡ
 Allah ist unser Herr und euer Herr.
 
 #### FOLIE
@@ -1340,7 +1343,7 @@ Allah ist unser Herr und euer Herr.
 👥  ـكُمۡ  —  euer
 🤝  ـنَا  —  unser
 
-اللهُ رَبُّنَا وَرَبُّكُمۡ
+ٱللّٰهُ رَبُّنَا وَرَبُّكُمۡ
 Allah ist unser Herr und euer Herr.
 
 #### HERVORHEBUNG | Die Endung
@@ -1511,10 +1514,10 @@ Die Muslime sind vor dem Gebet in der Moschee.
 Das Leben ist hart vor dem Tod.
 
 #### FOLIE
-الۡعِلۡمُ عِنۡدَ اللهِ
+الۡعِلۡمُ عِنۡدَ ٱللّٰهِ
 Das Wissen ist bei Allah.
 +
-هٰذَا مِنۡ عِنۡدِ اللهِ
+هٰذَا مِنۡ عِنۡدِ ٱللّٰهِ
 Das ist von Allah her.
 > عِنۡدَ zieht dieselbe Endung ‑i nach sich wie eine Präposition.
 
@@ -1601,7 +1604,7 @@ die Ungläubigen — von den Ungläubigen
 die Ungerechten — mit den Ungerechten
 
 #### FOLIE
-اللهُ مَعَ الۡمُؤۡمِنِينَ
+ٱللّٰهُ مَعَ الۡمُؤۡمِنِينَ
 Allah ist mit den Gläubigen.
 +
 فِرۡعَوۡنُ مَعَ الظَّالِمِينَ
@@ -1913,10 +1916,10 @@ Der Mann, der in der Moschee ist, ist wissend.
 > Erst eine Aussage. Mit dem neuen Wort wird daraus eine Beschreibung, und der Satz ist noch nicht fertig. Erst das letzte Wort macht ihn wieder zur Aussage.
 
 #### FOLIE
-هُوَ اللهُ الَّذِي لَهُ السَّمَاوَاتُ وَالۡأَرۡضُ
+هُوَ ٱللّٰهُ الَّذِي لَهُ السَّمَاوَاتُ وَالۡأَرۡضُ
 Er ist Allah, dem die Himmel und die Erde gehören.
 +
-الۡكِتَابُ الَّذِي مِنَ اللهِ حَقٌّ
+الۡكِتَابُ الَّذِي مِنَ ٱللّٰهِ حَقٌّ
 Das Buch, das von Allah ist, ist die Wahrheit.
 
 #### FOLIE
@@ -1930,7 +1933,7 @@ Das Paradies, in dem Flüsse sind, ist für die Gläubigen.
 الَّذِينَ فِي الۡجَنَّةِ هُمُ الۡمُؤۡمِنُونَ
 Diejenigen, die im Paradies sind, sind die Gläubigen.
 +
-اللهُ وَلِيُّ الَّذِينَ فِي سَبِيلِهِ
+ٱللّٰهُ وَلِيُّ الَّذِينَ فِي سَبِيلِهِ
 Allah ist der Beschützer derer, die auf Seinem Weg sind.
 
 #### FOLIE
@@ -1938,7 +1941,7 @@ Allah ist der Beschützer derer, die auf Seinem Weg sind.
 🙋‍♀️  الَّتِي  —  diejenige, die
 🙌  الَّذِينَ  —  diejenigen, die
 
-هُوَ اللهُ الَّذِي لَهُ السَّمَاوَاتُ وَالۡأَرۡضُ
+هُوَ ٱللّٰهُ الَّذِي لَهُ السَّمَاوَاتُ وَالۡأَرۡضُ
 Er ist Allah, dem die Himmel und die Erde gehören.
 
 #### HERVORHEBUNG | Das Anschlusswort
@@ -1972,10 +1975,10 @@ Wahrlich
 💯  كُلّ  —  jeder, alles
 
 #### FOLIE
-اللهُ عَلِيمٌ حَكِيمٌ
+ٱللّٰهُ عَلِيمٌ حَكِيمٌ
 Allah ist wissend und weise.
 +
-إِنَّ اللهَ عَلِيمٌ حَكِيمٌ
+إِنَّ ٱللّٰهَ عَلِيمٌ حَكِيمٌ
 Wahrlich, Allah ist wissend und weise.
 > Vorn kommt das neue Wort dazu, und das Wort direkt dahinter bekommt statt der Endung u ein a. Sonst ändert sich nichts.
 
@@ -1988,18 +1991,18 @@ Wahrlich, ihr Lohn ist bei ihrem Herrn.
 > Auch wenn eine Endung am Wort hängt: Das a steht davor.
 
 #### FOLIE
-إِنَّ الۡعِلۡمَ عِنۡدَ اللهِ
+إِنَّ الۡعِلۡمَ عِنۡدَ ٱللّٰهِ
 Wahrlich, das Wissen ist bei Allah.
 +
-إِنَّمَا الۡعِلۡمُ عِنۡدَ اللهِ
+إِنَّمَا الۡعِلۡمُ عِنۡدَ ٱللّٰهِ
 Das Wissen ist nur bei Allah.
 > Beim ersten Satz wird aus der Endung u ein a. Beim zweiten bleibt das u stehen — das angehängte ma hebt diese Wirkung auf. Übrig bleibt nur die Einschränkung.
 
 #### FOLIE
-إِنَّ اللهَ إِلٰهٌ وَاحِدٌ
+إِنَّ ٱللّٰهَ إِلٰهٌ وَاحِدٌ
 Wahrlich, Allah ist ein einziger Gott.
 +
-إِنَّمَا اللهُ إِلٰهٌ وَاحِدٌ
+إِنَّمَا ٱللّٰهُ إِلٰهٌ وَاحِدٌ
 Allah ist nur ein einziger Gott.
 
 #### FOLIE
@@ -2011,7 +2014,7 @@ Jede Seele hat einen Lohn.
 > Das neue Wort steht immer vorn in einer Verbindung. Das Wort dahinter trägt die Endung i.
 
 #### FOLIE
-إِنَّ اللهَ عَلَىٰ كُلِّ شَيۡءٍ قَدِيرٌ
+إِنَّ ٱللّٰهَ عَلَىٰ كُلِّ شَيۡءٍ قَدِيرٌ
 Wahrlich, Allah hat Macht über alle Dinge.
 > Fünf Lektionen in einem Satz: die Endung a nach dem ersten Wort, die Endung i nach der Präposition, die Verbindung, und am Ende das Eigenschaftswort als Aussage.
 
@@ -2020,7 +2023,7 @@ Wahrlich, Allah hat Macht über alle Dinge.
 🎯  إِنَّمَا  —  nur, nichts als
 💯  كُلّ  —  jeder, alles
 
-إِنَّ اللهَ عَلَىٰ كُلِّ شَيۡءٍ قَدِيرٌ
+إِنَّ ٱللّٰهَ عَلَىٰ كُلِّ شَيۡءٍ قَدِيرٌ
 Wahrlich, Allah hat Macht über alle Dinge.
 
 #### HERVORHEBUNG | Das Wort davor
@@ -2067,7 +2070,7 @@ ein Gott
 لَا إِلٰهَ
 kein Gott
 +
-لَا إِلٰهَ إِلَّا اللهُ
+لَا إِلٰهَ إِلَّا ٱللّٰهُ
 Es gibt keinen Gott außer Allah.
 > Vorn kommt das Wort für nein dazu, und das Wort dahinter verliert sein Tanwîn — es endet nur noch auf a. Dann wird alles verneint und eines wieder ausgenommen. Worauf es ankommt, steht hinter dem Wort für außer.
 
@@ -2099,13 +2102,13 @@ Muhammad ist nichts als ein Gesandter.
 > Die zweite Zeile steht wörtlich so im Quran, in Sure 3, Vers 144.
 
 #### FOLIE
-مِنۡ دُونِ اللهِ
+مِنۡ دُونِ ٱللّٰهِ
 neben Allah
 +
-لَا وَلِيَّ مِنۡ دُونِ اللهِ
+لَا وَلِيَّ مِنۡ دُونِ ٱللّٰهِ
 Es gibt keinen Beschützer neben Allah.
 +
-مَا لَكُمۡ مِنۡ دُونِ اللهِ وَلِيٌّ
+مَا لَكُمۡ مِنۡ دُونِ ٱللّٰهِ وَلِيٌّ
 Ihr habt neben Allah keinen Beschützer.
 > Eine feste Wendung, die im Quran rund siebzig Mal vorkommt. — Notiz für mich: Die letzte Zeile steht fast so in Sure 2, Vers 107.
 
@@ -2114,7 +2117,7 @@ Ihr habt neben Allah keinen Beschützer.
 ➖  إِلَّا  —  außer, nur
 🙅  دُونَ  —  neben, außer
 
-لَا إِلٰهَ إِلَّا اللهُ
+لَا إِلٰهَ إِلَّا ٱللّٰهُ
 Es gibt keinen Gott außer Allah.
 
 #### HERVORHEBUNG | Das Verneinungswort
