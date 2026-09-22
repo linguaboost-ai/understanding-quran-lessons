@@ -61,7 +61,11 @@ export function parse(text){
 /* ---- Zeichenklassen und Zeilenkunde ---------------------------------- */
 export const ARAB  = /[ؠ-يٱ-ۓۺ-ۿ]/;
 export const DIAK  = /[ً-ْٰٓ-ٕٖ-ٟۖ-ۭ]/;
-const DIAK_G = new RegExp(DIAK.source + '|ـ', 'g');
+/* Fürs Vergleichen zählen weder Vokalzeichen noch Tatwîl — und auch nicht
+   die unsichtbaren Verbinder U+200C/U+200D: sie legen nur die Form eines
+   Buchstabens fest. Ohne sie hier fände „قَرۡيَة" sein eigenes Vorkommen
+   auf der Folie nicht wieder, und der Wortknopf bliebe aus. */
+const DIAK_G = new RegExp(DIAK.source + '|ـ|[\\u200C\\u200D]', 'g');
 
 export const istArabisch = z => ARAB.test(z);
 export const skelett = s => s.replace(DIAK_G, '').replace(/[.,؟?·—→+«»]/g, '').trim();

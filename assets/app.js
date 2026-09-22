@@ -13,6 +13,14 @@ const $ = s => document.querySelector(s);
 const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 /* alles, was sich an den vorigen Buchstaben anlagert */
 const KOMBI = /[\u064B-\u0655\u0670\u06D6-\u06ED\u0640]/;
+/* Was zum arabischen Lauf gehört, ohne ein Buchstabe zu sein: Vokal- und
+   Lesezeichen, Tatwîl — und die unsichtbaren Verbinder U+200C/U+200D, mit
+   denen die Quelle die Form eines Buchstabens festlegt (in Lektion 3 steht
+   eines vor dem ta marbûtah). Fehlt eines davon hier, zerfällt das Wort in
+   zwei <bdi>-Inseln, und zwei Inseln stellt der Browser von links nach
+   rechts nebeneinander: das ta marbûtah stünde dann vor dem Wort. */
+const ZUSATZ = /[\u064B-\u065F\u0670\u06D6-\u06ED\u0640\u200C\u200D]/;
+const arabZeichen = c => ARAB.test(c) || ZUSATZ.test(c);
 
 function zeileHtml(zeile, marks = []){
   const typ = new Array(zeile.length).fill(null);
@@ -34,12 +42,12 @@ function zeileHtml(zeile, marks = []){
   const teile = [];
   let i = 0;
   while (i < zeile.length){
-    const ar = ARAB.test(zeile[i]) || /[ً-ْٰۡٓ-ٟـ]/.test(zeile[i]);
+    const ar = arabZeichen(zeile[i]);
     let j = i;
     while (j < zeile.length &&
-      (ARAB.test(zeile[j]) || /[ً-ْٰۡٓ-ٟـ]/.test(zeile[j]) ||
+      (arabZeichen(zeile[j]) ||
        (ar && /[\s·]/.test(zeile[j]) && j+1 < zeile.length &&
-        (ARAB.test(zeile[j+1]) || /[ً-ْٰۡ]/.test(zeile[j+1])))) === ar) j++;
+        arabZeichen(zeile[j+1]))) === ar) j++;
     if (j === i) j++;
     const stueck = zeile.slice(i, j);
     let inner = '';
@@ -74,7 +82,11 @@ function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
       const eig = (z.trim() === markZeile)
         ? marks.filter(m => m.s >= i && m.e <= pos).map(m => ({...m, s:m.s-i, e:m.e-i}))
         : [];
-      teile.push(`<div class="sp ${istArabisch(c) ? '' : 'de'}">${zeileHtml(c, eig)}</div>`);
+      /* dir="auto" statt fester Richtung: „kein ة" enthält Arabisch, ist aber
+         ein deutscher Text — in einem rtl-Raster rutschte „kein" sonst nach
+         rechts neben den Buchstaben. Der Browser richtet sich nach dem
+         ersten starken Zeichen der Zelle, und das ist hier das k. */
+      teile.push(`<div class="sp ${istArabisch(c) ? '' : 'de'}" dir="auto">${zeileHtml(c, eig)}</div>`);
     }
     return teile.join('');
   });
@@ -98,6 +110,7 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
   for (let s = 0; s < folie.schritte.length; s++){
     const verdeckt = s > bisSchritt ? ' verdeckt' : '';
     const zeilen = folie.schritte[s];
+    const anfang = out.length;
     for (let i = 0; i < zeilen.length; i++){
       const z = zeilen[i].trim();
       if (!z){ out.push(`<div class="luecke${verdeckt}"></div>`); continue; }
@@ -127,6 +140,10 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
       const inhalt = (z === istZeile) ? deutschHtml(z) : zeileHtml(z, eigene);
       out.push(`<div class="zl ${istArabisch(z) ? '' : 'de'}${verdeckt}">${inhalt}</div>`);
     }
+    /* Die erste Zeile eines Schrittes fängt etwas an, sie setzt nichts fort.
+       Steht dort Deutsch, ist es eine Überschrift über dem Arabischen und
+       keine Übersetzung darunter — Lektion 4, „Naturdinge". */
+    if (out.length > anfang) out[anfang] = out[anfang].replace('class="', 'class="schrittanfang ');
   }
   return out.join('');
 }

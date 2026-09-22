@@ -253,14 +253,17 @@ export function wortTreffer(wort_, zeile){
   const kk = k.replace(/^ـ|ـ$/g,'');
   return tokens(zeile).flatMap(t => {
     const ts = skelett(t.t);
+    /* tt nur zum Vergleichen: t.t behält seine Länge, weil andere Regeln
+       darin Stellen abzählen. Zurück kommt ohnehin das ganze Wort. */
+    const tt = t.t.replace(/[\u200C\u200D]/g, '');
     /* Anhänge und Vorsilben zeichengenau, nicht über das Skelett: sonst fängt
        „ـهُ“ auch اللهُ und هٰذِهِ. Vor dem Anhang muß die Kasusendung stehen. */
     if (endung_){
-      if (!t.t.endsWith(rein) || ts === kk) return [];
-      const stamm = t.t.slice(0, t.t.length - rein.length);
+      if (!tt.endsWith(rein) || ts === kk) return [];
+      const stamm = tt.slice(0, tt.length - rein.length);
       return DIAKRIT.test(stamm.slice(-1)) ? [[t.s,t.e]] : [];
     }
-    if (vorsilbe) return t.t.startsWith(rein) && ts !== kk ? [[t.s,t.e]] : [];
+    if (vorsilbe) return tt.startsWith(rein) && ts !== kk ? [[t.s,t.e]] : [];
     for (const v of VORSILBEN) for (const n of NACHSILBEN)
       if (ts === v + kk + n) return [[t.s,t.e]];
     return [];

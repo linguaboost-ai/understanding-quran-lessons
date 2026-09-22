@@ -87,7 +87,11 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
    deutschen: er muß sich nach der arabischen Schrift richten, deren
    Unterlängen — das ي von لِلنَّبِيِّ etwa — unter die Zeile reichen. */
 #folie .inhalt > .zl:not(.de),#folie .inhalt > .raster{margin-bottom:.5em}
-#folie .inhalt > .zl.de{margin-top:0}
+#folie .inhalt > .zl.de:not(.schrittanfang){margin-top:0}
+/* Eine Überschrift gehört zu dem, was unter ihr steht: dicht darüber, und
+   die große Luft bleibt oberhalb der Überschrift — sonst schwebt sie
+   zwischen zwei Gruppen und man weiß nicht, zu welcher sie zählt. */
+#folie .inhalt > .zl.de.schrittanfang + .zl:not(.de){margin-top:.3em}
 #folie .inhalt > :first-child{margin-top:0}
 
 /* ---------- Zeilensatz: gilt für die Folie wie für ihre Vorschau ----------
@@ -106,9 +110,11 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .vk .zl.de,#folie .zl.de{font-size:1.05em}
 /* Steht die Übersetzung direkt unter ihrem arabischen Satz, genügt sie
    klein — sie ist Lesehilfe, nicht Gegenstand. Steht Deutsch dagegen neben
-   dem Arabischen (Vokabelzeile, Spaltenblock), bleibt es, wie es war. */
-.vk .zl:not(.de) + .zl.de,#folie .zl:not(.de) + .zl.de,
-.vk .raster + .zl.de,#folie .raster + .zl.de{font-size:.6em}
+   dem Arabischen (Vokabelzeile, Spaltenblock), bleibt es, wie es war.
+   Nicht betroffen ist die deutsche Zeile, die einen Schritt eröffnet: die
+   steht als Überschrift über dem Arabischen und bleibt groß. */
+.vk .zl:not(.de) + .zl.de:not(.schrittanfang),#folie .zl:not(.de) + .zl.de:not(.schrittanfang),
+.vk .raster + .zl.de:not(.schrittanfang),#folie .raster + .zl.de:not(.schrittanfang){font-size:.6em}
 .vk .raster .sp.de,#folie .raster .sp.de{font-size:1.05em}
 .vk .zl.de,.vk .raster .sp.de{color:#444}
 #folie .zl.de,#folie .raster .sp.de,#folie .wz .bd{color:rgba(255,255,255,.66)}
