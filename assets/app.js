@@ -298,6 +298,10 @@ function zeichneFolie(){
   /* Die Wortfolie mit den neuen Wörtern bekommt ihre eigene Größe. Alle
      anderen nehmen die gemeinsame — und nur wenn eine Folie damit nicht
      auskommt, wird sie für sich kleiner gesetzt. */
+  /* Volle Folie — vier Sätze oder mehr — braucht wenig Luft zwischen den
+     Paaren, eine halbleere darf mehr haben. */
+  const saetze = box.querySelectorAll('.inhalt > .zl:not(.de)').length;
+  box.style.setProperty('--luft', saetze >= 4 ? '.75em' : '1.75em');
   if (einheit && !wortfolie(f)){
     box.style.fontSize = einheit + 'rem';
     if (!passtInsKaestchen(box)) einpassen(box, 8, .6, .8);

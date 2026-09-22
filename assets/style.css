@@ -78,8 +78,16 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 #folie .inhalt{gap:0;align-items:center;text-align:center}
 /* Die Übersetzung rückt dicht an ihren arabischen Satz, das nächste Satzpaar
    bekommt mehr Luft — so ist zu sehen, was zusammengehört. */
-#folie .inhalt > *{margin-top:.75em}
-#folie .inhalt > .zl.de{margin-top:.08em}
+/* Wieviel Luft zwischen zwei Satzpaaren steht, hängt davon ab, wie voll die
+   Folie ist: bei vier Sätzen reicht wenig, bei zweien darf es mehr sein.
+   --luft setzt zeichneFolie. */
+#folie .inhalt > *{margin-top:var(--luft,1.1em)}
+/* Die Übersetzung hängt an ihrem Satz. Der Abstand dazwischen sitzt als
+   margin-bottom an der arabischen Zeile, nicht als margin-top an der
+   deutschen: er muß sich nach der arabischen Schrift richten, deren
+   Unterlängen — das ي von لِلنَّبِيِّ etwa — unter die Zeile reichen. */
+#folie .inhalt > .zl:not(.de){margin-bottom:.5em}
+#folie .inhalt > .zl.de{margin-top:0}
 #folie .inhalt > :first-child{margin-top:0}
 
 /* ---------- Zeilensatz: gilt für die Folie wie für ihre Vorschau ----------
@@ -96,6 +104,11 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .vk .zl,#folie .zl,.vk .raster .sp,#folie .raster .sp{line-height:1.5;text-align:center}
 .vk .ar,#folie .ar{line-height:1.35}
 .vk .zl.de,#folie .zl.de{font-size:1.05em}
+/* Steht die Übersetzung direkt unter ihrem arabischen Satz, genügt sie
+   klein — sie ist Lesehilfe, nicht Gegenstand. Steht Deutsch dagegen neben
+   dem Arabischen (Vokabelzeile, Spaltenblock), bleibt es, wie es war. */
+.vk .zl:not(.de) + .zl.de,#folie .zl:not(.de) + .zl.de,
+.vk .raster + .zl.de,#folie .raster + .zl.de{font-size:.6em}
 .vk .raster .sp.de,#folie .raster .sp.de{font-size:1.05em}
 .vk .zl.de,.vk .raster .sp.de{color:#444}
 #folie .zl.de,#folie .raster .sp.de,#folie .wz .bd{color:rgba(255,255,255,.66)}
