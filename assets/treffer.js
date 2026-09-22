@@ -9,12 +9,17 @@ import { wurzelTreffer } from './wurzel.js';
 const SATZZEICHEN = /[.,؟?·—→«»]/;
 const DIAKRIT = /[ً-ْٰٓ-ٕ]/;
 
+/* Die Quelle schreibt den Sukun wie im Quran: ۡ, der Kopf des Chā.
+   Für den Abgleich zählt er wie der gewöhnliche Kreis-Sukun ْ — beide sind
+   ein Zeichen lang, die Stellen im Text bleiben also dieselben. */
+const einSukun = s => s.replace(/\u06E1/g, '\u0652');
+
 export function tokens(zeile){
   const out = [], re = /\S+/g; let m;
   while ((m = re.exec(zeile))){
     let e = m.index + m[0].length;
     while (e > m.index && SATZZEICHEN.test(zeile[e-1])) e--;      // Punkt nicht mitmarkieren
-    out.push({ t: zeile.slice(m.index, e), s: m.index, e, roh: m[0] });
+    out.push({ t: einSukun(zeile.slice(m.index, e)), s: m.index, e, roh: m[0] });
   }
   return out;
 }
@@ -240,7 +245,8 @@ export function hervorhebung(lektion, block, zeile){
    ganzen Token ausmacht — abzüglich erlaubter Vorsilben und Endungen. */
 const VORSILBEN = ['','ال','و','ف','ب','ل','ك','وال','فال','بال','لل','كال'];
 const NACHSILBEN = ['','ه','ها','هم','هن','ك','كم','كن','نا','ي','ون','ين','ات','ان'];
-export function wortTreffer(wort, zeile){
+export function wortTreffer(wort_, zeile){
+  const wort = einSukun(wort_);
   const k = skelett(wort);
   const endung_ = /^ـ/.test(wort), vorsilbe = /ـ$/.test(wort);
   const rein = wort.replace(/^ـ|ـ$/g,'');   // vokalisiert, ohne Tatweel

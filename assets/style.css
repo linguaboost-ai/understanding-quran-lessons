@@ -75,7 +75,12 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .vk .zl.de,.vk .wz .bd,.vk .raster .sp.de{color:inherit;opacity:.8}
 
 .inhalt{flex:0 0 auto;display:flex;flex-direction:column;gap:.15em;width:100%;min-width:0}
-#folie .inhalt{gap:.25em;align-items:center;text-align:center}
+#folie .inhalt{gap:0;align-items:center;text-align:center}
+/* Die Übersetzung rückt dicht an ihren arabischen Satz, das nächste Satzpaar
+   bekommt mehr Luft — so ist zu sehen, was zusammengehört. */
+#folie .inhalt > *{margin-top:.75em}
+#folie .inhalt > .zl.de{margin-top:.08em}
+#folie .inhalt > :first-child{margin-top:0}
 
 /* ---------- Zeilensatz: gilt für die Folie wie für ihre Vorschau ----------
    Der Zeilenabstand entscheidet hier über die Schriftgröße: die Einpassung

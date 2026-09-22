@@ -34,12 +34,12 @@ function zeileHtml(zeile, marks = []){
   const teile = [];
   let i = 0;
   while (i < zeile.length){
-    const ar = ARAB.test(zeile[i]) || /[ً-ْٰٓ-ٟـ]/.test(zeile[i]);
+    const ar = ARAB.test(zeile[i]) || /[ً-ْٰۡٓ-ٟـ]/.test(zeile[i]);
     let j = i;
     while (j < zeile.length &&
-      (ARAB.test(zeile[j]) || /[ً-ْٰٓ-ٟـ]/.test(zeile[j]) ||
+      (ARAB.test(zeile[j]) || /[ً-ْٰۡٓ-ٟـ]/.test(zeile[j]) ||
        (ar && /[\s·]/.test(zeile[j]) && j+1 < zeile.length &&
-        (ARAB.test(zeile[j+1]) || /[ً-ْٰ]/.test(zeile[j+1])))) === ar) j++;
+        (ARAB.test(zeile[j+1]) || /[ً-ْٰۡ]/.test(zeile[j+1])))) === ar) j++;
     if (j === i) j++;
     const stueck = zeile.slice(i, j);
     let inner = '';
@@ -252,6 +252,41 @@ function zeichneVorschau(){
   box.querySelectorAll('.vk').forEach(el => einpassen(el, 1.3, .3));
 }
 
+/* Folien mit Sätzen und Erklärungen bekommen eine gemeinsame Schriftgröße:
+   die kleinste, die auf allen von ihnen paßt. Sonst springt die Schrift beim
+   Weiterblättern von Folie zu Folie.
+   Wortfolien und Folien mit Spaltenblöcken — Wort über Bedeutung, Form → Form
+   — bleiben außen vor: sie sind anders gebaut und passen sich einzeln an. */
+const wortfolie = f => {
+  const zeilen = f.schritte.flat().map(z => z.trim()).filter(Boolean);
+  return zeilen.length > 0 && zeilen.every(z => wortzeile(z));
+};
+function passtInsKaestchen(el){
+  const inner = el.querySelector(':scope > .inhalt');
+  if (!inner) return true;
+  const cs = getComputedStyle(el);
+  const h = el.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  const b = el.clientWidth  - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  return inner.getBoundingClientRect().height <= h + 1 && inner.scrollWidth <= b + 1;
+}
+const satzfolie = f => {
+  const zeilen = f.schritte.flat().map(z => z.trim()).filter(Boolean);
+  return zeilen.length > 0 && zeilen.every(z => !wortzeile(z) && spalten(z).length < 2);
+};
+let einheit = null;
+function einheitsGroesse(){
+  const box = $('#folie');
+  let klein = Infinity;
+  for (const f of lek.folien){
+    if (!satzfolie(f)) continue;
+    box.replaceChildren(hueller(folieHtml(f, f.schritte.length - 1, [], null, null)));
+    einpassen(box, 8, .6, .8);
+    klein = Math.min(klein, parseFloat(box.style.fontSize));
+  }
+  einheit = Number.isFinite(klein) ? klein : null;
+  box.replaceChildren();
+}
+
 /* In der Mitte die Folie selbst, mit allem Platz, der da ist. Sie zeigt nur,
    was bis zum aktuellen Schritt aufgedeckt ist, und trägt die Markierungen. */
 function zeichneFolie(){
@@ -260,7 +295,13 @@ function zeichneFolie(){
   const f = lek.folien[idx];
   const iz = deutschIst() ? zielDeutsch() : null;
   box.appendChild(hueller(folieHtml(f, schritt, marken(), zielZeile(), iz)));
-  einpassen(box, 8, .6, .8);          // 20 % kleiner als das, was paßen würde
+  /* Die Wortfolie mit den neuen Wörtern bekommt ihre eigene Größe. Alle
+     anderen nehmen die gemeinsame — und nur wenn eine Folie damit nicht
+     auskommt, wird sie für sich kleiner gesetzt. */
+  if (einheit && !wortfolie(f)){
+    box.style.fontSize = einheit + 'rem';
+    if (!passtInsKaestchen(box)) einpassen(box, 8, .6, .8);
+  } else einpassen(box, 8, .6, .8);   // 20 % kleiner als das, was paßen würde
 }
 
 function zeichneWurzeln(){
@@ -389,6 +430,7 @@ function setzeFenster(){
 }
 
 function zeichne(){
+  if (einheit === null) einheitsGroesse();
   /* Lektionen ohne Wurzelkästen: die Erklärbox bekommt die ganze Breite. */
   $('#links').classList.toggle('ohne-wurzeln', lek.wurzeln.length === 0);
   zeichneVorschau(); zeichneFolie(); zeichneWurzeln(); zeichneErklaer(); zeichneKnoepfe(); zeichneWurzelfolie();
@@ -418,6 +460,6 @@ addEventListener('keydown', e => {
   else if (e.key === 'f' || e.key === 'F'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
 });
 $('#wurzelfolie').addEventListener('click', e => { if (e.target.id === 'wurzelfolie'){ wurzelOffen = null; zeichne(); } });
-addEventListener('resize', () => zeichne());
+addEventListener('resize', () => { einheit = null; zeichne(); });
 
 zeichne();
