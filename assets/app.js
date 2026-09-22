@@ -276,18 +276,34 @@ const satzfolie = f => {
   const zeilen = f.schritte.flat().map(z => z.trim()).filter(Boolean);
   return zeilen.length > 0 && zeilen.every(z => !wortzeile(z) && spalten(z).length < 2);
 };
+/* Volle Folie — vier Sätze oder mehr — braucht wenig Luft zwischen den
+   Paaren, eine halbleere darf mehr haben. */
+function luft(box){
+  const saetze = box.querySelectorAll('.inhalt > .zl:not(.de)').length;
+  box.style.setProperty('--luft', saetze >= 4 ? '.75em' : '1.75em');
+}
+
 let einheit = null;
+/* Den Maßstab setzt die erste Lektion: die kleinste Größe, die auf alle ihre
+   Satzfolien paßt. Nähme man das Minimum über die gerade geöffnete Lektion,
+   bekäme jede Lektion ihr eigenes Maß — eine einzige dichte Folie in Lektion 2
+   ließe dort alles kleiner aussehen als in Lektion 1. Eine Folie, die mit dem
+   Maß nicht auskommt, wird für sich allein kleiner gesetzt (zeichneFolie);
+   der ganze übrige Kurs bleibt bei dem einen Maß. */
 function einheitsGroesse(){
   const box = $('#folie');
+  const erste = kurs.find(l => l.nr === 1) || kurs[0];
   let klein = Infinity;
-  for (const f of lek.folien){
+  for (const f of erste.folien){
     if (!satzfolie(f)) continue;
     box.replaceChildren(hueller(folieHtml(f, f.schritte.length - 1, [], null, null)));
+    luft(box);
     einpassen(box, 8, .6, .8);
     klein = Math.min(klein, parseFloat(box.style.fontSize));
   }
   einheit = Number.isFinite(klein) ? klein : null;
   box.replaceChildren();
+  box.style.removeProperty('--luft');
 }
 
 /* In der Mitte die Folie selbst, mit allem Platz, der da ist. Sie zeigt nur,
@@ -301,13 +317,14 @@ function zeichneFolie(){
   /* Die Wortfolie mit den neuen Wörtern bekommt ihre eigene Größe. Alle
      anderen nehmen die gemeinsame — und nur wenn eine Folie damit nicht
      auskommt, wird sie für sich kleiner gesetzt. */
-  /* Volle Folie — vier Sätze oder mehr — braucht wenig Luft zwischen den
-     Paaren, eine halbleere darf mehr haben. */
-  const saetze = box.querySelectorAll('.inhalt > .zl:not(.de)').length;
-  box.style.setProperty('--luft', saetze >= 4 ? '.75em' : '1.75em');
+  luft(box);
   if (einheit && !wortfolie(f)){
     box.style.fontSize = einheit + 'rem';
-    if (!passtInsKaestchen(box)) einpassen(box, 8, .6, .8);
+    /* Kommt eine dichte Folie mit dem gemeinsamen Maß nicht aus, wird sie so
+       groß gesetzt, wie sie eben paßt — ohne den 20-%-Abschlag ein zweites
+       Mal: der steckt schon im gemeinsamen Maß. Sonst fiele eine Folie, die
+       nur um ein Haar zu groß ist, gleich auf drei Viertel zurück. */
+    if (!passtInsKaestchen(box)) einpassen(box, einheit, .6, 1);
   } else einpassen(box, 8, .6, .8);   // 20 % kleiner als das, was paßen würde
 }
 
