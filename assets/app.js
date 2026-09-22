@@ -243,7 +243,7 @@ function zeichneFolie(){
   const f = lek.folien[idx];
   const iz = deutschIst() ? zielDeutsch() : null;
   box.appendChild(hueller(folieHtml(f, schritt, marken(), zielZeile(), iz)));
-  einpassen(box, 6, .6);
+  einpassen(box, 8, .6);
 }
 
 function zeichneWurzeln(){
@@ -373,7 +373,7 @@ function setzeFenster(){
 
 function zeichne(){
   /* Lektionen ohne Wurzelkästen: die Erklärbox bekommt die ganze Breite. */
-  $('#unten').classList.toggle('ohne-wurzeln', lek.wurzeln.length === 0);
+  $('#links').classList.toggle('ohne-wurzeln', lek.wurzeln.length === 0);
   zeichneVorschau(); zeichneFolie(); zeichneWurzeln(); zeichneErklaer(); zeichneKnoepfe(); zeichneWurzelfolie();
   $('#gesperrt').classList.toggle('an', wurzelOffen !== null);
 }

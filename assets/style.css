@@ -15,6 +15,7 @@
   --grau:#6b6b6b; --grau-hell:#9a9a9a;
   --dim:rgba(255,255,255,.42); --dimmer:rgba(255,255,255,.22);
   --rand:rgba(255,255,255,.12);
+  --seite:300px;            /* Breite der beiden Seitenspalten */
   --ar:"Uthmanic","Amiri Quran",Amiri,serif;
   --de:"IBM Plex Sans",system-ui,sans-serif;
 }
@@ -42,20 +43,25 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .lek .zu{font-size:.78rem;color:var(--dim);margin-top:.3rem}
 
 /* ---------- Bühne ----------
-   oben der Vorschaustreifen über die ganze Breite, in der Mitte die Folie
-   mit allem Platz, unten Wurzeln und Erklärung, rechts die Knöpfe. */
-#buehne{display:grid;grid-template-columns:1fr 264px;grid-template-rows:21vh 1fr 25vh;height:100vh}
+   Oben der Vorschaustreifen über die ganze Breite. Darunter drei Spalten,
+   die bis zum unteren Rand reichen: links die Wurzelkästchen und die
+   Erklärbox, rechts die Knöpfe, beide gleich breit — dazwischen, genau in
+   der Mitte, die Präsentation. */
+#buehne{display:grid;grid-template-columns:var(--seite) 1fr var(--seite);
+  grid-template-rows:21vh 1fr;height:100vh}
 #vorschau{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:repeat(5,1fr);
   gap:1px;background:var(--linie);border-bottom:1px solid var(--linie);min-height:0}
-#folie{grid-column:1;grid-row:2;background:var(--papier);color:var(--tinte);
+
+#links{grid-column:1;grid-row:2;display:flex;flex-direction:column;gap:1px;
+  background:var(--linie);border-right:1px solid var(--linie);min-height:0}
+#links.ohne-wurzeln #wurzeln{display:none}
+
+#folie{grid-column:2;grid-row:2;background:var(--karte);color:var(--weiss);
   display:flex;flex-direction:column;justify-content:center;align-items:center;
-  padding:2.2rem 3rem;overflow:hidden;min-height:0}
-#unten{grid-column:1;grid-row:3;display:grid;grid-template-columns:392px 1fr;gap:1px;
-  background:var(--linie);border-top:1px solid var(--linie);min-height:0}
-#unten.ohne-wurzeln{grid-template-columns:1fr}
-#unten.ohne-wurzeln #wurzeln{display:none}
-#spalte{grid-column:2;grid-row:2/4;border-left:1px solid var(--linie);
-  display:flex;flex-direction:column;padding:1rem .9rem 4rem;gap:.45rem;overflow:hidden}
+  padding:3rem;overflow:hidden;min-height:0}
+
+#spalte{grid-column:3;grid-row:2;border-left:1px solid var(--linie);
+  display:flex;flex-direction:column;padding:1.2rem 1rem 4rem;gap:.45rem;overflow:hidden}
 
 /* ---------- Vorschaukästchen ---------- */
 /* Alle fünf bleiben schwarz auf weiß — die aktuelle Folie steht in vollem
@@ -84,8 +90,10 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
    <bdi> zum Block und wüchse auf die volle Schriftmetrik. */
 .vk .zl,#folie .zl,.vk .raster .sp,#folie .raster .sp{line-height:1.5;text-align:center}
 .vk .ar,#folie .ar{line-height:1.35}
-.vk .zl.de,#folie .zl.de{font-size:1.05em;color:#444}
-.vk .raster .sp.de,#folie .raster .sp.de{font-size:1.05em;color:#555}
+.vk .zl.de,#folie .zl.de{font-size:1.05em}
+.vk .raster .sp.de,#folie .raster .sp.de{font-size:1.05em}
+.vk .zl.de,.vk .raster .sp.de{color:#444}
+#folie .zl.de,#folie .raster .sp.de,#folie .wz .bd{color:rgba(255,255,255,.66)}
 .vk .luecke,#folie .luecke{height:.7em}
 /* Noch nicht aufgedeckt: unsichtbar, aber der Platz bleibt stehen. */
 .verdeckt{visibility:hidden}
@@ -93,7 +101,8 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 /* Wortzeile „Emoji  Wort  —  Bedeutung" als gewöhnliche Textzeile */
 .vk .wz,#folie .wz{display:block}
 .vk .wz > *,#folie .wz > *{margin-inline:.22em}
-.vk .wz .bd,#folie .wz .bd{color:#555;font-size:1em}
+.vk .wz .bd,#folie .wz .bd{font-size:1em}
+.vk .wz .bd{color:#555}
 
 #folie .ar{font-size:2.05em}
 #folie .wz .ar{font-size:2.1em}
@@ -104,18 +113,16 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .vk .wz .ar{font-size:1.8em}
 .vk .wz .mk{font-size:1.25em}
 
-/* Markierungen: auf weißem Grund das dunklere Gold, sonst trägt es nicht */
-.m-wort{color:var(--gold-tinte)}
-.m-de{color:var(--gold-tinte)}
+/* Markierungen stehen auf schwarzem Grund — dort trägt das helle Gold.
+   In der Vorschau wird nichts markiert, die braucht keine eigene Farbe. */
+.m-wort,.m-de,.m-wurzel{color:var(--gold)}
 /* Ein einzelnes Vokalzeichen wird nicht größer — das risse es von seinem
    Trägerbuchstaben los. Es bekommt einen Hof, der es kräftiger macht. */
-.m-zeichen{color:var(--gold-tinte);
-  text-shadow:0 0 .07em rgba(169,116,26,.95),0 0 .16em rgba(169,116,26,.6)}
-/* Wurzelbuchstaben stehen auf schwarzem Grund — dort trägt das helle Gold. */
-.m-wurzel{color:var(--gold)}
+.m-zeichen{color:var(--gold);
+  text-shadow:0 0 .1em rgba(217,164,65,.9),0 0 .28em rgba(217,164,65,.55)}
 
 /* ---------- Wurzelkästchen ---------- */
-#wurzeln{background:var(--schwarz);display:flex;flex-direction:column;gap:1px;min-height:0;overflow:hidden}
+#wurzeln{flex:0 0 46%;background:var(--schwarz);display:flex;flex-direction:column;gap:1px;min-height:0;overflow:hidden}
 .wk{flex:1;background:#101010;border-left:3px solid transparent;padding:.55rem .8rem;cursor:pointer;
   display:flex;flex-direction:column;justify-content:center;overflow:hidden;
   font-size:.74rem;transition:background .15s,border-color .15s;min-height:0}
@@ -127,7 +134,7 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .wk.leer{cursor:default;background:#0a0a0a}
 
 /* ---------- Erklärbox ---------- */
-#erklaer{background:var(--karte);color:var(--weiss);padding:1.1rem 1.4rem;overflow:hidden;
+#erklaer{flex:1;background:var(--karte);color:var(--weiss);padding:1.1rem 1.2rem;overflow:hidden;
   display:flex;flex-direction:column;justify-content:center;min-height:0}
 #erklaer .inhalt{gap:.7rem}
 #erklaer .txt{font-size:1.02rem;line-height:1.6}
@@ -136,6 +143,8 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
   color:rgba(255,255,255,.72);padding:.55rem .8rem;font-size:.92rem;line-height:1.5;font-style:italic}
 #erklaer .notiz b{font-style:normal;font-weight:600;color:var(--gold);letter-spacing:.02em}
 #erklaer .knopftext{border-top:1px solid var(--rand);padding-top:.6rem;color:var(--dim);font-size:.95rem}
+/* Steht kein Folientext darüber, braucht der erste Knopftext keine Trennlinie. */
+#erklaer .inhalt > .knopftext:first-child{border-top:0;padding-top:0}
 
 /* ---------- Knopfspalte ---------- */
 #spalte .gruppe{display:flex;flex-direction:column;gap:.45rem}
