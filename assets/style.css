@@ -86,7 +86,7 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
    margin-bottom an der arabischen Zeile, nicht als margin-top an der
    deutschen: er muß sich nach der arabischen Schrift richten, deren
    Unterlängen — das ي von لِلنَّبِيِّ etwa — unter die Zeile reichen. */
-#folie .inhalt > .zl:not(.de){margin-bottom:.5em}
+#folie .inhalt > .zl:not(.de),#folie .inhalt > .raster{margin-bottom:.5em}
 #folie .inhalt > .zl.de{margin-top:0}
 #folie .inhalt > :first-child{margin-top:0}
 

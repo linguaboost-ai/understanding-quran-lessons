@@ -108,8 +108,11 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
           ? marks.filter(m => m.s >= off && m.e <= off + wz.wort.length)
                  .map(m => ({...m, s:m.s-off, e:m.e-off}))
           : [];
+        /* zeileHtml liefert das arabische Wort schon in <bdi class="ar">.
+           Noch eins drumherum hieße: 2,1em wirkt zweimal — dann stand das Wort
+           gut doppelt so groß da wie der Beispielsatz auf derselben Folie. */
         out.push(`<div class="zl wz${verdeckt}"><span class="mk">${esc(wz.markierung)}</span>`
-               + `<bdi class="ar">${zeileHtml(wz.wort, eig)}</bdi>`
+               + zeileHtml(wz.wort, eig)
                + `<span class="bd">— ${esc(wz.bedeutung)}</span></div>`);
         continue;
       }
