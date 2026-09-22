@@ -15,7 +15,20 @@
   --grau:#6b6b6b; --grau-hell:#9a9a9a;
   --dim:rgba(255,255,255,.42); --dimmer:rgba(255,255,255,.22);
   --rand:rgba(255,255,255,.12);
-  --seite:300px;            /* Breite der beiden Seitenspalten */
+  /* Breite der beiden Seitenspalten — sie ergibt sich aus der Folie. Die soll
+     16:9 stehen, damit man sie einzeln aufnehmen und auf einem Handy
+     formatfüllend abspielen kann. Die Folie ist 100vh − 21vh = 79vh hoch,
+     16:9 davon sind 79 × 16/9 = 140.444vh breit; was daneben bleibt, teilen
+     sich die beiden Spalten. Das max() hält die Spalten auf schmalen Fenstern
+     benutzbar; dort stimmt das Verhältnis dann nicht mehr genau. */
+  --seite:max(140px, calc((100vw - 140.444vh) / 2));
+  /* Satzbreite der Folie, in Höhe gerechnet wie alles andere hier. Sie ist
+     das Maß, das der Rahmen früher selbst vorgab: 1320px Folie minus 2×3rem
+     Innenrand bei 1080px Höhe. Die Breite des Rahmens wirkt nur über den
+     Zeilenumbruch auf die Schriftgröße — bleibt die Satzbreite, wie sie war,
+     bleibt jede Größe im Kurs, wie sie war, und der Rahmen darf trotzdem
+     breiter werden. */
+  --satz:113.333vh;
   --ar:"Uthmanic","Amiri Quran",Amiri,serif;
   --de:"IBM Plex Sans",system-ui,sans-serif;
 }
@@ -75,7 +88,7 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .vk .zl.de,.vk .wz .bd,.vk .raster .sp.de{color:inherit;opacity:.8}
 
 .inhalt{flex:0 0 auto;display:flex;flex-direction:column;gap:.15em;width:100%;min-width:0}
-#folie .inhalt{gap:0;align-items:center;text-align:center}
+#folie .inhalt{gap:0;align-items:center;text-align:center;max-width:var(--satz)}
 /* Die Übersetzung rückt dicht an ihren arabischen Satz, das nächste Satzpaar
    bekommt mehr Luft — so ist zu sehen, was zusammengehört. */
 /* Wieviel Luft zwischen zwei Satzpaaren steht, hängt davon ab, wie voll die
