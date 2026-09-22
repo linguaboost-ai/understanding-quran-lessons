@@ -168,7 +168,7 @@ Das ist ein Weg.
 هٰذَا      شَيْءٌ
 dies       ein Ding
 +
-Das ist ein Ding.
+Dies [ist] ein Ding.
 > Im Arabischen steht kein Wort für „ist". Zwei Wörter nebeneinander sind schon ein ganzer Satz.
 
 #### FOLIE

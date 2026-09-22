@@ -11,6 +11,8 @@ const $ = s => document.querySelector(s);
 /* marks: [{s,e,typ}] mit typ 'wort' | 'zeichen'. Arabische Läufe werden in
    <bdi> isoliert, damit die Wortfolge in gemischten Zeilen nicht springt. */
 const esc = s => s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+/* alles, was sich an den vorigen Buchstaben anlagert */
+const KOMBI = /[\u064B-\u0655\u0670\u06D6-\u06ED\u0640]/;
 
 function zeileHtml(zeile, marks = []){
   const typ = new Array(zeile.length).fill(null);
@@ -18,6 +20,16 @@ function zeileHtml(zeile, marks = []){
      Vokalzeichen ist die genauere Angabe und darf nicht überdeckt werden. */
   const sortiert = [...marks].sort((a,b) => (a.typ === 'zeichen') - (b.typ === 'zeichen'));
   for (const m of sortiert) for (let i = m.s; i < m.e && i < zeile.length; i++) typ[i] = m.typ;
+
+  /* Ein Vokalzeichen allein läßt sich nicht einfärben: der Browser malt es
+     zusammen mit seinem Trägerbuchstaben und nimmt dessen Farbe — die
+     Markierung bliebe unsichtbar. Also kommt der Träger mit hinein. */
+  for (let i = 0; i < zeile.length; i++){
+    if (typ[i] !== 'zeichen' || !KOMBI.test(zeile[i])) continue;
+    let j = i;
+    while (j > 0 && KOMBI.test(zeile[j])) j--;
+    if (j < i && typ[j] === null) typ[j] = 'zeichen';
+  }
 
   const teile = [];
   let i = 0;
@@ -50,6 +62,10 @@ function zeileHtml(zeile, marks = []){
 const spalten = z => z.trim().split(/\s{2,}/).filter(Boolean);
 function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
   const n = spalten(zeilen[0]).length;
+  /* Steht in der ersten Zeile Arabisch, laufen die Spalten von rechts nach
+     links — sonst stünde das erste Wort links. Blöcke mit → bleiben, wie die
+     Datei sie zeigt: der Pfeil gibt dort die Richtung vor. */
+  const rtl = istArabisch(zeilen[0]) && !zeilen.some(z => z.includes('→'));
   const reihen = zeilen.map(z => {
     const teile = [];
     let pos = 0;
@@ -62,7 +78,8 @@ function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
     }
     return teile.join('');
   });
-  return `<div class="raster${verdeckt}" style="grid-template-columns:repeat(${n},auto)">${reihen.join('')}</div>`;
+  return `<div class="raster${verdeckt}${rtl ? ' rtl' : ''}" `
+       + `style="grid-template-columns:repeat(${n},auto)">${reihen.join('')}</div>`;
 }
 
 /* die Kopula in Klammern setzen — am Rohtext, nicht am fertigen HTML */
@@ -117,7 +134,7 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
    läuft der Überhang nach oben aus dem scrollHeight heraus. */
 const hueller = inhalt => { const d = document.createElement('div'); d.className = 'inhalt';
   d.innerHTML = inhalt; return d; };
-function einpassen(el, max = 2.2, min = .4){
+function einpassen(el, max = 2.2, min = .4, faktor = 1){
   const inner = el.querySelector(':scope > .inhalt');
   if (!inner) return;
   const cs = getComputedStyle(el);
@@ -127,13 +144,13 @@ function einpassen(el, max = 2.2, min = .4){
   const passt = g => { el.style.fontSize = g + 'rem';
     const r = inner.getBoundingClientRect();
     return r.height <= h + 1 && inner.scrollWidth <= b + 1; };
-  if (passt(max)) return;
+  if (passt(max)){ el.style.fontSize = Math.round(max * faktor * 100) / 100 + 'rem'; return; }
   let lo = min, hi = max;
   for (let i = 0; i < 14; i++){ const m = (lo + hi) / 2; passt(m) ? lo = m : hi = m; }
   /* abrunden, nicht runden: aufgerundet passt die gefundene Größe nicht mehr */
   let g = Math.max(min, Math.floor(lo * 100) / 100);
   while (g > min && !passt(g)) g = Math.round((g - .02) * 100) / 100;
-  el.style.fontSize = g + 'rem';
+  el.style.fontSize = Math.round(g * faktor * 100) / 100 + 'rem';
 }
 
 /* ---------- Start ---------------------------------------------------- */
@@ -243,7 +260,7 @@ function zeichneFolie(){
   const f = lek.folien[idx];
   const iz = deutschIst() ? zielDeutsch() : null;
   box.appendChild(hueller(folieHtml(f, schritt, marken(), zielZeile(), iz)));
-  einpassen(box, 8, .6);
+  einpassen(box, 8, .6, .8);          // 20 % kleiner als das, was paßen würde
 }
 
 function zeichneWurzeln(){

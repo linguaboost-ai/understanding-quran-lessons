@@ -186,6 +186,10 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 #gesperrt.an{display:block}
 
 /* Spaltenzeilen aus der Datei: Wort über Bedeutung */
-.vk .raster,#folie .raster{display:inline-grid;gap:.35rem 2.2rem;justify-content:center;justify-items:center}
+/* Spaltenabstand in em, damit er mit der Folienschrift mitwächst */
+.vk .raster,#folie .raster{display:inline-grid;gap:.2em 1.4em;justify-content:center;justify-items:center}
+/* arabischer Spaltenblock: erste Spalte rechts, deutscher Text darin bleibt links-rechts */
+.raster.rtl{direction:rtl}
+.raster.rtl .sp.de{direction:ltr}
 .vk .raster .sp,#folie .raster .sp{line-height:1.5}
 .vk .raster .sp.de,#folie .raster .sp.de{font-size:1.05em;color:#555}
