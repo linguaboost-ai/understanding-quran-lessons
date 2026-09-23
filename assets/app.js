@@ -255,6 +255,13 @@ function marken(){
   }
   return alle;
 }
+/* Greift eine Hervorhebung auf der zuletzt erschienenen Zeile? Daran hängt
+   beides: ob ihr Knopf anklickbar ist und ob ihre Erklärung dasteht. */
+function greift(h, z = zielZeile()){
+  if (!z) return false;
+  const r = hervorhebung(lek, h, z);
+  return !!(r.wort.length || r.zeichen.length || r.deutsch);
+}
 function deutschIst(){
   for (const name of aktiv.gram){
     const b = lek.hervorhebungen.find(h => h.name === name);
@@ -389,13 +396,17 @@ function zeichneErklaer(){
       inhalt.appendChild(d);
     }
   }
-  for (const name of aktiv.gram){
-    const b = lek.hervorhebungen.find(h => h.name === name);
-    if (!b || !b.erklaerung.length) continue;
-    const d = document.createElement('div'); d.className = 'knopftext';
-    d.innerHTML = zeileHtml(b.erklaerung.join(' ')); inhalt.appendChild(d);
+  /* Die Erklärung zu einer Hervorhebung steht da, sobald die Folie sie
+     anbietet — nicht erst, wenn man den Knopf gedrückt hat. Die angeklickte
+     steht heller, damit zu sehen ist, was gerade auf der Folie leuchtet. */
+  const ziel = zielZeile();
+  for (const h of lek.hervorhebungen){
+    if (!h.erklaerung.length || !greift(h, ziel)) continue;
+    const d = document.createElement('div');
+    d.className = 'knopftext' + (aktiv.gram.has(h.name) ? ' an' : '');
+    d.innerHTML = zeileHtml(h.erklaerung.join(' ')); inhalt.appendChild(d);
   }
-  einpassen(box, 1.35);
+  einpassen(box, 1, .55);
 }
 
 function zeichneKnoepfe(){
@@ -403,16 +414,17 @@ function zeichneKnoepfe(){
   sp.replaceChildren();
   const z = zielZeile();
   const g1 = document.createElement('div'); g1.className = 'gruppe';
-  const f = lek.folien[idx];
-  const aufFolie = f.schritte.slice(0, schritt+1).flat().join('\n');
+  /* Die neuen Wörter der Lektion stehen immer alle da, mit ihrer Bedeutung —
+     sie sind der Vorrat, auf den die ganze Lektion zurückgreift. Anklickbar
+     ist eins nur, wo es in der zuletzt erschienenen Zeile auch vorkommt. */
   for (const w of WOERTER){
-    if (!wortTreffer(w.wort, aufFolie).length) continue;
-    const greift = z && wortTrefferZiel(w.wort, z).length > 0;
+    const dabei = z && wortTrefferZiel(w.wort, z).length > 0;
     const b = document.createElement('button');
-    b.className = 'knopf' + (aktiv.wort.has(w.wort) ? ' an' : '');
-    b.innerHTML = `<span class="w">${esc(w.wort)}</span>`;
-    b.disabled = !greift;
-    if (!greift) aktiv.wort.delete(w.wort);
+    b.className = 'knopf wort' + (aktiv.wort.has(w.wort) ? ' an' : '');
+    b.innerHTML = `<span class="w">${esc(w.wort)}</span>`
+                + `<span class="bd">${esc(w.bedeutung)}</span>`;
+    b.disabled = !dabei;
+    if (!dabei) aktiv.wort.delete(w.wort);
     b.addEventListener('click', () => {
       aktiv.wort.has(w.wort) ? aktiv.wort.delete(w.wort) : aktiv.wort.add(w.wort);
       zeichne();
@@ -424,12 +436,11 @@ function zeichneKnoepfe(){
   const g2 = document.createElement('div'); g2.className = 'gruppe';
   for (const h of lek.hervorhebungen){
     const b = document.createElement('button');
-    const r = z ? hervorhebung(lek, h, z) : { wort:[], zeichen:[] };
-    const greift = !!(r.wort.length || r.zeichen.length || r.deutsch);
+    const dabei = greift(h, z);
     b.className = 'knopf' + (aktiv.gram.has(h.name) ? ' an' : '');
     b.textContent = h.beschriftung;
-    b.disabled = !greift;
-    if (!greift) aktiv.gram.delete(h.name);
+    b.disabled = !dabei;
+    if (!dabei) aktiv.gram.delete(h.name);
     b.addEventListener('click', () => {
       aktiv.gram.has(h.name) ? aktiv.gram.delete(h.name) : aktiv.gram.add(h.name);
       zeichne();
