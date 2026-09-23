@@ -319,6 +319,13 @@ Weibliche Wörter
 🏘️  قَرۡيَة  —  Ortschaft
 
 #### FOLIE
+خَدِيجَة
++
+عَائِشَة
++
+فَاطِمَة
+
+#### FOLIE
 هٰذِهِ قَرۡيَةٌ
 Dies ist eine Ortschaft.
 +
