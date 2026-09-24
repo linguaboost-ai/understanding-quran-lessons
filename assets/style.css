@@ -80,7 +80,11 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 #spalte{grid-column:3;grid-row:2;border-left:1px solid var(--linie);
   display:flex;flex-direction:column;min-height:0;overflow:hidden}
 #knoepfe{flex:0 0 auto;display:flex;flex-direction:column;
-  padding:1.2rem 1rem 1.2rem;gap:.45rem;overflow:hidden}
+  padding:.9rem 1rem 1.2rem;gap:.45rem;overflow:hidden}
+/* Lektion und Folie, zweizeilig und gut sichtbar. */
+#stand{flex:0 0 auto;padding:1.1rem 1rem .1rem;text-align:right;line-height:1.25}
+#stand .lek{display:block;font-size:1.05rem;font-weight:600;color:var(--gold)}
+#stand .fol{display:block;font-size:.95rem;color:rgba(255,255,255,.72)}
 #spalte.ohne-wurzeln #wurzeln{display:none}
 
 /* ---------- Vorschaukästchen ---------- */
@@ -125,6 +129,9 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
    Schrift darf halb so groß wieder werden.
    Wichtig außerdem: die Wortzeile darf keine Flexzeile sein — dann würde das
    <bdi> zum Block und wüchse auf die volle Schriftmetrik. */
+/* Das (+) in der Vorschau: hier beginnt der nächste Aufdeckschritt. */
+.vk .plus{font-size:.8em;line-height:1.7;color:var(--gold-tinte);letter-spacing:.05em}
+#folie .plus{display:none}
 .vk .zl,#folie .zl,.vk .raster .sp,#folie .raster .sp{line-height:1.5;text-align:center}
 .vk .ar,#folie .ar{line-height:1.35}
 .vk .zl.de,#folie .zl.de{font-size:1.05em}
@@ -238,11 +245,16 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .wf .schalter{margin-top:2rem}
 
 /* ---------- Fußzeile: unten in der Knopfspalte, damit sie nichts verdeckt --- */
-#fuss{position:fixed;right:0;bottom:0;width:264px;padding:0 .9rem .7rem;text-align:right;
-  display:flex;flex-direction:column;align-items:flex-end;gap:.35rem}
+/* So breit wie die Knopfspalte — sonst ragte der Fuß in den Folienrahmen,
+   der aufgenommen wird. */
+#fuss{position:fixed;right:0;bottom:0;width:var(--seite);padding:0 1rem .9rem;text-align:right;
+  display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
 #hinweis{font-size:.66rem;line-height:1.5;color:rgba(255,255,255,.26)}
-#heim{font-size:.72rem;color:rgba(255,255,255,.45);text-decoration:none}
-#heim:hover{color:var(--gold)}
+/* Groß genug, um ihn zu treffen, ohne hinzusehen. */
+#heim{font-size:.92rem;line-height:1;color:rgba(255,255,255,.6);text-decoration:none;
+  border:1px solid var(--rand);border-radius:.55rem;padding:.6rem 1rem;
+  transition:color .15s,border-color .15s,background .15s}
+#heim:hover{color:var(--gold);border-color:var(--gold);background:rgba(217,164,65,.08)}
 #gesperrt{position:fixed;left:50%;transform:translateX(-50%);bottom:1.4rem;z-index:50;
   font-size:.75rem;color:var(--gold);display:none}
 #gesperrt.an{display:block}

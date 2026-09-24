@@ -128,11 +128,15 @@ function deutschHtml(z){
 /* Es werden immer alle Schritte gesetzt; die noch nicht aufgedeckten bleiben
    unsichtbar, behalten aber ihren Platz. So bleibt die Schriftgröße beim
    Aufdecken stehen und die schon sichtbaren Zeilen springen nicht. */
-function folieHtml(folie, bisSchritt, marks, markZeile, istZeile){
+function folieHtml(folie, bisSchritt, marks, markZeile, istZeile, mitPlus = false){
   const out = [];
   for (let s = 0; s < folie.schritte.length; s++){
     const verdeckt = s > bisSchritt ? ' verdeckt' : '';
     const zeilen = folie.schritte[s];
+    /* Die Vorschau zeigt die ganze Folie auf einmal. Das (+) markiert, wo
+       beim Vortrag der nächste Aufdeckschritt anfängt — dieselbe Marke, die
+       in der Quelldatei auf einer eigenen Zeile steht. */
+    if (mitPlus && s > 0 && zeilen.some(z => z.trim())) out.push('<div class="plus">(+)</div>');
     const anfang = out.length;
     for (let i = 0; i < zeilen.length; i++){
       const z = zeilen[i].trim();
@@ -299,7 +303,7 @@ function zeichneVorschau(){
     d.className = 'vk' + (i === idx ? ' jetzt' : '') + (i >= lek.folien.length ? ' leer' : '');
     if (i < lek.folien.length){
       const f = lek.folien[i];
-      d.appendChild(hueller(folieHtml(f, f.schritte.length - 1, [], null, null)));
+      d.appendChild(hueller(folieHtml(f, f.schritte.length - 1, [], null, null, true)));
       d.addEventListener('click', () => { if (!wurzelOffen){ idx = i; schritt = 0; setzeFenster(); zeichne(); } });
     }
     box.appendChild(d);
@@ -378,6 +382,14 @@ function zeichneFolie(){
        nur um ein Haar zu groß ist, gleich auf drei Viertel zurück. */
     if (!passtInsKaestchen(box)) einpassen(box, einheit, .6, 1);
   } else einpassen(box, 8, .6, .8);   // 20 % kleiner als das, was paßen würde
+}
+
+/* Wo man gerade ist. Steht in der Knopfspalte, also außerhalb des 16:9-
+   Rahmens, den die Folie bildet: es ist eine Hilfe beim Aufnehmen und
+   gehört nicht in die Aufnahme. */
+function zeichneStand(){
+  $('#stand').innerHTML = `<span class="lek">Lektion ${lek.nr}</span>`
+                        + `<span class="fol">Folie ${idx + 1}</span>`;
 }
 
 function zeichneWurzeln(){
@@ -538,7 +550,7 @@ function zeichne(){
   $('#spalte').classList.toggle('ohne-wurzeln', lek.wurzeln.length === 0);
   /* Erst die Knöpfe, dann die Wurzeln: wieviel Höhe die Wurzelkästen bekommen,
      entscheidet sich erst, wenn die Knöpfe ihre eigene Höhe haben. */
-  zeichneVorschau(); zeichneFolie(); zeichneKnoepfe(); zeichneWurzeln();
+  zeichneStand(); zeichneVorschau(); zeichneFolie(); zeichneKnoepfe(); zeichneWurzeln();
   zeichneSkript(); zeichneWurzelfolie();
   $('#gesperrt').classList.toggle('an', wurzelOffen !== null);
 }
