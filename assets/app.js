@@ -2,6 +2,7 @@
    Folien-Lektion-01-22.txt — im Code steht kein Lektionsinhalt. */
 import { parse, ARAB, istArabisch, wortzeile, zielTeil } from './parser.js';
 import { hervorhebung, wortTreffer, wortTrefferZiel } from './treffer.js';
+import { parseSkript, titelTeile } from './skript.js';
 
 /* Pfad relativ zum Modul, nicht zur Seite — so stimmt er von überall. */
 const QUELLE = new URL('../Folien-Lektion-01-22.txt', import.meta.url);
@@ -21,6 +22,8 @@ const KOMBI = /[\u064B-\u0655\u0670\u06D6-\u06ED\u0640]/;
    rechts nebeneinander: das ta marbûtah stünde dann vor dem Wort. */
 const ZUSATZ = /[\u064B-\u065F\u0670\u06D6-\u06ED\u0640\u200C\u200D]/;
 const arabZeichen = c => ARAB.test(c) || ZUSATZ.test(c);
+/* Was zwischen arabischen Zeichen stehen darf, ohne den Lauf zu brechen. */
+const TRENNER = /[\s·+\-\u2010-\u2015]/;
 
 function zeileHtml(zeile, marks = []){
   const typ = new Array(zeile.length).fill(null);
@@ -44,10 +47,19 @@ function zeileHtml(zeile, marks = []){
   while (i < zeile.length){
     const ar = arabZeichen(zeile[i]);
     let j = i;
-    while (j < zeile.length &&
-      (arabZeichen(zeile[j]) ||
-       (ar && /[\s·]/.test(zeile[j]) && j+1 < zeile.length &&
-        arabZeichen(zeile[j+1]))) === ar) j++;
+    while (j < zeile.length){
+      if (arabZeichen(zeile[j]) === ar){ j++; continue; }
+      if (!ar) break;
+      /* Trennzeichen zwischen zwei arabischen Zeichen gehören zum Lauf.
+         „ن - ف - س" ist eine Wurzel, keine drei Inseln — drei Inseln stellt
+         der Browser von links nach rechts nebeneinander, und die Wurzel
+         stünde rückwärts da. Folgt nach dem Trenner kein Arabisch, endet
+         der Lauf wie bisher: „هٰذَا — dies" bleibt zweigeteilt. */
+      let k = j;
+      while (k < zeile.length && TRENNER.test(zeile[k])) k++;
+      if (k > j && k < zeile.length && arabZeichen(zeile[k])){ j = k; continue; }
+      break;
+    }
     if (j === i) j++;
     const stueck = zeile.slice(i, j);
     let inner = '';
@@ -190,6 +202,11 @@ const nr = parseInt(params.get('l') || '1', 10);
 
 const text = await (await fetch(QUELLE, { cache:'no-store' })).text();
 const kurs = parse(text);
+/* Das Sprechskript. Es ist noch nicht für alle Lektionen geschrieben — fehlt
+   ein Abschnitt, springt die Erklärung der Folie ein. Wird die Datei später
+   auf 22 Lektionen erweitert, muß ihr Name hier derselbe bleiben. */
+const SKRIPT = new URL('../Skripte-Lektion-01-11.txt', import.meta.url);
+const skript = parseSkript(await (await fetch(SKRIPT, { cache:'no-store' })).text());
 const lek = kurs.find(l => l.nr === nr) || kurs[0];
 document.title = `Lektion ${lek.nr} · ${lek.titel} — Quran verstehen lernen`;
 
@@ -378,39 +395,62 @@ function zeichneWurzeln(){
   box.querySelectorAll('.wk').forEach(el => einpassen(el, .95, .42));
 }
 
-function zeichneErklaer(){
-  const box = $('#erklaer');
+/* Links steht, was zu dieser Folie gesprochen wird: die Marke aus dem Skript
+   als zweizeiliger Titel, darunter der Text. Eine Folie kann zwei Abschnitte
+   tragen — den zur Folie und den zu einem Knopf darauf.
+   Ohne Skript bleibt die Erklärung der Folie stehen; die „Notiz für mich"
+   nicht mehr, die gehört nicht vor die Kamera. */
+function zeichneSkript(){
+  const box = $('#skript');
   box.replaceChildren();
   const inhalt = document.createElement('div'); inhalt.className = 'inhalt';
   box.appendChild(inhalt);
-  for (const zeile of lek.folien[idx].erklaerung){
-    const t = zeile.indexOf('Notiz für mich:');
-    const haupt = t < 0 ? zeile : zeile.slice(0, t).replace(/[—–-]\s*$/, '').trim();
-    if (haupt){
+  const abschnitte = skript.get(lek.nr)?.get(idx + 1) || [];
+  if (abschnitte.length){
+    for (const a of abschnitte){
+      const [oben, unten] = titelTeile(a.titel);
+      const m = document.createElement('div'); m.className = 'marke';
+      m.innerHTML = `<span class="nr">${esc(oben)}</span>`
+                  + (unten ? `<span class="was">${esc(unten)}</span>` : '');
+      inhalt.appendChild(m);
+      for (const p of a.text){
+        const d = document.createElement('div');
+        d.className = 'satz' + (ohneDeutsch(p) ? ' nurar' : '');
+        d.innerHTML = zeileHtml(p);
+        inhalt.appendChild(d);
+      }
+    }
+  } else {
+    /* Solange für eine Lektion kein Skript geschrieben ist, steht hier, was
+       vorher hier stand: die Erklärung der Folie und die Erklärungen aller
+       Regeln, die auf ihr greifen. Kommt das Skript dazu, tritt beides
+       zurück — es sagt dasselbe, nur ausformuliert. */
+    for (const zeile of lek.folien[idx].erklaerung){
+      const t = zeile.indexOf('Notiz für mich:');
+      const haupt = t < 0 ? zeile : zeile.slice(0, t).replace(/[—–-]\s*$/, '').trim();
+      if (!haupt) continue;
       const d = document.createElement('div'); d.className = 'txt';
       d.innerHTML = zeileHtml(haupt); inhalt.appendChild(d);
     }
-    if (t >= 0){
-      const d = document.createElement('div'); d.className = 'notiz';
-      d.innerHTML = `<b>Notiz für mich:</b> ` + zeileHtml(zeile.slice(t + 'Notiz für mich:'.length).trim());
-      inhalt.appendChild(d);
+    const ziel = zielZeile();
+    for (const h of lek.hervorhebungen){
+      if (!h.erklaerung.length || !greift(h, ziel)) continue;
+      const d = document.createElement('div');
+      d.className = 'knopftext' + (aktiv.gram.has(h.name) ? ' an' : '');
+      d.innerHTML = zeileHtml(h.erklaerung.join(' ')); inhalt.appendChild(d);
     }
   }
-  /* Die Erklärung zu einer Hervorhebung steht da, sobald die Folie sie
-     anbietet — nicht erst, wenn man den Knopf gedrückt hat. Die angeklickte
-     steht heller, damit zu sehen ist, was gerade auf der Folie leuchtet. */
-  const ziel = zielZeile();
-  for (const h of lek.hervorhebungen){
-    if (!h.erklaerung.length || !greift(h, ziel)) continue;
-    const d = document.createElement('div');
-    d.className = 'knopftext' + (aktiv.gram.has(h.name) ? ' an' : '');
-    d.innerHTML = zeileHtml(h.erklaerung.join(' ')); inhalt.appendChild(d);
-  }
-  einpassen(box, 1, .55);
+  /* Der Deckel liegt tief: die Spalte ist schmal, und bei 24 px brächen kurze
+     Abschnitte nach drei Wörtern um. So bleibt die Größe über die Folien
+     hinweg ruhig — was beim Vorlesen mehr zählt als ein voller Kasten. */
+  einpassen(box, 1.1, .5);
 }
+/* Eine Zeile, die nur aus Arabisch besteht, steht im Skript für sich allein
+   und wird vorgelesen — sie bekommt ihre eigene, mittige Zeile. */
+const ohneDeutsch = z => istArabisch(z) && !/[A-Za-zÄÖÜäöüß]/.test(z);
 
 function zeichneKnoepfe(){
-  const sp = $('#spalte');
+  const sp = $('#knoepfe');
   sp.replaceChildren();
   const z = zielZeile();
   const g1 = document.createElement('div'); g1.className = 'gruppe';
@@ -494,9 +534,12 @@ function setzeFenster(){
 
 function zeichne(){
   if (einheit === null) einheitsGroesse();
-  /* Lektionen ohne Wurzelkästen: die Erklärbox bekommt die ganze Breite. */
-  $('#links').classList.toggle('ohne-wurzeln', lek.wurzeln.length === 0);
-  zeichneVorschau(); zeichneFolie(); zeichneWurzeln(); zeichneErklaer(); zeichneKnoepfe(); zeichneWurzelfolie();
+  /* Lektionen ohne Wurzelkästen: die Knopfspalte behält ihren Platz für sich. */
+  $('#spalte').classList.toggle('ohne-wurzeln', lek.wurzeln.length === 0);
+  /* Erst die Knöpfe, dann die Wurzeln: wieviel Höhe die Wurzelkästen bekommen,
+     entscheidet sich erst, wenn die Knöpfe ihre eigene Höhe haben. */
+  zeichneVorschau(); zeichneFolie(); zeichneKnoepfe(); zeichneWurzeln();
+  zeichneSkript(); zeichneWurzelfolie();
   $('#gesperrt').classList.toggle('an', wurzelOffen !== null);
 }
 

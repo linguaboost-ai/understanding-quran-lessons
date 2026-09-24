@@ -193,6 +193,12 @@ Das ist ein Weg.
 
 وَ  —  und
 
+#### FOLIE
+نَفۡس
++
+ن - ف - س
+> Die Wurzel sind die drei Buchstaben, von rechts nach links. Die Vokalzeichen zählen nicht mit.
+
 #### HERVORHEBUNG | Tanwîn
 BESCHRIFTUNG: ‑un am Wortende
 TREFFER: das Zeichen ٌ am Ende eines Nomens
@@ -280,6 +286,12 @@ Wer ist das? — Das ist ein Mann.
 مَنۡ هٰذَا  —  هٰذَا رَجُلٌ
 Wer ist das? — Das ist ein Mann.
 
+#### FOLIE
+عِلۡم
++
+ع - ل - م
+> Dasselbe Muster wie in Lektion 1, nur mit einem anderen Vokal. Die Wurzel bleibt sichtbar.
+
 #### HERVORHEBUNG | Fragewort
 BESCHRIFTUNG: Fragewort am Satzanfang
 TREFFER: مَا oder مَنۡ am Anfang des Satzes
@@ -359,6 +371,12 @@ Was ist das? — Das ist eine Ortschaft.
 
 هٰذِهِ قَرۡيَةٌ
 Dies ist eine Ortschaft.
+
+#### FOLIE
+حُكۡم
++
+ح - ك - م
+> Wieder drei Buchstaben. Nur der erste Vokal ist ein anderer.
 
 #### HERVORHEBUNG | Ta marbûtah
 BESCHRIFTUNG: ة am Wortende
@@ -445,6 +463,12 @@ Was ist das? — Das ist eine Hand.
 هٰذِهِ شَمۡسٌ
 Dies ist eine Sonne.
 
+#### FOLIE
+عَمَل
++
+ع - م - ل
+> Auch hier drei Buchstaben. Diesmal steht zwischen dem zweiten und dritten ein Vokal statt eines Sukun.
+
 #### HERVORHEBUNG | Kein ة
 BESCHRIFTUNG: Wortende ohne ة
 TREFFER: das Nomen im Satz, an dessen Ende kein ة steht
@@ -528,6 +552,12 @@ Dies ist ein gewaltiger Himmel.
 
 هٰذَا رَجُلٌ عَلِيمٌ
 Das ist ein wissender Mann.
+
+#### FOLIE
+عَلِيم
++
+ع - ل - م
+> Das lange î gehört zum Muster, nicht zur Wurzel. Es zählt nicht mit.
 
 #### HERVORHEBUNG | Eigenschaftswort
 BESCHRIFTUNG: das Eigenschaftswort
@@ -648,6 +678,12 @@ Diese Moschee ist gewaltig.
 الشَّمۡسُ عَظِيمَةٌ
 Die Sonne ist gewaltig.
 
+#### FOLIE
+الۡكَافِر
++
+ك - ف - ر
+> Das al- gehört nicht zur Wurzel, das Alif in der Mitte auch nicht. Übrig bleiben drei Buchstaben.
+
 #### HERVORHEBUNG | Der Artikel
 BESCHRIFTUNG: الـ am Wortanfang
 TREFFER: الـ vor einem Nomen
@@ -756,6 +792,12 @@ Jenes ist eine harte Stunde.
 ذٰلِكَ عَذَابٌ أَلِيمٌ
 Jenes ist eine schmerzhafte Strafe.
 
+#### FOLIE
+الۡمَعۡرُوف
++
+ع - ر - ف
+> Al-, das Mîm am Anfang und das lange û gehören zum Muster. Nur drei Buchstaben bleiben übrig.
+
 #### HERVORHEBUNG | Zeigewort
 BESCHRIFTUNG: nah oder fern
 TREFFER: das Zeigewort am Satzanfang
@@ -824,6 +866,12 @@ Das ist das Gesicht des Mannes.
 
 هٰذَا بَيۡتُ النَّبِيِّ
 Das ist das Haus des Propheten.
+
+#### FOLIE
+الۡحِسَاب
++
+ح - س - ب
+> Das Alif in der Mitte gehört zum Muster. Mit al- davor bleiben drei Buchstaben.
 
 #### HERVORHEBUNG | Erstes Wort
 BESCHRIFTUNG: ohne الـ, ohne Tanwîn
@@ -916,6 +964,12 @@ Der Mann ist auf einem geraden Weg.
 
 الرَّجُلُ فِي الۡمَسۡجِدِ
 Der Mann ist in der Moschee.
+
+#### FOLIE
+الرَّسُول
++
+ر - س - ل
+> Das Lam von al- wird nicht gesprochen, das lange û gehört zum Muster. Übrig bleiben drei Buchstaben.
 
 #### HERVORHEBUNG | Das kleine Wort
 BESCHRIFTUNG: die Präposition
@@ -1020,6 +1074,20 @@ alle drei  →  Endung ‑i
 الۡحَمۡدُ لِلّٰهِ
 Das Lob gehört Allah.
 
+#### FOLIE
+بِظَلَّام
++
+ظ - ل - م
+> Das bi- gehört nicht zur Wurzel. Die Schadda verdoppelt den mittleren Buchstaben — er zählt trotzdem nur einmal.
+
+#### FOLIE
+Mütter gibt es viele.
++
+Hamburger sieht man nie.
++
+Antennebauer sieht man immer.
+> Drei Merksätze für die nächsten beiden Lektionen. Umm heißt auf Arabisch Mutter — alles, was auf um endet, meint mehrere. Hamburg schreibt man HH — alles, was mit h anfängt, meint jemanden, der nicht da ist. Und ant am Anfang meint den, der vor dir steht.
+
 #### HERVORHEBUNG | Das angeklebte Wort
 BESCHRIFTUNG: بِـ oder لِـ
 TREFFER: der erste Buchstabe des Wortes
@@ -1096,6 +1164,12 @@ Sie sind auf einem geraden Weg.
 
 هُوَ ٱللّٰهُ أَحَدٌ
 Er ist Allah, ein Einziger.
+
+#### FOLIE
+أَكۡبَر
++
+ك - ب - ر
+> Das Alif mit Hamza am Anfang gehört zum Muster, nicht zur Wurzel.
 
 #### HERVORHEBUNG | Das Pronomen
 BESCHRIFTUNG: das freie Wort am Satzanfang

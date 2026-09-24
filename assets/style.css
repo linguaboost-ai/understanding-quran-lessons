@@ -65,16 +65,23 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 #vorschau{grid-column:1/-1;grid-row:1;display:grid;grid-template-columns:repeat(5,1fr);
   gap:1px;background:var(--linie);border-bottom:1px solid var(--linie);min-height:0}
 
-#links{grid-column:1;grid-row:2;display:flex;flex-direction:column;gap:1px;
-  background:var(--linie);border-right:1px solid var(--linie);min-height:0}
-#links.ohne-wurzeln #wurzeln{display:none}
+/* Links das Sprechskript über die volle Höhe — es ist der Text, der zu dieser
+   Folie gesprochen wird, und hat den meisten Platz von allen Nebenspalten. */
+#skript{grid-column:1;grid-row:2;background:var(--karte);color:var(--weiss);
+  border-right:1px solid var(--linie);padding:1.1rem 1.2rem;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
 
 #folie{grid-column:2;grid-row:2;background:var(--karte);color:var(--weiss);
   display:flex;flex-direction:column;justify-content:center;align-items:center;
   padding:3rem;overflow:hidden;min-height:0}
 
+/* Rechts die Bedienung und darunter die Wurzelkästen. Die standen früher
+   links; dort braucht jetzt das Skript die ganze Höhe. */
 #spalte{grid-column:3;grid-row:2;border-left:1px solid var(--linie);
-  display:flex;flex-direction:column;padding:1.2rem 1rem 4rem;gap:.45rem;overflow:hidden}
+  display:flex;flex-direction:column;min-height:0;overflow:hidden}
+#knoepfe{flex:0 0 auto;display:flex;flex-direction:column;
+  padding:1.2rem 1rem 1.2rem;gap:.45rem;overflow:hidden}
+#spalte.ohne-wurzeln #wurzeln{display:none}
 
 /* ---------- Vorschaukästchen ---------- */
 /* Alle fünf bleiben schwarz auf weiß — die aktuelle Folie steht in vollem
@@ -159,7 +166,8 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
   text-shadow:0 0 .1em rgba(217,164,65,.9),0 0 .28em rgba(217,164,65,.55)}
 
 /* ---------- Wurzelkästchen ---------- */
-#wurzeln{flex:0 0 46%;background:var(--schwarz);display:flex;flex-direction:column;gap:1px;min-height:0;overflow:hidden}
+#wurzeln{flex:1 1 auto;background:var(--linie);display:flex;flex-direction:column;gap:1px;
+  min-height:0;overflow:hidden;border-top:1px solid var(--linie)}
 .wk{flex:1;background:#101010;border-left:3px solid transparent;padding:.55rem .8rem;cursor:pointer;
   display:flex;flex-direction:column;justify-content:center;overflow:hidden;
   font-size:.74rem;transition:background .15s,border-color .15s;min-height:0}
@@ -171,39 +179,38 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 .wk.leer{cursor:default;background:#0a0a0a}
 
 /* ---------- Erklärbox ---------- */
-/* Alles in der Box rechnet in em, nicht in rem: einpassen setzt die
-   Schriftgröße der Box, und nur so gehen ihre Kinder mit. Standen sie in rem,
-   lief die Anpassung bis zum Anschlag ins Leere und der Text trotzdem über —
-   sichtbar, seit die Erklärungen aller greifenden Hervorhebungen dastehen.
-   Der Deckel liegt bei 1rem, damit oben herauskommt, was vorher dastand. */
-#erklaer{flex:1;background:var(--karte);color:var(--weiss);padding:1.1rem 1.2rem;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:center;min-height:0}
-#erklaer .inhalt{gap:.7em}
-#erklaer .txt{font-size:1.02em;line-height:1.6}
-#erklaer .txt .ar{font-size:1.3em}
-#erklaer .notiz{border-left:3px solid var(--gold);background:rgba(217,164,65,.07);
-  color:rgba(255,255,255,.72);padding:.55em .8em;font-size:.92em;line-height:1.5;font-style:italic}
-#erklaer .notiz b{font-style:normal;font-weight:600;color:var(--gold);letter-spacing:.02em}
-#erklaer .knopftext{border-top:1px solid var(--rand);padding-top:.6em;color:var(--dim);font-size:.95em}
-#erklaer .knopftext.an{color:var(--weiss)}
-/* Steht kein Folientext darüber, braucht der erste Knopftext keine Trennlinie. */
-#erklaer .inhalt > .knopftext:first-child{border-top:0;padding-top:0}
+/* Alles im Kasten rechnet in em, nicht in rem: einpassen setzt die
+   Schriftgröße des Kastens, und nur so gehen seine Kinder mit. */
+#skript .inhalt{gap:.8em}
+#skript .marke{color:var(--gold);line-height:1.25;font-weight:600;
+  border-bottom:1px solid var(--rand);padding-bottom:.45em}
+#skript .marke .nr{display:block}
+#skript .marke .was{display:block;font-weight:400;color:var(--gold-hell);font-size:.92em}
+#skript .satz{font-size:1.02em;line-height:1.55;color:var(--weiss)}
+#skript .satz .ar{font-size:1.45em}
+#skript .satz.nurar{text-align:center;padding:.15em 0}
+#skript .txt{font-size:1.02em;line-height:1.6;color:var(--weiss)}
+/* Die Erklärungen der Regeln stehen unter der Folienerklärung — aber nur,
+   solange kein Skript für die Lektion da ist. */
+#skript .knopftext{border-top:1px solid var(--rand);padding-top:.6em;
+  color:var(--dim);font-size:.95em;line-height:1.5}
+#skript .knopftext.an{color:var(--weiss)}
 
 /* ---------- Knopfspalte ---------- */
-#spalte .gruppe{display:flex;flex-direction:column;gap:.45rem}
-#spalte .abstand{height:1.5rem}
+#knoepfe .gruppe{display:flex;flex-direction:column;gap:.45rem}
+#knoepfe .abstand{height:1.5rem}
 /* Wortknopf: das arabische Wort, darunter seine Bedeutung. Auch ein nicht
    anklickbarer bleibt lesbar — er ist hier Nachschlagewerk, nicht nur
    Schalter. */
-#spalte .knopf.wort{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem}
-#spalte .knopf.wort .bd{font-size:.86em;line-height:1.35;color:var(--dim);text-align:right}
+#knoepfe .knopf.wort{display:flex;flex-direction:column;align-items:flex-end;gap:.15rem}
+#knoepfe .knopf.wort .bd{font-size:.86em;line-height:1.35;color:var(--dim);text-align:right}
 /* Ein Wort, das auf dieser Zeile nichts zu markieren hat, bleibt trotzdem
    lesbar: es steht hier zum Nachschlagen, nicht nur als Schalter. Statt das
    ganze Kästchen auf 28 % zu verblassen wie die Regelknöpfe, nimmt es nur
    etwas Farbe zurück. */
-#spalte .knopf.wort:disabled{opacity:1;border-color:rgba(255,255,255,.07);
+#knoepfe .knopf.wort:disabled{opacity:1;border-color:rgba(255,255,255,.07);
   color:rgba(255,255,255,.62)}
-#spalte .knopf.wort:disabled .bd{color:rgba(255,255,255,.42)}
+#knoepfe .knopf.wort:disabled .bd{color:rgba(255,255,255,.42)}
 .knopf{border:1px solid var(--rand);background:rgba(255,255,255,.03);color:var(--weiss);
   border-radius:.5rem;padding:.5rem .7rem;font-family:inherit;font-size:.82rem;line-height:1.3;
   cursor:pointer;text-align:right;transition:border-color .15s,background .15s,color .15s}
