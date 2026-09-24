@@ -68,7 +68,11 @@ export const DIAK  = /[ً-ْٰٓ-ٕٖ-ٟۖ-ۭ]/;
 const DIAK_G = new RegExp(DIAK.source + '|ـ|[\\u200C\\u200D]', 'g');
 
 export const istArabisch = z => ARAB.test(z);
-export const skelett = s => s.replace(DIAK_G, '').replace(/[.,؟?·—→+«»]/g, '').trim();
+/* Fürs Vergleichen ist ٱ dasselbe wie ا: das Hamzat wasl ist eine
+   Schreibweise des Artikels, kein anderer Buchstabe. So greifen die
+   Wortlisten weiter, egal welche Schreibweise in der Datei steht. */
+export const skelett = s => s.replace(DIAK_G, '').replace(/\u0671/g, '\u0627')
+                             .replace(/[.,؟?·—→+«»]/g, '').trim();
 
 /* Wortzeile: <Markierung>  <arabisches Wort>  —  <Bedeutung>.
    An der Struktur erkannt, nicht an einer Emoji-Liste. */

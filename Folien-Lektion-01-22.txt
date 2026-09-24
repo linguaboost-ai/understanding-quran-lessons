@@ -620,30 +620,30 @@ Der, die, das
 كِتَابٌ
 ein Buch
 +
-الۡكِتَابُ
+ٱلۡكِتَابُ
 das Buch
-> Vorn kommt الـ dazu — und hinten fällt das Tanwîn weg. Aus ‑un wird ‑u.
+> Vorn kommt ٱلـ dazu — und hinten fällt das Tanwîn weg. Aus ‑un wird ‑u.
 
 #### FOLIE
-مَسۡجِدٌ  →  الۡمَسۡجِدُ
+مَسۡجِدٌ  →  ٱلۡمَسۡجِدُ
 +
-عَبۡدٌ  →  الۡعَبۡدُ
+عَبۡدٌ  →  ٱلۡعَبۡدُ
 +
-قَرۡيَةٌ  →  الۡقَرۡيَةُ
+قَرۡيَةٌ  →  ٱلۡقَرۡيَةُ
 
 #### FOLIE
-الۡمَسۡجِدُ عَظِيمٌ
+ٱلۡمَسۡجِدُ عَظِيمٌ
 Die Moschee ist gewaltig.
-> Jetzt lässt sich zum ersten Mal etwas über ein bestimmtes Ding sagen. Vorn ein Wort mit الـ, hinten ein Eigenschaftswort ohne — das ergibt eine Aussage.
+> Jetzt lässt sich zum ersten Mal etwas über ein bestimmtes Ding sagen. Vorn ein Wort mit ٱلـ, hinten ein Eigenschaftswort ohne — das ergibt eine Aussage.
 
 #### FOLIE
-الۡحَيَاةُ شَدِيدَةٌ
+ٱلۡحَيَاةُ شَدِيدَةٌ
 Das Leben ist hart.
 +
-الۡمَاءُ طَيِّبٌ
+ٱلۡمَاءُ طَيِّبٌ
 Das Wasser ist gut.
 +
-الشَّمۡسُ عَظِيمَةٌ
+ٱلشَّمۡسُ عَظِيمَةٌ
 Die Sonne ist gewaltig.
 
 #### FOLIE
@@ -652,57 +652,57 @@ Allah ist ein einziger Gott.
 +
 ٱللّٰهُ عَلِيمٌ حَكِيمٌ
 Allah ist wissend und weise.
-> Ein Name ist von sich aus bestimmt. Er braucht kein الـ und folgt trotzdem demselben Muster.
+> Ein Name ist von sich aus bestimmt. Er braucht kein ٱلـ und folgt trotzdem demselben Muster.
 
 #### FOLIE
-الۡمَسۡجِدُ عَظِيمٌ
+ٱلۡمَسۡجِدُ عَظِيمٌ
 Die Moschee ist gewaltig.
 +
-الۡمَسۡجِدُ الۡعَظِيمُ
+ٱلۡمَسۡجِدُ ٱلۡعَظِيمُ
 die gewaltige Moschee
-> Einmal الـ: eine Aussage. Zweimal الـ: keine Aussage mehr, nur noch eine Wortgruppe — der Satz geht danach weiter.
+> Einmal ٱلـ: eine Aussage. Zweimal ٱلـ: keine Aussage mehr, nur noch eine Wortgruppe — der Satz geht danach weiter.
 
 #### FOLIE
 هٰذَا مَسۡجِدٌ عَظِيمٌ
 Das ist eine gewaltige Moschee.
 +
-هٰذَا الۡمَسۡجِدُ عَظِيمٌ
+هٰذَا ٱلۡمَسۡجِدُ عَظِيمٌ
 Diese Moschee ist gewaltig.
-> Zeigewörter lassen sich auch mit الـ verbinden. Der Satz funktioniert danach genau wie vorher.
+> Zeigewörter lassen sich auch mit ٱلـ verbinden. Der Satz funktioniert danach genau wie vorher.
 
 #### FOLIE
 🌱  حَيَاة  —  Leben
 ⛓️  شَدِيد  —  hart, heftig
 1️⃣  وَاحِد  —  einer, einzig
 
-الشَّمۡسُ عَظِيمَةٌ
+ٱلشَّمۡسُ عَظِيمَةٌ
 Die Sonne ist gewaltig.
 
 #### FOLIE
-الۡكَافِر
+ٱلۡكَافِر
 +
 ك - ف - ر
 > Das al- gehört nicht zur Wurzel, das Alif in der Mitte auch nicht. Übrig bleiben drei Buchstaben.
 
 #### HERVORHEBUNG | Der Artikel
-BESCHRIFTUNG: الـ am Wortanfang
-TREFFER: الـ vor einem Nomen
+BESCHRIFTUNG: ٱلـ am Wortanfang
+TREFFER: ٱلـ vor einem Nomen
 > Ein einziges Wort für der, die und das — und es klebt vorn am Nomen.
 
 #### HERVORHEBUNG | Die Endung
 BESCHRIFTUNG: ‑u statt ‑un
-TREFFER: die Endung am Nomen mit الـ
-> Mit الـ verschwindet das Tanwîn. Beides zusammen geht nicht.
+TREFFER: die Endung am Nomen mit ٱلـ
+> Mit ٱلـ verschwindet das Tanwîn. Beides zusammen geht nicht.
 
 #### HERVORHEBUNG | Das Eigenschaftswort
-BESCHRIFTUNG: Adjektiv ohne الـ
+BESCHRIFTUNG: Adjektiv ohne ٱلـ
 TREFFER: das Adjektiv am Satzende
 > Das Eigenschaftswort bleibt unbestimmt. Genau daran erkennt man, dass es eine Aussage ist und keine Wortgruppe.
 
-#### HERVORHEBUNG | Zweimal الـ
+#### HERVORHEBUNG | Zweimal ٱلـ
 BESCHRIFTUNG: Wortgruppe
-TREFFER: beide الـ, am Nomen und am Adjektiv
-> Zweimal الـ heißt: Das ist noch keine Aussage. Es fehlt etwas, der Satz geht weiter.
+TREFFER: beide ٱلـ, am Nomen und am Adjektiv
+> Zweimal ٱلـ heißt: Das ist noch keine Aussage. Es fehlt etwas, der Satz geht weiter.
 
 #### WURZEL | حَيَاة
 WURZELBUCHSTABEN: ح ي ي
@@ -793,7 +793,7 @@ Jenes ist eine harte Stunde.
 Jenes ist eine schmerzhafte Strafe.
 
 #### FOLIE
-الۡمَعۡرُوف
+ٱلۡمَعۡرُوف
 +
 ع - ر - ف
 > Al-, das Mîm am Anfang und das lange û gehören zum Muster. Nur drei Buchstaben bleiben übrig.
@@ -834,29 +834,29 @@ Zwei Wörter, ein Begriff
 كِتَابٌ
 ein Buch
 +
-الۡكِتَابُ
+ٱلۡكِتَابُ
 das Buch
 +
 كِتَابُ ٱللّٰهِ
 das Buch Allahs
-> Das erste Wort verliert beides: kein الـ, kein Tanwîn. Das zweite bekommt die Endung ‑i. Daran erkennt man die Verbindung.
+> Das erste Wort verliert beides: kein ٱلـ, kein Tanwîn. Das zweite bekommt die Endung ‑i. Daran erkennt man die Verbindung.
 
 #### FOLIE
 أَصۡحَابٌ
 Gefährten
 +
-أَصۡحَابُ النَّارِ
+أَصۡحَابُ ٱلنَّارِ
 die Bewohner des Feuers
 +
 أَصۡحَابُ مُوسَىٰ
 die Gefährten Mûsâs
-> Genauso wie eben. Das zweite Wort darf dabei ein الـ tragen — die Endung ‑i bleibt trotzdem. Bei Namen ist das anders: Nicht jeder bekommt ein ‑i, manche tragen ein ‑a und einige gar keine Endung.
+> Genauso wie eben. Das zweite Wort darf dabei ein ٱلـ tragen — die Endung ‑i bleibt trotzdem. Bei Namen ist das anders: Nicht jeder bekommt ein ‑i, manche tragen ein ‑a und einige gar keine Endung.
 
 #### FOLIE
-هٰذَا بَيۡتُ النَّبِيِّ
+هٰذَا بَيۡتُ ٱلنَّبِيِّ
 Das ist das Haus des Propheten.
 +
-هٰذَا وَجۡهُ الرَّجُلِ
+هٰذَا وَجۡهُ ٱلرَّجُلِ
 Das ist das Gesicht des Mannes.
 
 #### FOLIE
@@ -864,19 +864,19 @@ Das ist das Gesicht des Mannes.
 😐  وَجۡه  —  Gesicht
 🏠  بَيۡت  —  Haus
 
-هٰذَا بَيۡتُ النَّبِيِّ
+هٰذَا بَيۡتُ ٱلنَّبِيِّ
 Das ist das Haus des Propheten.
 
 #### FOLIE
-الۡحِسَاب
+ٱلۡحِسَاب
 +
 ح - س - ب
 > Das Alif in der Mitte gehört zum Muster. Mit al- davor bleiben drei Buchstaben.
 
 #### HERVORHEBUNG | Erstes Wort
-BESCHRIFTUNG: ohne الـ, ohne Tanwîn
+BESCHRIFTUNG: ohne ٱلـ, ohne Tanwîn
 TREFFER: das erste Nomen der Verbindung
-> Es trägt weder الـ noch Tanwîn — obwohl es bestimmt gemeint ist.
+> Es trägt weder ٱلـ noch Tanwîn — obwohl es bestimmt gemeint ist.
 
 #### HERVORHEBUNG | Zweites Wort
 BESCHRIFTUNG: Endung ‑i
@@ -928,32 +928,32 @@ Kleine Wörter davor
 📤  عَلَىٰ  —  auf, über
 
 #### FOLIE
-الۡبَيۡتُ
+ٱلۡبَيۡتُ
 das Haus
 +
-فِي الۡبَيۡتِ
+فِي ٱلۡبَيۡتِ
 im Haus
 > Die Endung wechselt von ‑u zu ‑i. Dieselbe Endung wie beim zweiten Wort der Verbindung aus Lektion 8.
 
 #### FOLIE
-الرَّجُلُ فِي الۡمَسۡجِدِ
+ٱلرَّجُلُ فِي ٱلۡمَسۡجِدِ
 Der Mann ist in der Moschee.
 +
-الۡمَاءُ فِي الۡأَرۡضِ
+ٱلۡمَاءُ فِي ٱلۡأَرۡضِ
 Das Wasser ist in der Erde.
 
 #### FOLIE
 هٰذَا كِتَابٌ مِنَ ٱللّٰهِ
 Das ist ein Buch von Allah.
 +
-الرَّحۡمَةُ مِنَ ٱللّٰهِ
+ٱلرَّحۡمَةُ مِنَ ٱللّٰهِ
 Die Barmherzigkeit ist von Allah.
 
 #### FOLIE
-رَحۡمَةُ ٱللّٰهِ عَلَى الۡأَرۡضِ
+رَحۡمَةُ ٱللّٰهِ عَلَى ٱلۡأَرۡضِ
 Allahs Barmherzigkeit ist auf der Erde.
 +
-الرَّجُلُ عَلَىٰ صِرَاطٍ مُسۡتَقِيمٍ
+ٱلرَّجُلُ عَلَىٰ صِرَاطٍ مُسۡتَقِيمٍ
 Der Mann ist auf einem geraden Weg.
 > Auch ein unbestimmtes Nomen bekommt die Endung ‑i, dort als ‑in.
 
@@ -962,11 +962,11 @@ Der Mann ist auf einem geraden Weg.
 ⬅️  مِنۡ  —  von, aus
 📤  عَلَىٰ  —  auf, über
 
-الرَّجُلُ فِي الۡمَسۡجِدِ
+ٱلرَّجُلُ فِي ٱلۡمَسۡجِدِ
 Der Mann ist in der Moschee.
 
 #### FOLIE
-الرَّسُول
+ٱلرَّسُول
 +
 ر - س - ل
 > Das Lam von al- wird nicht gesprochen, das lange û gehört zum Muster. Übrig bleiben drei Buchstaben.
@@ -1002,36 +1002,36 @@ Wörter, die am Wort kleben
 🎯  إِلَىٰ  —  zu, nach
 
 #### FOLIE
-الۡحَقُّ
+ٱلۡحَقُّ
 die Wahrheit
 +
-بِالۡحَقِّ
+بِٱلۡحَقِّ
 mit der Wahrheit
-> Das بِـ klebt vorn am Wort, das الـ bleibt stehen. Dahinter dieselbe Endung ‑i wie in Lektion 9.
+> Das بِـ klebt vorn am Wort, das ٱلـ bleibt stehen. Dahinter dieselbe Endung ‑i wie in Lektion 9.
 
 #### FOLIE
 بِسۡمِ ٱللّٰهِ
 Im Namen Allahs
 +
-الۡحَيَاةُ بِرَحۡمَةِ ٱللّٰهِ
+ٱلۡحَيَاةُ بِرَحۡمَةِ ٱللّٰهِ
 Das Leben ist durch Allahs Barmherzigkeit.
 +
 هٰذَا بِعِلۡمِ ٱللّٰهِ
 Das geschieht mit dem Wissen Allahs.
 
 #### FOLIE
-ٱللّٰهُ عَلِيمٌ بِالۡقَلۡبِ
+ٱللّٰهُ عَلِيمٌ بِٱلۡقَلۡبِ
 Allah weiß um das Herz.
 > Hier heißt بِـ nicht mit oder durch. Manche Wörter ziehen ein festes kleines Wort nach sich — im Deutschen genauso: warten auf, denken an, wissen um. Das auf bedeutet dort nichts für sich. Bei عَلِيم gehört das بِـ einfach dazu.
 
 #### FOLIE
 لِ + ٱللّٰه  →  لِلّٰهِ
 +
-لِ + الرَّجُل  →  لِلرَّجُلِ
-> Bei لِـ verschmelzen die beiden. Das Alif von الـ verschwindet.
+لِ + ٱلرَّجُل  →  لِلرَّجُلِ
+> Bei لِـ verschmelzen die beiden. Das Alif von ٱلـ verschwindet.
 
 #### FOLIE
-الۡمَسۡجِدُ لِلصَّلَاةِ
+ٱلۡمَسۡجِدُ لِلصَّلَاةِ
 Die Moschee ist für das Gebet.
 +
 هٰذِهِ رَحۡمَةٌ لِلرَّجُلِ
@@ -1042,20 +1042,20 @@ Das ist ein Buch für Mûsâ.
 > Im Arabischen ist „für" und „gehört" dasselbe Wort und dasselbe Verhältnis: Etwas ist jemandem zugeordnet. Zwei deutsche Übersetzungen, eine arabische Regel.
 
 #### FOLIE
-الۡحَمۡدُ لِلّٰهِ
+ٱلۡحَمۡدُ لِلّٰهِ
 Das Lob gehört Allah.
 +
-الۡأَرۡضُ لِلّٰهِ
+ٱلۡأَرۡضُ لِلّٰهِ
 Die Erde gehört Allah.
 +
-هٰذَا الۡبَيۡتُ لِلرَّجُلِ
+هٰذَا ٱلۡبَيۡتُ لِلرَّجُلِ
 Dieses Haus gehört dem Mann.
 
 #### FOLIE
 هٰذَا سَبِيلٌ إِلَى ٱللّٰهِ
 Das ist ein Weg zu Allah.
 +
-مِنَ الۡبَيۡتِ إِلَى الۡمَسۡجِدِ
+مِنَ ٱلۡبَيۡتِ إِلَى ٱلۡمَسۡجِدِ
 Vom Haus zur Moschee.
 > إِلَىٰ klebt nicht. Es steht als eigenes Wort davor, wie فِي und عَلَىٰ.
 
@@ -1071,7 +1071,7 @@ alle drei  →  Endung ‑i
 🏷️  لِـ  —  für, gehört
 🎯  إِلَىٰ  —  zu, nach
 
-الۡحَمۡدُ لِلّٰهِ
+ٱلۡحَمۡدُ لِلّٰهِ
 Das Lob gehört Allah.
 
 #### FOLIE
@@ -1099,9 +1099,9 @@ TREFFER: die Endung des Nomens
 > Dieselbe Spur wie bei فِي, مِنۡ und عَلَىٰ.
 
 #### HERVORHEBUNG | Die Verschmelzung
-BESCHRIFTUNG: لِلۡـ statt لِ الۡـ
+BESCHRIFTUNG: لِلۡـ statt لِ ٱلۡـ
 TREFFER: لِلۡ am Wortanfang
-> Aus لِ und الـ wird لِلۡـ. Das Alif fällt weg.
+> Aus لِ und ٱلـ wird لِلۡـ. Das Alif fällt weg.
 
 
 ######################################################################
@@ -1136,22 +1136,22 @@ Er ist Allah, ein Einziger.
 Er ist der Gesandte Allahs.
 
 #### FOLIE
-هُوَ الۡحَقُّ
+هُوَ ٱلۡحَقُّ
 Er ist die Wahrheit.
-> Hinter einem Pronomen darf auch ein Wort mit الـ stehen. Es bleibt eine Aussage.
+> Hinter einem Pronomen darf auch ein Wort mit ٱلـ stehen. Es bleibt eine Aussage.
 
 #### FOLIE
 هِيَ رَحۡمَةٌ مِنَ ٱللّٰهِ
 Sie ist eine Barmherzigkeit von Allah.
 +
-هِيَ الۡحَيَاةُ الدُّنۡيَا
+هِيَ ٱلۡحَيَاةُ ٱلدُّنۡيَا
 Sie ist das diesseitige Leben.
 
 #### FOLIE
-هُمۡ فِي الۡجَنَّةِ
+هُمۡ فِي ٱلۡجَنَّةِ
 Sie sind im Paradies.
 +
-هُمۡ أَصۡحَابُ النَّارِ
+هُمۡ أَصۡحَابُ ٱلنَّارِ
 Sie sind die Bewohner des Feuers.
 +
 هُمۡ عَلَىٰ صِرَاطٍ مُسۡتَقِيمٍ
@@ -1209,14 +1209,14 @@ Ich bin ein Muslim.
 Ich bin ein Diener Allahs.
 
 #### FOLIE
-أَنۡتُمۡ فِي الۡجَنَّةِ
+أَنۡتُمۡ فِي ٱلۡجَنَّةِ
 Ihr seid im Paradies.
 +
 أَنۡتُمۡ عَلَىٰ صِرَاطٍ مُسۡتَقِيمٍ
 Ihr seid auf einem geraden Weg.
 
 #### FOLIE
-نَحۡنُ فِي الۡمَسۡجِدِ
+نَحۡنُ فِي ٱلۡمَسۡجِدِ
 Wir sind in der Moschee.
 +
 نَحۡنُ مِنۡ قَرۡيَةٍ وَاحِدَةٍ
@@ -1293,14 +1293,14 @@ sein Buch
 > Kein eigenes Wort davor. Die Endung hängt hinten dran und macht das Wort zugleich bestimmt.
 
 #### FOLIE
-الۡكِتَابُ لِلرَّجُلِ
+ٱلۡكِتَابُ لِلرَّجُلِ
 Das Buch gehört dem Mann.
 +
 هٰذَا كِتَابُهُ
 Das ist sein Buch.
 
 #### FOLIE
-الۡبَيۡتُ لِلنَّبِيِّ
+ٱلۡبَيۡتُ لِلنَّبِيِّ
 Das Haus gehört dem Propheten.
 +
 هٰذَا بَيۡتُهُ
@@ -1318,7 +1318,7 @@ Seine Barmherzigkeit ist gewaltig.
 هٰذِهِ مَرۡيَمُ
 Das ist Maryam.
 +
-بَيۡتُهَا فِي الۡقَرۡيَةِ
+بَيۡتُهَا فِي ٱلۡقَرۡيَةِ
 Ihr Haus ist in der Ortschaft.
 
 #### FOLIE
@@ -1332,12 +1332,12 @@ Ihr Herr ist Allah.
 تِلۡكَ قَرۡيَةٌ
 Jenes ist eine Ortschaft.
 +
-أَصۡحَابُهَا فِي الۡمَسۡجِدِ
+أَصۡحَابُهَا فِي ٱلۡمَسۡجِدِ
 Ihre Bewohner sind in der Moschee.
 > ـهَا steht nicht nur für Personen. Jedes weibliche Wort bekommt dieselbe Endung — auch eine Ortschaft.
 
 #### FOLIE
-النَّاسُ فِي الۡمَسۡجِدِ
+ٱلنَّاسُ فِي ٱلۡمَسۡجِدِ
 Die Menschen sind in der Moschee.
 +
 هٰذَا كِتَابُهُمۡ
@@ -1356,10 +1356,10 @@ BESCHRIFTUNG: das angehängte Stück
 TREFFER: ـهُ, ـهِ, ـهَا oder ـهُمۡ am Wortende
 > Es ist kein eigenes Wort. Beim Lesen muss man es hinten abtrennen.
 
-#### HERVORHEBUNG | Kein الـ
+#### HERVORHEBUNG | Kein ٱلـ
 BESCHRIFTUNG: der fehlende Artikel
 TREFFER: das Nomen mit Endung
-> Das Wort ist bestimmt, obwohl kein الـ davorsteht. Die Endung übernimmt das.
+> Das Wort ist bestimmt, obwohl kein ٱلـ davorsteht. Die Endung übernimmt das.
 
 
 ######################################################################
@@ -1430,10 +1430,10 @@ BESCHRIFTUNG: das angehängte Stück
 TREFFER: ـكَ, ـكُمۡ oder ـنَا am Wortende
 > Kein eigenes Wort. Beim Lesen hinten abtrennen.
 
-#### HERVORHEBUNG | Kein الـ
+#### HERVORHEBUNG | Kein ٱلـ
 BESCHRIFTUNG: der fehlende Artikel
 TREFFER: das Nomen mit Endung
-> Wie in Lektion 13: Die Endung macht das Wort bestimmt, ein الـ steht nie dabei.
+> Wie in Lektion 13: Die Endung macht das Wort bestimmt, ein ٱلـ steht nie dabei.
 
 
 ######################################################################
@@ -1572,28 +1572,28 @@ Mehrzahl bei Personen
 > Eine Endung für alle: ‑ûna. Das Wort davor bleibt unverändert — kein einziges dieser Wörter ist neu.
 
 #### FOLIE
-الۡمُسۡلِمُونَ عِنۡدَ الۡمَسۡجِدِ
+ٱلۡمُسۡلِمُونَ عِنۡدَ ٱلۡمَسۡجِدِ
 Die Muslime sind bei der Moschee.
 +
-الۡمُؤۡمِنُونَ عِنۡدَ رَبِّهِمۡ
+ٱلۡمُؤۡمِنُونَ عِنۡدَ رَبِّهِمۡ
 Die Gläubigen sind bei ihrem Herrn.
 
 #### FOLIE
-الۡمُؤۡمِنُونَ فِي الۡجَنَّةِ بَعۡدَ الۡمَوۡتِ
+ٱلۡمُؤۡمِنُونَ فِي ٱلۡجَنَّةِ بَعۡدَ ٱلۡمَوۡتِ
 Die Gläubigen sind nach dem Tod im Paradies.
 +
-الظَّالِمُونَ فِي النَّارِ بَعۡدَ الۡمَوۡتِ
+ٱلظَّالِمُونَ فِي ٱلنَّارِ بَعۡدَ ٱلۡمَوۡتِ
 Die Ungerechten sind nach dem Tod im Feuer.
 
 #### FOLIE
-الۡمُسۡلِمُونَ فِي الۡمَسۡجِدِ قَبۡلَ الصَّلَاةِ
+ٱلۡمُسۡلِمُونَ فِي ٱلۡمَسۡجِدِ قَبۡلَ ٱلصَّلَاةِ
 Die Muslime sind vor dem Gebet in der Moschee.
 +
-الۡحَيَاةُ شَدِيدَةٌ قَبۡلَ الۡمَوۡتِ
+ٱلۡحَيَاةُ شَدِيدَةٌ قَبۡلَ ٱلۡمَوۡتِ
 Das Leben ist hart vor dem Tod.
 
 #### FOLIE
-الۡعِلۡمُ عِنۡدَ ٱللّٰهِ
+ٱلۡعِلۡمُ عِنۡدَ ٱللّٰهِ
 Das Wissen ist bei Allah.
 +
 هٰذَا مِنۡ عِنۡدِ ٱللّٰهِ
@@ -1615,7 +1615,7 @@ von da an
 ⏩  بَعۡدَ  —  nach
 📍  عِنۡدَ  —  bei
 
-الۡمُسۡلِمُونَ عِنۡدَ الۡمَسۡجِدِ
+ٱلۡمُسۡلِمُونَ عِنۡدَ ٱلۡمَسۡجِدِ
 Die Muslime sind bei der Moschee.
 
 #### HERVORHEBUNG | Die Mehrzahlendung
@@ -1665,65 +1665,65 @@ Dieselbe Mehrzahl, andere Endung
 ↔️  بَيۡنَ  —  zwischen
 
 #### FOLIE
-هُمُ الۡمُسۡلِمُونَ
+هُمُ ٱلۡمُسۡلِمُونَ
 Sie sind die Muslime.
 +
-مَعَ الۡمُسۡلِمِينَ
+مَعَ ٱلۡمُسۡلِمِينَ
 mit den Muslimen
 > Dasselbe Wort, zwei Endungen. Steht ein kleines Wort direkt davor, wird aus ـُونَ ein ـِينَ — dieselbe Bewegung wie beim ‑i in Lektion 9.
 
 #### FOLIE
-الۡمُؤۡمِنُونَ  →  مَعَ الۡمُؤۡمِنِينَ
+ٱلۡمُؤۡمِنُونَ  →  مَعَ ٱلۡمُؤۡمِنِينَ
 die Gläubigen — mit den Gläubigen
 +
-الۡكَافِرُونَ  →  مِنَ الۡكَافِرِينَ
+ٱلۡكَافِرُونَ  →  مِنَ ٱلۡكَافِرِينَ
 die Ungläubigen — von den Ungläubigen
 +
-الظَّالِمُونَ  →  مَعَ الظَّالِمِينَ
+ٱلظَّالِمُونَ  →  مَعَ ٱلظَّالِمِينَ
 die Ungerechten — mit den Ungerechten
 
 #### FOLIE
-ٱللّٰهُ مَعَ الۡمُؤۡمِنِينَ
+ٱللّٰهُ مَعَ ٱلۡمُؤۡمِنِينَ
 Allah ist mit den Gläubigen.
 +
-فِرۡعَوۡنُ مَعَ الظَّالِمِينَ
+فِرۡعَوۡنُ مَعَ ٱلظَّالِمِينَ
 Pharao ist mit den Ungerechten.
 
 #### FOLIE
-فِرۡعَوۡنُ مِثۡلُ الظَّالِمِينَ
+فِرۡعَوۡنُ مِثۡلُ ٱلظَّالِمِينَ
 Pharao ist wie die Ungerechten.
 +
-هُمۡ مِثۡلُ الۡكَافِرِينَ
+هُمۡ مِثۡلُ ٱلۡكَافِرِينَ
 Sie sind wie die Ungläubigen.
 
 #### FOLIE
-السَّلَامُ بَيۡنَ الۡمُؤۡمِنِينَ
+ٱلسَّلَامُ بَيۡنَ ٱلۡمُؤۡمِنِينَ
 Der Friede ist unter den Gläubigen.
 +
-الرَّحۡمَةُ بَيۡنَ الۡمُسۡلِمِينَ
+ٱلرَّحۡمَةُ بَيۡنَ ٱلۡمُسۡلِمِينَ
 Die Barmherzigkeit ist unter den Muslimen.
 > بَيۡنَ bildet eine Verbindung wie مِثۡل. Deshalb steht dahinter dieselbe Endung.
 
 #### FOLIE
-الۡمُسۡلِمُونَ
+ٱلۡمُسۡلِمُونَ
 die Muslime
 +
-أَصۡحَابُ الۡمُسۡلِمِينَ
+أَصۡحَابُ ٱلۡمُسۡلِمِينَ
 die Gefährten der Muslime
 > Nicht nur hinter einem kleinen Wort. Auch als zweites Wort einer Verbindung steht ـِينَ — es ist dieselbe Endung ‑i wie in Lektion 8.
 
 #### FOLIE
-الۡكَافِرُونَ
+ٱلۡكَافِرُونَ
 die Ungläubigen
 +
-عَذَابُ الۡكَافِرِينَ
+عَذَابُ ٱلۡكَافِرِينَ
 die Strafe der Ungläubigen
 
 #### FOLIE
-رَبُّ الۡعَالَمِينَ
+رَبُّ ٱلۡعَالَمِينَ
 der Herr der Welten
 +
-الۡحَمۡدُ لِلّٰهِ رَبِّ الۡعَالَمِينَ
+ٱلۡحَمۡدُ لِلّٰهِ رَبِّ ٱلۡعَالَمِينَ
 Das Lob gehört Allah, dem Herrn der Welten.
 > Jetzt lässt sich die Zeile aus der Fâtihah erklären: عَالَمِينَ steht als zweites Wort einer Verbindung, hinter رَبّ. Deshalb ـِينَ und nicht ـُونَ.
 
@@ -1732,7 +1732,7 @@ Das Lob gehört Allah, dem Herrn der Welten.
 🤝  مَعَ  —  mit
 ↔️  بَيۡنَ  —  zwischen
 
-الۡحَمۡدُ لِلّٰهِ رَبِّ الۡعَالَمِينَ
+ٱلۡحَمۡدُ لِلّٰهِ رَبِّ ٱلۡعَالَمِينَ
 Das Lob gehört Allah, dem Herrn der Welten.
 
 #### HERVORHEBUNG | Die Endung
@@ -1785,10 +1785,10 @@ Ungläubige — ungläubige Frauen
 > Das ة fällt weg, ـَات kommt dran. Kein einziges Wort muss man dafür neu lernen.
 
 #### FOLIE
-أُولٰئِكَ الۡمُؤۡمِنَاتُ
+أُولٰئِكَ ٱلۡمُؤۡمِنَاتُ
 Jene sind die gläubigen Frauen.
 +
-الۡمُؤۡمِنَاتُ فِي الۡجَنَّةِ
+ٱلۡمُؤۡمِنَاتُ فِي ٱلۡجَنَّةِ
 Die gläubigen Frauen sind im Paradies.
 > أُولٰئِكَ ist die Mehrzahl von ذٰلِكَ.
 
@@ -1817,10 +1817,10 @@ Himmel — Himmel
 > Die eine Ausnahme: Hier schiebt sich ein و dazwischen. Dieses Wort muss man sich merken.
 
 #### FOLIE
-السَّمَاوَاتُ وَالۡأَرۡضُ لِلّٰهِ
+ٱلسَّمَاوَاتُ وَٱلۡأَرۡضُ لِلّٰهِ
 Die Himmel und die Erde gehören Allah.
 +
-هُوَ رَبُّ السَّمَاوَاتِ وَالۡأَرۡضِ
+هُوَ رَبُّ ٱلسَّمَاوَاتِ وَٱلۡأَرۡضِ
 Er ist der Herr der Himmel und der Erde.
 
 #### FOLIE
@@ -1828,7 +1828,7 @@ Er ist der Herr der Himmel und der Erde.
 👉  أُولٰئِكَ  —  jene, mehrere
 👈  هٰؤُلَاءِ  —  diese, mehrere
 
-أُولٰئِكَ الۡمُؤۡمِنَاتُ
+أُولٰئِكَ ٱلۡمُؤۡمِنَاتُ
 Jene sind die gläubigen Frauen.
 
 #### HERVORHEBUNG | Die Mehrzahlendung
@@ -1870,24 +1870,24 @@ Wenn sich das Wort innen ändert
 🌊  أَنۡهَار  —  Flüsse
 
 #### FOLIE
-النُّورُ فِي صُدُورِهِمۡ
+ٱلنُّورُ فِي صُدُورِهِمۡ
 Das Licht ist in ihren Brüsten.
 +
-الۡهُدَى فِي صُدُورِ الۡمُؤۡمِنِينَ
+ٱلۡهُدَى فِي صُدُورِ ٱلۡمُؤۡمِنِينَ
 Die Rechtleitung ist in den Brüsten der Gläubigen.
 
 #### FOLIE
-الۡجِبَالُ فِي الۡأَرۡضِ
+ٱلۡجِبَالُ فِي ٱلۡأَرۡضِ
 Die Berge sind auf der Erde.
 +
-السَّمَاوَاتُ وَالۡأَرۡضُ وَالۡجِبَالُ لِلّٰهِ
+ٱلسَّمَاوَاتُ وَٱلۡأَرۡضُ وَٱلۡجِبَالُ لِلّٰهِ
 Die Himmel, die Erde und die Berge gehören Allah.
 
 #### FOLIE
-فِي الۡجَنَّةِ أَنۡهَارٌ
+فِي ٱلۡجَنَّةِ أَنۡهَارٌ
 Im Paradies gibt es Flüsse.
 +
-الۡأَنۡهَارُ مِنَ الۡجِبَالِ
+ٱلۡأَنۡهَارُ مِنَ ٱلۡجِبَالِ
 Die Flüsse kommen von den Bergen.
 
 #### FOLIE
@@ -1928,7 +1928,7 @@ Tage
 ⛰️  جِبَال  —  Berge
 🌊  أَنۡهَار  —  Flüsse
 
-فِي الۡجَنَّةِ أَنۡهَارٌ
+فِي ٱلۡجَنَّةِ أَنۡهَارٌ
 Im Paradies gibt es Flüsse.
 
 #### HERVORHEBUNG | Die drei Buchstaben
@@ -1977,55 +1977,55 @@ Derjenige, der …
 > Heute hängen wir einen ganzen Nebensatz an ein Nomen.
 
 #### FOLIE
-🙋‍♂️  الَّذِي  —  derjenige, der
+🙋‍♂️  ٱلَّذِي  —  derjenige, der
 +
-🙋‍♀️  الَّتِي  —  diejenige, die
+🙋‍♀️  ٱلَّتِي  —  diejenige, die
 +
-🙌  الَّذِينَ  —  diejenigen, die
+🙌  ٱلَّذِينَ  —  diejenigen, die
 
 #### FOLIE
-الرَّجُلُ فِي الۡمَسۡجِدِ
+ٱلرَّجُلُ فِي ٱلۡمَسۡجِدِ
 Der Mann ist in der Moschee.
 +
-الرَّجُلُ الَّذِي فِي الۡمَسۡجِدِ
+ٱلرَّجُلُ ٱلَّذِي فِي ٱلۡمَسۡجِدِ
 der Mann, der in der Moschee ist
 +
-الرَّجُلُ الَّذِي فِي الۡمَسۡجِدِ عَلِيمٌ
+ٱلرَّجُلُ ٱلَّذِي فِي ٱلۡمَسۡجِدِ عَلِيمٌ
 Der Mann, der in der Moschee ist, ist wissend.
 > Erst eine Aussage. Mit dem neuen Wort wird daraus eine Beschreibung, und der Satz ist noch nicht fertig. Erst das letzte Wort macht ihn wieder zur Aussage.
 
 #### FOLIE
-هُوَ ٱللّٰهُ الَّذِي لَهُ السَّمَاوَاتُ وَالۡأَرۡضُ
+هُوَ ٱللّٰهُ ٱلَّذِي لَهُ ٱلسَّمَاوَاتُ وَٱلۡأَرۡضُ
 Er ist Allah, dem die Himmel und die Erde gehören.
 +
-الۡكِتَابُ الَّذِي مِنَ ٱللّٰهِ حَقٌّ
+ٱلۡكِتَابُ ٱلَّذِي مِنَ ٱللّٰهِ حَقٌّ
 Das Buch, das von Allah ist, ist die Wahrheit.
 
 #### FOLIE
-مَرۡيَمُ الَّتِي فِي الۡمَسۡجِدِ مُؤۡمِنَةٌ
+مَرۡيَمُ ٱلَّتِي فِي ٱلۡمَسۡجِدِ مُؤۡمِنَةٌ
 Maryam, die in der Moschee ist, ist gläubig.
 +
-الۡجَنَّةُ الَّتِي فِيهَا أَنۡهَارٌ لِلۡمُؤۡمِنِينَ
+ٱلۡجَنَّةُ ٱلَّتِي فِيهَا أَنۡهَارٌ لِلۡمُؤۡمِنِينَ
 Das Paradies, in dem Flüsse sind, ist für die Gläubigen.
 
 #### FOLIE
-الَّذِينَ فِي الۡجَنَّةِ هُمُ الۡمُؤۡمِنُونَ
+ٱلَّذِينَ فِي ٱلۡجَنَّةِ هُمُ ٱلۡمُؤۡمِنُونَ
 Diejenigen, die im Paradies sind, sind die Gläubigen.
 +
-ٱللّٰهُ وَلِيُّ الَّذِينَ فِي سَبِيلِهِ
+ٱللّٰهُ وَلِيُّ ٱلَّذِينَ فِي سَبِيلِهِ
 Allah ist der Beschützer derer, die auf Seinem Weg sind.
 
 #### FOLIE
-🙋‍♂️  الَّذِي  —  derjenige, der
-🙋‍♀️  الَّتِي  —  diejenige, die
-🙌  الَّذِينَ  —  diejenigen, die
+🙋‍♂️  ٱلَّذِي  —  derjenige, der
+🙋‍♀️  ٱلَّتِي  —  diejenige, die
+🙌  ٱلَّذِينَ  —  diejenigen, die
 
-هُوَ ٱللّٰهُ الَّذِي لَهُ السَّمَاوَاتُ وَالۡأَرۡضُ
+هُوَ ٱللّٰهُ ٱلَّذِي لَهُ ٱلسَّمَاوَاتُ وَٱلۡأَرۡضُ
 Er ist Allah, dem die Himmel und die Erde gehören.
 
 #### HERVORHEBUNG | Das Anschlusswort
 BESCHRIFTUNG: derjenige, der
-TREFFER: الَّذِي, الَّتِي oder الَّذِينَ im Satz
+TREFFER: ٱلَّذِي, ٱلَّتِي oder ٱلَّذِينَ im Satz
 > Es zeigt zurück auf das Wort davor und leitet die Beschreibung ein.
 
 #### HERVORHEBUNG | Der Nebensatz
@@ -2070,10 +2070,10 @@ Wahrlich, ihr Lohn ist bei ihrem Herrn.
 > Auch wenn eine Endung am Wort hängt: Das a steht davor.
 
 #### FOLIE
-إِنَّ الۡعِلۡمَ عِنۡدَ ٱللّٰهِ
+إِنَّ ٱلۡعِلۡمَ عِنۡدَ ٱللّٰهِ
 Wahrlich, das Wissen ist bei Allah.
 +
-إِنَّمَا الۡعِلۡمُ عِنۡدَ ٱللّٰهِ
+إِنَّمَا ٱلۡعِلۡمُ عِنۡدَ ٱللّٰهِ
 Das Wissen ist nur bei Allah.
 > Beim ersten Satz wird aus der Endung u ein a. Beim zweiten bleibt das u stehen — das angehängte ma hebt diese Wirkung auf. Übrig bleibt nur die Einschränkung.
 
@@ -2154,7 +2154,7 @@ Es gibt keinen Gott außer Allah.
 > Vorn kommt das Wort für nein dazu, und das Wort dahinter verliert sein Tanwîn — es endet nur noch auf a. Dann wird alles verneint und eines wieder ausgenommen. Worauf es ankommt, steht hinter dem Wort für außer.
 
 #### FOLIE
-الۡخَيۡرُ فِي ذٰلِكَ
+ٱلۡخَيۡرُ فِي ذٰلِكَ
 Das Gute ist darin.
 +
 لَا خَيۡرَ فِي ذٰلِكَ

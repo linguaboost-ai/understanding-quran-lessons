@@ -336,7 +336,7 @@ const satzfolie = f => {
    Paaren, eine halbleere darf mehr haben. */
 function luft(box){
   const saetze = box.querySelectorAll('.inhalt > .zl:not(.de)').length;
-  box.style.setProperty('--luft', saetze >= 4 ? '.75em' : '1.75em');
+  box.style.setProperty('--luft', saetze >= 4 ? '1.3em' : '2em');
 }
 
 let einheit = null;

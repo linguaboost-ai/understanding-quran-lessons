@@ -110,7 +110,13 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
    margin-bottom an der arabischen Zeile, nicht als margin-top an der
    deutschen: er muß sich nach der arabischen Schrift richten, deren
    Unterlängen — das ي von لِلنَّبِيِّ etwa — unter die Zeile reichen. */
-#folie .inhalt > .zl:not(.de),#folie .inhalt > .raster{margin-bottom:.5em}
+/* Der Abstand zwischen arabischem Satz und seiner Übersetzung ist klein,
+   der zum nächsten Paar groß — nur so ist zu sehen, was zusammengehört.
+   Gemessen zählt nicht der Kastenabstand, sondern der von Tinte zu Tinte:
+   eine Zeile ohne Unterlängen läßt unter sich viel Luft, eine mit Tanwîn
+   obendrauf über sich wenig. Bei --paar .5em stand die Übersetzung auf
+   einem Drittel der Folien näher am nächsten Satz als an ihrem eigenen. */
+#folie .inhalt > .zl:not(.de),#folie .inhalt > .raster{margin-bottom:var(--paar,.32em)}
 #folie .inhalt > .zl.de:not(.schrittanfang){margin-top:0}
 /* Eine Überschrift gehört zu dem, was unter ihr steht: dicht darüber, und
    die große Luft bleibt oberhalb der Überschrift — sonst schwebt sie

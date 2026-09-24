@@ -87,7 +87,12 @@ function hinter(z, anker){
 
 /* ---- die Regeln, nach Lektion und Name ------------------------------- */
 const R = {};
-const setze = (lek, name, fn) => { R[lek + '|' + name] = fn; };
+/* Der Schlüssel gleicht die Schreibweise an: Regelnamen wie „Kein الـ"
+   stehen in der Quelldatei und können dort mit oder ohne Hamzat wasl
+   geschrieben sein. Ohne das Angleichen fände der Name seine Regel
+   nicht mehr, sobald die Datei die andere Schreibweise benutzt. */
+const schluessel = (lek, name) => lek + '|' + name.replace(/\u0671/g, '\u0627');
+const setze = (lek, name, fn) => { R[schluessel(lek, name)] = fn; };
 
 // L1
 setze(1,'Tanwîn',        (l,b,z) => ({ wort:[], zeichen: zeichenAlle(z,'ٌ') }));
@@ -112,8 +117,12 @@ setze(5,'Gleiche Endung',(l,b,z) => ({ wort:[], zeichen: zeichenAlle(z,'ٌ') }))
 // L6
 /* الـ am Wortanfang, auch hinter وَ oder فَ. Gibt die Stelle des ال zurück. */
 function artikel(t){
-  if (!/^[وف]?[ً-ْ]?ال/.test(t.t)) return null;
-  const at = t.t.indexOf('ا');
+  /* Der Artikel wird mit Hamzat wasl geschrieben; die schlichte Schreibweise
+     zählt weiter mit, falls sie irgendwo steht. Der Gottesname trägt keinen
+     Artikel — sein ٱل gehört zum Namen. */
+  if (istGottesname(t)) return null;
+  if (!/^[وف]?[ً-ْ]?[اٱ]ل/.test(t.t)) return null;
+  const at = t.t.search(/[اٱ]/);
   return [t.s + at, t.s + at + 2];
 }
 setze(6,'Der Artikel',   (l,b,z) => ({ wort: tokens(z).map(artikel).filter(Boolean), zeichen:[] }));
@@ -239,7 +248,7 @@ setze(22,'Die Ausnahme', (l,b,z)=>{ const tk=tokens(z); const i=tk.findIndex(t=>
    oder „الـ am Wortanfang" die Ausgangsform vor dem Pfeil. */
 const ohneArabisch = z => !ARAB.test(z);
 export function hervorhebung(lektion, block, zeile){
-  const fn = R[lektion.nr + '|' + block.name];
+  const fn = R[schluessel(lektion.nr, block.name)];
   if (!fn || !zeile) return leer();
   const { text, off } = zielTeil(zeile);
   let r;
