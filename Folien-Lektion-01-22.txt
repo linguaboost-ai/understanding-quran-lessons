@@ -718,6 +718,9 @@ Zwei Wörter, ein Begriff
 🏠  بَيۡت  —  Haus
 
 #### FOLIE
+die Nummer des Hauses  →  Hausnummer
+
+#### FOLIE
 كِتَابٌ
 ein Buch
 +
@@ -764,7 +767,7 @@ TREFFER: das erste Nomen der Verbindung
 
 #### HERVORHEBUNG | Zweites Wort
 BESCHRIFTUNG: Endung ‑i
-TREFFER: das zweite Nomen der Verbindung
+TREFFER: die Endung am zweiten Nomen der Verbindung
 > Die Endung ‑i ist das Signal: Hier hängen zwei Wörter zusammen.
 
 #### WURZEL | أَصۡحَاب

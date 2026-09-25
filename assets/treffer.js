@@ -43,17 +43,18 @@ function ohneAnhang(tok){
   }
   return tok.e;
 }
-/* letztes Vokalzeichen eines Wortes = seine Endung */
+/* Die Endung ist der Vokal auf dem LETZTEN Buchstaben des Wortes — nicht das
+   letzte Vokalzeichen irgendwo im Wort. In بِظَلَّام sitzt die Schadda in der
+   Mitte und das Wort endet nackt: da ist keine Endung zu zeigen. Und auf dem
+   letzten Buchstaben von مُوسَىٰ steht nur das Dolch-Alif; es gehört zum Wort
+   und ändert sich nie, ist also keine Endung. */
+const KASUS = /[\u064B-\u0650]/;                       // ً ٌ ٍ َ ُ ِ
 function endung(tok){
   const ende = ohneAnhang(tok);
-  for (let i = ende - 1; i >= tok.s; i--){
-    if (DIAKRIT.test(tok.t[i - tok.s])) {
-      let j = i;
-      while (j > tok.s && DIAKRIT.test(tok.t[j-1-tok.s])) j--;
-      return [j, i+1];
-    }
-  }
-  return null;
+  let i = ende - 1;
+  while (i >= tok.s && DIAKRIT.test(tok.t[i - tok.s])) i--;
+  const zeichen = tok.t.slice(i + 1 - tok.s, ende - tok.s);
+  return (i >= tok.s && KASUS.test(zeichen)) ? [i + 1, ende] : null;
 }
 /* jedes Vorkommen eines Zeichens in der Zeile */
 const zeichenAlle = (z, ch) => [...z].flatMap((c,i) => c === ch ? [[i,i+1]] : []);
@@ -71,11 +72,15 @@ const PRONOM = ['هُوَ','هِيَ','هُمْ','أَنَا','أَنْتَ','أ
    kein Possessiv — das هِ in هٰذِهِ gehört zum Wort selbst.
    Nur das nackte Wort zählt: فِيهَا ist keins mehr. */
 const URWORT = [...ZEIGE, ...FRAGE, ...PRAEP, ...PRONOM];
-/* Der Gottesname zählt hier mit: an ihm hängt nie ein Possessiv. Beide
-   Schreibweisen, mit und ohne Hamzat wasl — skelett läßt den Buchstaben ٱ
-   stehen, weil er ein Buchstabe ist und kein Vokalzeichen. */
-const GOTTESNAME = ['\u0671\u0644\u0644\u0647', '\u0627\u0644\u0644\u0647'];
-const istGottesname = t => GOTTESNAME.includes(skelett(t.t));
+/* Der Gottesname zählt hier mit: an ihm hängt nie ein Possessiv. Sein ـهِ ist
+   der Name selbst, kein angehängtes „sein" — sonst suchte die Endung eine
+   Stelle zu weit links.
+   Auch mit Vorsilbe bleibt er der Name. Aus لِ und ٱللّٰه wird لِلّٰه: das Alif
+   fällt weg und ein Lâm verschmilzt, das Skelett heißt dann لله statt الله. */
+const NAME_FORMEN = ['\u0627\u0644\u0644\u0647',       // الله
+                     '\u0644\u0644\u0647'];             // لله  (aus لِ + ٱللّٰه)
+const istGottesname = t =>
+  NAME_FORMEN.includes(skelett(t.t).replace(/^[\u0648\u0641\u0628\u0643\u062A]/, ''));
 const istUrwort = t => URWORT.includes(skelett(t.t)) || istGottesname(t);
 
 /* Wort direkt hinter einem Anker */
@@ -142,7 +147,11 @@ setze(6,'Zweimal الـ',   (l,b,z) => { const tk=tokens(z);
 setze(7,'Zeigewort',     (l,b,z) => R['3|Zeigewort'](l,b,z));
 // L8
 setze(8,'Erstes Wort',   (l,b,z) => { const tk=tokens(z); return tk.length<2?leer():{wort:[[tk[tk.length-2].s,tk[tk.length-2].e]],zeichen:[]}; });
-setze(8,'Zweites Wort',  (l,b,z) => { const tk=tokens(z); return tk.length<2?leer():{wort:[[tk[tk.length-1].s,tk[tk.length-1].e]],zeichen:[]}; });
+/* Auf dem Knopf steht „Endung ‑i" — also leuchtet die Endung, nicht das
+   ganze zweite Nomen. Dieselbe Endung wie bei „Die Endung" in 6, 9 und 10. */
+setze(8,'Zweites Wort',  (l,b,z) => { const tk=tokens(z); if(tk.length<2) return leer();
+                                      const e=endung(tk[tk.length-1]);
+                                      return e?{wort:[],zeichen:[e]}:leer(); });
 // L9
 setze(9,'Das kleine Wort',(l,b,z)=> ({ wort: woerter(z, PRAEP), zeichen:[] }));
 setze(9,'Die Endung',    (l,b,z) => { const t=hinter(z,PRAEP); if(!t) return leer();
@@ -259,6 +268,20 @@ export function hervorhebung(lektion, block, zeile){
   return { wort: sauber(r.wort), zeichen: sauber(r.zeichen), deutsch: r.deutsch };
 }
 
+/* tt hat die unsichtbaren Verbinder verloren, t.s zählt aber im Originaltext.
+   Diese Hilfe rechnet eine Länge in tt zurück auf die Länge in t.t. Ein
+   Verbinder unmittelbar dahinter gehört noch zur Vorsilbe — er bestimmt ihre
+   Form und darf nicht ungefärbt danebenstehen. */
+function rohLaenge(roh, n){
+  let i = 0, gezaehlt = 0;
+  while (i < roh.length && gezaehlt < n){
+    if (!/[\u200C\u200D]/.test(roh[i])) gezaehlt++;
+    i++;
+  }
+  while (i < roh.length && /[\u200C\u200D]/.test(roh[i])) i++;
+  return i;
+}
+
 /* Wortknopf: das neue Wort im Satz finden. Treffer nur, wenn das Skelett den
    ganzen Token ausmacht — abzüglich erlaubter Vorsilben und Endungen. */
 const VORSILBEN = ['','ال','و','ف','ب','ل','ك','وال','فال','بال','لل','كال'];
@@ -283,7 +306,10 @@ export function wortTreffer(wort_, zeile){
     if (endung_){
       if (!tt.endsWith(rein) || ts === kk) return [];
       const stamm = tt.slice(0, tt.length - rein.length);
-      return DIAKRIT.test(stamm.slice(-1)) ? [[t.s,t.e]] : [];
+      if (!DIAKRIT.test(stamm.slice(-1))) return [];
+      /* Markiert wird der Anhang, nicht das ganze Wort: auf dem Knopf steht
+         der Anhang, also leuchtet der Anhang. */
+      return [[t.s + rohLaenge(t.t, stamm.length), t.e]];
     }
     if (vorsilbe){
       if (!tt.startsWith(rein)) return [];
@@ -291,7 +317,10 @@ export function wortTreffer(wort_, zeile){
          kein Tatwîl schreibt: „وَ" hat in Lektion 1 eine eigene Folie und
          wird dort markiert; „بِـ" mit Tatwîl meint ausdrücklich das Kleben
          am folgenden Wort und trifft die nackte Vorsilbe nicht. */
-      return (ts !== kk || !/ـ$/.test(wort)) ? [[t.s,t.e]] : [];
+      if (ts === kk && /ـ$/.test(wort)) return [];
+      /* Markiert wird die Vorsilbe, nicht das Wort, an dem sie klebt: auf dem
+         Knopf steht وَ, also leuchtet in „وَهٰذَا" nur das وَ. */
+      return [[t.s, t.s + rohLaenge(t.t, rein.length)]];
     }
     for (const v of VORSILBEN) for (const n of NACHSILBEN)
       if (ts === v + kk + n) return [[t.s,t.e]];
