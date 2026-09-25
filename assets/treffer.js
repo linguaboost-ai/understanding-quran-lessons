@@ -285,7 +285,10 @@ function rohLaenge(roh, n){
 /* Wortknopf: das neue Wort im Satz finden. Treffer nur, wenn das Skelett den
    ganzen Token ausmacht — abzüglich erlaubter Vorsilben und Endungen. */
 const VORSILBEN = ['','ال','و','ف','ب','ل','ك','وال','فال','بال','لل','كال'];
-const NACHSILBEN = ['','ه','ها','هم','هن','ك','كم','كن','نا','ي','ون','ين','ات','ان'];
+/* ة ist die weibliche Endung: zu شَدِيد gehört شَدِيدَةٌ, zu عَظِيم عَظِيمَةٌ.
+   Dieselbe Vokabel, also derselbe Knopf. Beliebige kurze Anhänge zuzulassen
+   ginge zu weit — مَا „was?" und مَاءٌ „Wasser" sind zwei Wörter. */
+const NACHSILBEN = ['','ه','ها','هم','هن','ك','كم','كن','نا','ي','ون','ين','ات','ان','ة'];
 export function wortTreffer(wort_, zeile){
   const wort = einSukun(wort_);
   const k = skelett(wort);
