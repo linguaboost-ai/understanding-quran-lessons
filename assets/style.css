@@ -83,7 +83,14 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
   padding:.9rem 1rem 1.2rem;gap:.45rem;overflow:hidden}
 /* Lektion und Folie, zweizeilig und gut sichtbar. */
 #stand{flex:0 0 auto;padding:1.1rem 1rem .1rem;text-align:right;line-height:1.25}
-#stand .lek{display:block;font-size:1.05rem;font-weight:600;color:var(--gold)}
+/* Die Lektionsanzeige ist zugleich der Weg zurück — das Haus davor sagt es,
+   und der Kasten ist groß genug, um ihn zu treffen. */
+#stand .lek{display:inline-block;font-size:1.05rem;font-weight:600;color:var(--gold);
+  text-decoration:none;border:1px solid transparent;border-radius:.5rem;
+  padding:.35rem .6rem;margin:-.35rem -.6rem .1rem;
+  transition:color .15s,border-color .15s,background .15s}
+#stand .lek:hover{color:var(--gold-hell);border-color:var(--gold);background:rgba(217,164,65,.08)}
+#stand .haus{font-weight:400;opacity:.85}
 #stand .fol{display:block;font-size:.95rem;color:rgba(255,255,255,.72)}
 #spalte.ohne-wurzeln #wurzeln{display:none}
 
@@ -256,11 +263,7 @@ body.start{overflow:auto;padding:clamp(2rem,5vw,4rem)}
 #fuss{position:fixed;right:0;bottom:0;width:var(--seite);padding:0 1rem .9rem;text-align:right;
   display:flex;flex-direction:column;align-items:flex-end;gap:.5rem}
 #hinweis{font-size:.66rem;line-height:1.5;color:rgba(255,255,255,.26)}
-/* Groß genug, um ihn zu treffen, ohne hinzusehen. */
-#heim{font-size:.92rem;line-height:1;color:rgba(255,255,255,.6);text-decoration:none;
-  border:1px solid var(--rand);border-radius:.55rem;padding:.6rem 1rem;
-  transition:color .15s,border-color .15s,background .15s}
-#heim:hover{color:var(--gold);border-color:var(--gold);background:rgba(217,164,65,.08)}
+
 #gesperrt{position:fixed;left:50%;transform:translateX(-50%);bottom:1.4rem;z-index:50;
   font-size:.75rem;color:var(--gold);display:none}
 #gesperrt.an{display:block}

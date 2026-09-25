@@ -21,6 +21,10 @@ export function parseSkript(text){
       const titel = mk[1];
       const f = titel.match(/^Folie\s+([^—]+?)\s*—/);
       if (f) folien = (f[1].match(/\d+/g) || []).map(Number);
+      /* Eine Marke, die weder eine Folie nennt noch „Knopf:" ist — etwa
+         „Entfallen — …" —, gehört zu keiner Folie mehr. Ihr Text bleibt in
+         der Datei stehen, wird aber nicht angezeigt. */
+      else if (!/^Knopf/.test(titel)) folien = [];
       akt = { titel, text: [] };
       for (const n of folien){
         const m = kurs.get(lek);

@@ -80,7 +80,7 @@ function zeileHtml(zeile, marks = []){
    Bedeutung. Solche Zeilen werden als Raster gesetzt, damit sie untereinander
    stehen bleiben. */
 const spalten = z => z.trim().split(/\s{2,}/).filter(Boolean);
-function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
+function spaltenHtml(zeilen, karte, verdeckt = ''){
   const n = spalten(zeilen[0]).length;
   /* Steht in der ersten Zeile Arabisch, laufen die Spalten von rechts nach
      links — sonst stünde das erste Wort links. Blöcke mit → bleiben, wie die
@@ -97,9 +97,8 @@ function spaltenHtml(zeilen, marks, markZeile, verdeckt = ''){
     let pos = 0;
     for (const c of spalten(z)){
       const i = z.indexOf(c, pos); pos = i + c.length;
-      const eig = (z.trim() === markZeile)
-        ? marks.filter(m => m.s >= i && m.e <= pos).map(m => ({...m, s:m.s-i, e:m.e-i}))
-        : [];
+      const eig = (karte.get(z.trim()) || [])
+        .filter(m => m.s >= i && m.e <= pos).map(m => ({...m, s:m.s-i, e:m.e-i}));
       /* dir="auto" statt fester Richtung: „kein ة" enthält Arabisch, ist aber
          ein deutscher Text — in einem rtl-Raster rutschte „kein" sonst nach
          rechts neben den Buchstaben. Der Browser richtet sich nach dem
@@ -128,7 +127,7 @@ function deutschHtml(z){
 /* Es werden immer alle Schritte gesetzt; die noch nicht aufgedeckten bleiben
    unsichtbar, behalten aber ihren Platz. So bleibt die Schriftgröße beim
    Aufdecken stehen und die schon sichtbaren Zeilen springen nicht. */
-function folieHtml(folie, bisSchritt, marks, markZeile, istZeile, mitPlus = false){
+function folieHtml(folie, bisSchritt, karte, istZeile, mitPlus = false){
   const out = [];
   for (let s = 0; s < folie.schritte.length; s++){
     const verdeckt = s > bisSchritt ? ' verdeckt' : '';
@@ -144,10 +143,9 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile, mitPlus = fals
       const wz = wortzeile(z);
       if (wz){
         const off = z.indexOf(wz.wort);
-        const eig = (z === markZeile)
-          ? marks.filter(m => m.s >= off && m.e <= off + wz.wort.length)
-                 .map(m => ({...m, s:m.s-off, e:m.e-off}))
-          : [];
+        const eig = (karte.get(z) || [])
+          .filter(m => m.s >= off && m.e <= off + wz.wort.length)
+          .map(m => ({...m, s:m.s-off, e:m.e-off}));
         /* zeileHtml liefert das arabische Wort schon in <bdi class="ar">.
            Noch eins drumherum hieße: 2,1em wirkt zweimal — dann stand das Wort
            gut doppelt so groß da wie der Beispielsatz auf derselben Folie. */
@@ -161,9 +159,9 @@ function folieHtml(folie, bisSchritt, marks, markZeile, istZeile, mitPlus = fals
       if (n > 1){
         const block = [zeilen[i]];
         while (i+1 < zeilen.length && zeilen[i+1].trim() && spalten(zeilen[i+1]).length === n){ block.push(zeilen[++i]); }
-        if (block.length > 1 || n > 1){ out.push(spaltenHtml(block, marks, markZeile, verdeckt)); continue; }
+        if (block.length > 1 || n > 1){ out.push(spaltenHtml(block, karte, verdeckt)); continue; }
       }
-      const eigene = (z === markZeile) ? marks : [];
+      const eigene = karte.get(z) || [];
       const inhalt = (z === istZeile) ? deutschHtml(z) : zeileHtml(z, eigene);
       out.push(`<div class="zl ${istArabisch(z) ? '' : 'de'}${verdeckt}">${inhalt}</div>`);
     }
@@ -214,24 +212,26 @@ const skript = parseSkript(await (await fetch(SKRIPT, { cache:'no-store' })).tex
 const lek = kurs.find(l => l.nr === nr) || kurs[0];
 document.title = `Lektion ${lek.nr} · ${lek.titel} — Quran verstehen lernen`;
 
-let idx = 0, schritt = 0, fenster = 0, wurzelOffen = null;
+let idx = 0, schritt = 0, wurzelOffen = null;
 const aktiv = { wort: new Set(), gram: new Set() };
 
 /* Die zuletzt erschienene Zeile mit arabischem Text. Nicht „der letzte Satz
    der Folie": beim Aufdecken wandert das Ziel mit, frühere Zeilen bleiben
    unberührt. Vokabelzeilen zählen mit — auch sie sind eine erschienene Zeile. */
-function zielZeile(){
+/* Markiert wird, was zuletzt erschienen ist — und das können mehrere Zeilen
+   sein: deckt ein Schritt drei Namen auf einmal auf, sind alle drei gerade
+   erschienen und alle drei werden markiert. Zurück kommen deshalb alle
+   arabischen Zeilen des letzten Schrittes, der überhaupt Arabisch zeigt.
+   Eine Pfeilzeile zählt nur, wenn hinter dem Pfeil Arabisch steht —
+   „مَا → Dinge" ist keine Zeile zum Markieren. */
+function zielZeilen(){
   const f = lek.folien[idx];
   for (let s = Math.min(schritt, f.schritte.length-1); s >= 0; s--){
-    const zeilen = f.schritte[s];
-    for (let i = zeilen.length-1; i >= 0; i--){
-      const z = zeilen[i].trim();
-      /* Eine Pfeilzeile zählt nur, wenn hinter dem Pfeil Arabisch steht —
-         „مَا → Dinge" ist keine Zeile zum Markieren. */
-      if (istArabisch(z) && istArabisch(zielTeil(z).text)) return z;
-    }
+    const treffer = f.schritte[s].map(z => z.trim())
+      .filter(z => istArabisch(z) && istArabisch(zielTeil(z).text));
+    if (treffer.length) return treffer;
   }
-  return null;
+  return [];
 }
 /* „Kein ist": im Arabischen steht zwischen Pronomen und Aussage nichts.
    Im Deutschen steht dort je nach Person ist, sind, bin, bist oder seid —
@@ -260,10 +260,12 @@ function neueWoerter(){
 const WOERTER = neueWoerter();
 
 /* ---------- Zeichnen -------------------------------------------------- */
+/* Jede Zielzeile bekommt ihre eigenen Stellen — die zählen ab Zeilenanfang
+   und sind von Zeile zu Zeile verschieden. */
 function marken(){
-  const z = zielZeile();
-  const alle = [];
-  if (z){
+  const karte = new Map();
+  for (const z of zielZeilen()){
+    const alle = [];
     for (const w of aktiv.wort)
       for (const [s,e] of wortTrefferZiel(w, z)) alle.push({s, e, typ:'wort'});
     for (const name of aktiv.gram){
@@ -273,20 +275,20 @@ function marken(){
       for (const [s,e] of r.wort)    alle.push({s, e, typ:'wort'});
       for (const [s,e] of r.zeichen) alle.push({s, e, typ:'zeichen'});
     }
+    if (alle.length) karte.set(z, alle);
   }
-  return alle;
+  return karte;
 }
 /* Greift eine Hervorhebung auf der zuletzt erschienenen Zeile? Daran hängt
    beides: ob ihr Knopf anklickbar ist und ob ihre Erklärung dasteht. */
-function greift(h, z = zielZeile()){
-  if (!z) return false;
-  const r = hervorhebung(lek, h, z);
-  return !!(r.wort.length || r.zeichen.length || r.deutsch);
+function greift(h, ziele = zielZeilen()){
+  return ziele.some(z => { const r = hervorhebung(lek, h, z);
+    return !!(r.wort.length || r.zeichen.length || r.deutsch); });
 }
 function deutschIst(){
   for (const name of aktiv.gram){
     const b = lek.hervorhebungen.find(h => h.name === name);
-    if (b && (hervorhebung(lek, b, zielZeile()||'').deutsch)) return true;
+    if (b && zielZeilen().some(z => hervorhebung(lek, b, z).deutsch)) return true;
   }
   return false;
 }
@@ -294,17 +296,22 @@ function deutschIst(){
 /* Oben der Vorschaustreifen: fünf Kästchen nebeneinander, jedes mit dem
    vollständigen Inhalt seiner Folie — auch das der aktuellen. Hier wird
    nichts Schritt für Schritt aufgedeckt und nichts hervorgehoben. */
+/* Die aktuelle Folie steht immer im dritten von fünf Kästchen. Die Reihe
+   gleitet also mit, statt seitenweise umzuspringen; am Anfang und am Ende
+   der Lektion bleiben die Kästchen daneben leer — es gibt kein Fenster mehr,
+   das nachgeführt werden müßte. */
 function zeichneVorschau(){
   const box = $('#vorschau');
   box.replaceChildren();
   for (let p = 0; p < 5; p++){
-    const i = fenster + p;
+    const i = idx - 2 + p;
     const d = document.createElement('div');
-    d.className = 'vk' + (i === idx ? ' jetzt' : '') + (i >= lek.folien.length ? ' leer' : '');
-    if (i < lek.folien.length){
+    const da = i >= 0 && i < lek.folien.length;
+    d.className = 'vk' + (i === idx ? ' jetzt' : '') + (da ? '' : ' leer');
+    if (da){
       const f = lek.folien[i];
-      d.appendChild(hueller(folieHtml(f, f.schritte.length - 1, [], null, null, true)));
-      d.addEventListener('click', () => { if (!wurzelOffen){ idx = i; schritt = 0; setzeFenster(); zeichne(); } });
+      d.appendChild(hueller(folieHtml(f, f.schritte.length - 1, new Map(), null, true)));
+      d.addEventListener('click', () => { if (!wurzelOffen){ idx = i; schritt = 0; zeichne(); } });
     }
     box.appendChild(d);
   }
@@ -352,7 +359,7 @@ function einheitsGroesse(){
   let klein = Infinity;
   for (const f of erste.folien){
     if (!satzfolie(f)) continue;
-    box.replaceChildren(hueller(folieHtml(f, f.schritte.length - 1, [], null, null)));
+    box.replaceChildren(hueller(folieHtml(f, f.schritte.length - 1, new Map(), null)));
     luft(box);
     einpassen(box, 8, .6, .8);
     klein = Math.min(klein, parseFloat(box.style.fontSize));
@@ -369,7 +376,7 @@ function zeichneFolie(){
   box.replaceChildren();
   const f = lek.folien[idx];
   const iz = deutschIst() ? zielDeutsch() : null;
-  box.appendChild(hueller(folieHtml(f, schritt, marken(), zielZeile(), iz)));
+  box.appendChild(hueller(folieHtml(f, schritt, marken(), iz)));
   /* Die Wortfolie mit den neuen Wörtern bekommt ihre eigene Größe. Alle
      anderen nehmen die gemeinsame — und nur wenn eine Folie damit nicht
      auskommt, wird sie für sich kleiner gesetzt. */
@@ -388,7 +395,8 @@ function zeichneFolie(){
    Rahmens, den die Folie bildet: es ist eine Hilfe beim Aufnehmen und
    gehört nicht in die Aufnahme. */
 function zeichneStand(){
-  $('#stand').innerHTML = `<span class="lek">Lektion ${lek.nr}</span>`
+  $('#stand').innerHTML = `<a class="lek" href="index.html" title="zurück zur Übersicht">`
+                        + `<span class="haus">⌂</span> Lektion ${lek.nr}</a>`
                         + `<span class="fol">Folie ${idx + 1}</span>`;
 }
 
@@ -417,9 +425,9 @@ function zeichneSkript(){
   box.replaceChildren();
   const inhalt = document.createElement('div'); inhalt.className = 'inhalt';
   box.appendChild(inhalt);
-  const abschnitte = skript.get(lek.nr)?.get(idx + 1) || [];
-  if (abschnitte.length){
-    for (const a of abschnitte){
+  /* Ohne Skriptabschnitt bleibt der Kasten leer — einen Ersatztext gibt es
+     nicht mehr. */
+  for (const a of skript.get(lek.nr)?.get(idx + 1) || []){
       const [oben, unten] = titelTeile(a.titel);
       const m = document.createElement('div'); m.className = 'marke';
       m.innerHTML = `<span class="nr">${esc(oben)}</span>`
@@ -431,26 +439,6 @@ function zeichneSkript(){
         d.innerHTML = zeileHtml(p);
         inhalt.appendChild(d);
       }
-    }
-  } else {
-    /* Solange für eine Lektion kein Skript geschrieben ist, steht hier, was
-       vorher hier stand: die Erklärung der Folie und die Erklärungen aller
-       Regeln, die auf ihr greifen. Kommt das Skript dazu, tritt beides
-       zurück — es sagt dasselbe, nur ausformuliert. */
-    for (const zeile of lek.folien[idx].erklaerung){
-      const t = zeile.indexOf('Notiz für mich:');
-      const haupt = t < 0 ? zeile : zeile.slice(0, t).replace(/[—–-]\s*$/, '').trim();
-      if (!haupt) continue;
-      const d = document.createElement('div'); d.className = 'txt';
-      d.innerHTML = zeileHtml(haupt); inhalt.appendChild(d);
-    }
-    const ziel = zielZeile();
-    for (const h of lek.hervorhebungen){
-      if (!h.erklaerung.length || !greift(h, ziel)) continue;
-      const d = document.createElement('div');
-      d.className = 'knopftext' + (aktiv.gram.has(h.name) ? ' an' : '');
-      d.innerHTML = zeileHtml(h.erklaerung.join(' ')); inhalt.appendChild(d);
-    }
   }
   /* Der Deckel liegt tief: die Spalte ist schmal, und bei 24 px brächen kurze
      Abschnitte nach drei Wörtern um. So bleibt die Größe über die Folien
@@ -464,13 +452,13 @@ const ohneDeutsch = z => istArabisch(z) && !/[A-Za-zÄÖÜäöüß]/.test(z);
 function zeichneKnoepfe(){
   const sp = $('#knoepfe');
   sp.replaceChildren();
-  const z = zielZeile();
+  const ziele = zielZeilen();
   const g1 = document.createElement('div'); g1.className = 'gruppe';
   /* Die neuen Wörter der Lektion stehen immer alle da, mit ihrer Bedeutung —
      sie sind der Vorrat, auf den die ganze Lektion zurückgreift. Anklickbar
      ist eins nur, wo es in der zuletzt erschienenen Zeile auch vorkommt. */
   for (const w of WOERTER){
-    const dabei = z && wortTrefferZiel(w.wort, z).length > 0;
+    const dabei = ziele.some(z => wortTrefferZiel(w.wort, z).length > 0);
     const b = document.createElement('button');
     b.className = 'knopf wort' + (aktiv.wort.has(w.wort) ? ' an' : '');
     b.innerHTML = `<span class="w">${esc(w.wort)}</span>`
@@ -488,7 +476,7 @@ function zeichneKnoepfe(){
   const g2 = document.createElement('div'); g2.className = 'gruppe';
   for (const h of lek.hervorhebungen){
     const b = document.createElement('button');
-    const dabei = greift(h, z);
+    const dabei = greift(h, ziele);
     b.className = 'knopf' + (aktiv.gram.has(h.name) ? ' an' : '');
     b.textContent = h.beschriftung;
     b.disabled = !dabei;
@@ -538,12 +526,6 @@ function zeichneWurzelfolie(){
   });
 }
 
-function setzeFenster(){
-  while (idx >= fenster + 4 && fenster + 5 < lek.folien.length + 4) fenster += 4;
-  while (idx < fenster) fenster = Math.max(0, fenster - 4);
-  if (fenster > idx) fenster = Math.max(0, idx);
-}
-
 function zeichne(){
   if (einheit === null) einheitsGroesse();
   /* Lektionen ohne Wurzelkästen: die Knopfspalte behält ihren Platz für sich. */
@@ -561,20 +543,20 @@ function vor(){
   if (schritt < f.schritte.length - 1) schritt++;
   else if (idx < lek.folien.length - 1){ idx++; schritt = 0; aktiv.wort.clear(); aktiv.gram.clear(); }
   else return;
-  setzeFenster(); zeichne();
+  zeichne();
 }
 function zurueck(){
   if (schritt > 0) schritt--;
   else if (idx > 0){ idx--; schritt = lek.folien[idx].schritte.length - 1; aktiv.wort.clear(); aktiv.gram.clear(); }
   else return;
-  setzeFenster(); zeichne();
+  zeichne();
 }
 addEventListener('keydown', e => {
   if (e.key === 'Escape'){ if (wurzelOffen !== null){ wurzelOffen = null; zeichne(); } else location.href = 'index.html'; return; }
   if (wurzelOffen !== null) { e.preventDefault(); return; }          // Navigation gesperrt
   if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ e.preventDefault(); vor(); }
   else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); zurueck(); }
-  else if (e.key === 'Home'){ idx = 0; schritt = 0; fenster = 0; zeichne(); }
+  else if (e.key === 'Home'){ idx = 0; schritt = 0; zeichne(); }
   else if (e.key === 'f' || e.key === 'F'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
 });
 $('#wurzelfolie').addEventListener('click', e => { if (e.target.id === 'wurzelfolie'){ wurzelOffen = null; zeichne(); } });
