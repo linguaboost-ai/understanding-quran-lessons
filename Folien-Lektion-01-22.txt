@@ -1,4 +1,4 @@
-QURAN VERSTEHEN LERNEN — FOLIEN FÜR DIE LEKTIONEN 1 BIS 22
+QURAN VERSTEHEN LERNEN — FOLIEN FÜR DIE LEKTIONEN 1 BIS 11
 
 Diese Datei ist die Grundlage für eine Webseite, auf der der Lehrer eine
 Lektion auswählt und anhand der Folien den Inhalt erklärt.
@@ -13,28 +13,33 @@ AUFBAU DER WEBSEITE
   OBEN — FÜNF FOLIENKÄSTCHEN
       Fünf Kästchen nebeneinander zeigen fünf aufeinanderfolgende Folien.
       Jedes Kästchen zeigt den kompletten Inhalt seiner Folie, ohne Scrollen.
-      Mit den Pfeiltasten wird navigiert; das Kästchen der aktuellen Folie
-      ist hervorgehoben. Erreicht die Hervorhebung das rechte Kästchen,
-      rutschen alle Kästchen um vier nach links, sodass die folgenden Folien
-      sichtbar werden.
+      Mit den Pfeiltasten wird navigiert. Die aktuelle Folie steht immer im
+      dritten Kästchen, also in der Mitte; die Reihe gleitet beim Navigieren
+      mit. Am Anfang und am Ende einer Lektion bleiben die Kästchen daneben
+      leer.
+      Ein (+) am linken Rand eines Kästchens zeigt, wo beim Vortrag der
+      nächste Teil aufgedeckt wird.
       Ein + in einer Folie bedeutet: Der folgende Teil erscheint erst auf
       Tastendruck. Die Pfeiltaste nach rechts deckt zuerst alle Teile der
       aktuellen Folie auf und springt erst danach zur nächsten Folie.
 
-  UNTEN LINKS — WURZELKÄSTCHEN
-      Bis zu drei Kästchen, eines je Block #### WURZEL der Lektion.
-      Ein Klick aktiviert das Kästchen und blendet die Wurzelfolie ein.
-      Ein zweiter Klick blendet sie wieder aus.
-      Solange eine Wurzelfolie eingeblendet ist, ist die Navigation gesperrt.
-      Im Kästchen selbst steht der Erklärtext des Blocks (die Zeile mit >).
+  LINKS — SPRECHERTEXT
+      Über die volle Höhe steht, was der Lehrer zu dieser Folie spricht:
+      die Marke aus der Skriptdatei als Titel, darunter der Text. Weiß auf
+      Schwarz. Trägt eine Folie zwei Abschnitte — den zur Folie und den zu
+      einem Knopf darauf —, stehen beide untereinander. Gibt es zur Folie
+      keinen Abschnitt, bleibt der Kasten leer. Einen Ersatz- oder Infotext
+      gibt es nicht.
 
-  UNTEN DANEBEN — ERKLÄRBOX
-      Zeigt die >-Zeilen der aktuellen Folie. Meistens ist sie leer.
-      Text nach „Notiz für mich:" ist eine private Notiz des Lehrers und
-      soll optisch abgesetzt sein, damit er ihn nicht vorliest.
-
-  RECHTS — HERVORHEBUNGSKNÖPFE
-      Siehe Abschnitt BUTTONS RECHTS weiter unten.
+  RECHTS — LEKTION, KNÖPFE, WURZELKÄSTCHEN
+      Ganz oben steht ⌂ Lektion n, darunter Folie m. Ein Klick auf die
+      Lektionszeile führt zurück zur Auswahl.
+      Darunter die Hervorhebungsknöpfe, siehe BUTTONS RECHTS weiter unten.
+      Darunter bis zu drei Wurzelkästchen, eines je Block #### WURZEL der
+      Lektion. Ein Klick aktiviert das Kästchen und blendet die Wurzelfolie
+      ein, ein zweiter blendet sie wieder aus. Solange eine Wurzelfolie
+      eingeblendet ist, ist die Navigation gesperrt. Im Kästchen selbst
+      steht der Erklärtext des Blocks (die Zeile mit >).
 
 ======================================================================
 SO IST DIESE DATEI AUFGEBAUT
@@ -53,17 +58,18 @@ SO IST DIESE DATEI AUFGEBAUT
       aber erst auf Tastendruck.
 
   > Text
-      Erklärung zur laufenden Folie. Erscheint NICHT auf der Folie,
-      sondern unten in der Erklärbox.
+      Erklärung zur laufenden Folie. Sie erscheint nirgends auf der Seite —
+      einen Infotext gibt es nicht mehr. Die Zeile bleibt als Notiz in der
+      Datei stehen.
 
   #### HERVORHEBUNG | Name
       Ein Grammatikknopf für die rechte Spalte.
       BESCHRIFTUNG:  Text auf dem Knopf
       TREFFER:       was im letzten Satz der Folie hervorgehoben wird
-      > Text         erscheint in der Erklärbox, solange der Knopf aktiv ist
+      > Text         Notiz; erscheint nicht auf der Seite
 
   #### WURZEL | Wort
-      Ein Wurzelkästchen für unten links. Meist zu einem neuen Wort der
+      Ein Wurzelkästchen für die rechte Spalte. Meist zu einem neuen Wort der
       Lektion, gelegentlich zu einem bekannten Wort, dessen Ableitung etwas
       erklärt.
       WURZELBUCHSTABEN:  die drei Wurzelbuchstaben, durch Leerzeichen getrennt
@@ -74,6 +80,14 @@ SO IST DIESE DATEI AUFGEBAUT
       > Text             steht im Kästchen, nicht auf der Wurzelfolie
       Auf der Wurzelfolie stehen nur das Wort, die Ableitungen und ihre
       Bedeutungen — keine ganzen Sätze.
+
+  Wortzeile
+      Emoji, arabisches Wort, Gedankenstrich, Bedeutung — zum Beispiel
+      „🛤️  سَبِيل  —  Weg". Daran erkennt die Seite ein neues Wort der Lektion
+      und gibt ihm einen Knopf.
+      Das Emoji darf fehlen: „وَ  —  und" ist ebenso ein Wort der Lektion.
+      Links vom Gedankenstrich steht dann ein einzelnes Wort, sonst gilt die
+      Zeile als Satz.
 
   Emojis
       Die Emojis vor den neuen Wörtern sind Platzhalter und werden später
@@ -112,20 +126,28 @@ BUTTONS RECHTS — HERVORHEBUNG IM SATZ
   Rechts neben der Folie steht eine Spalte mit Knöpfen. Sie hebt etwas
   im Satz hervor, nicht ein einzelnes Wort in einem Kästchen.
 
-  Oben, untereinander: ein Knopf je neuem Wort der Lektion, das auf der
-  aktuellen Folie vorkommt. Beschriftung ist das Wort selbst.
+  Oben, untereinander: ein Knopf je neuem Wort der Lektion — alle stehen
+  immer da, mit dem Wort und seiner Bedeutung. Anklickbar ist ein Knopf nur
+  dort, wo sein Wort in dem vorkommt, was zuletzt erschienen ist.
+
+  Ein Wort, das nur aus einem Buchstaben besteht — وَ, بِـ, لِـ —, klebt am
+  folgenden Wort. Sein Knopf hebt darum das ganze Wort hervor, an dem es
+  klebt: in „هٰذَا سَبِيلٌ وَهٰذَا شَيۡءٌ" also وَهٰذَا. Steht es für sich auf einer
+  eigenen Folie, wird es dort allein hervorgehoben.
 
   Darunter, durch einen kleinen Abstand getrennt: ein Knopf je Grammatikpunkt
   der Lektion. Diese Punkte stehen am Ende der Lektion in den Blöcken
   #### HERVORHEBUNG.
 
-  Wichtig: Hervorgehoben wird immer nur im LETZTEN Satz der Folie.
+  Wichtig: Hervorgehoben wird immer nur in dem, was zuletzt erschienen ist.
   Steht auf einer Folie mehr als ein Satz — erkennbar am + —, bleiben die
-  früheren Sätze unberührt. Kommt das Wort im letzten Satz mehrfach vor,
-  werden alle Vorkommen dort hervorgehoben.
+  früheren Sätze unberührt. Deckt ein Schritt mehrere Zeilen auf einmal auf,
+  etwa die drei Namen in Lektion 3, so sind alle drei gerade erschienen und
+  in allen dreien wird hervorgehoben. Kommt das Wort mehrfach vor, werden
+  alle Vorkommen hervorgehoben.
 
-  Die Knöpfe sind unabhängig von den Wurzelkästchen links und sperren
-  die Navigation nicht.
+  Die Knöpfe stehen in derselben Spalte wie die Wurzelkästchen, sind aber
+  von ihnen unabhängig und sperren die Navigation nicht.
 
 ======================================================================
 NICHT JEDES WORT HAT EINE WURZEL
@@ -178,6 +200,7 @@ Das ist ein Ding und das ist ein Weg.
 👉  هٰذَا  —  dies, das
 📦  شَيۡء  —  Ding, Sache
 🛤️  سَبِيل  —  Weg
+
 هٰذَا سَبِيلٌ
 Das ist ein Weg.
 وَ  —  und
@@ -256,6 +279,7 @@ Das ist Mûsâ.
 ❓  مَا  —  was?
 🙋  مَنۡ  —  wer?
 👨  رَجُل  —  Mann
+
 مَنۡ هٰذَا  —  هٰذَا رَجُلٌ
 Wer ist das? — Das ist ein Mann.
 
@@ -326,6 +350,7 @@ Das ist eine Stunde.
 👉  هٰذِهِ  —  diese
 ⏰  سَاعَة  —  Stunde
 🏘️  قَرۡيَة  —  Ortschaft
+
 هٰذِهِ قَرۡيَةٌ
 Dies ist eine Ortschaft.
 
@@ -398,6 +423,7 @@ Körperteile, die man zweimal hat
 ☀️  شَمۡس  —  Sonne
 💨  رِيح  —  Wind
 🖐️  يَد  —  Hand
+
 هٰذِهِ شَمۡسٌ
 Dies ist eine Sonne.
 
@@ -467,6 +493,7 @@ Dies ist ein gewaltiges Zeichen.
 🧠  عَلِيم  —  wissend
 🏔️  عَظِيم  —  gewaltig
 🌿  طَيِّب  —  gut, rein
+
 هٰذَا رَجُلٌ عَلِيمٌ
 Das ist ein wissender Mann.
 
@@ -551,6 +578,7 @@ Die Moschee ist gewaltig.
 🌱  حَيَاة  —  Leben
 ⛓️  شَدِيد  —  hart, heftig
 1️⃣  وَاحِد  —  einer, einzig
+
 ٱلۡحَيَاةُ شَدِيدَةٌ
 Das Leben ist hart.
 
@@ -650,6 +678,7 @@ Jenes ist eine harte Stunde.
 ➡️  ذٰلِكَ  —  jenes, das da
 ↗️  تِلۡكَ  —  jene
 💔  أَلِيم  —  schmerzhaft
+
 ذٰلِكَ عَذَابٌ أَلِيمٌ
 Jenes ist eine schmerzhafte Strafe.
 
@@ -719,6 +748,7 @@ Das ist das Gesicht des Mannes.
 👥  أَصۡحَاب  —  Gefährten, Bewohner
 😐  وَجۡه  —  Gesicht
 🏠  بَيۡت  —  Haus
+
 هٰذَا بَيۡتُ ٱلنَّبِيِّ
 Das ist das Haus des Propheten.
 
@@ -804,6 +834,7 @@ Der Mann ist auf einem geraden Weg.
 📥  فِي  —  in
 ⬅️  مِنۡ  —  von, aus
 📤  عَلَىٰ  —  auf, über
+
 ٱلرَّجُلُ فِي ٱلۡمَسۡجِدِ
 Der Mann ist in der Moschee.
 
@@ -872,6 +903,7 @@ Vom Haus zur Moschee.
 🔗  بِـ  —  mit, durch
 🏷️  لِـ  —  für, gehört
 🎯  إِلَىٰ  —  zu, nach
+
 ٱلۡحَمۡدُ لِلّٰهِ
 Das Lob gehört Allah.
 
@@ -948,6 +980,7 @@ Sie sind die Bewohner des Feuers.
 🧔  هُوَ  —  er
 🧕  هِيَ  —  sie
 👥  هُمۡ  —  sie, mehrere
+
 هُوَ ٱللّٰهُ أَحَدٌ
 Er ist Allah, ein Einziger.
 

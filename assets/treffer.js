@@ -266,7 +266,11 @@ const NACHSILBEN = ['','ه','ها','هم','هن','ك','كم','كن','نا','ي',
 export function wortTreffer(wort_, zeile){
   const wort = einSukun(wort_);
   const k = skelett(wort);
-  const endung_ = /^ـ/.test(wort), vorsilbe = /ـ$/.test(wort);
+  /* Vorsilbe: am Tatwîl zu erkennen — بِـ, لِـ —, aber auch daran, daß das
+     Wort aus einem einzigen Buchstaben besteht. Ein Buchstabe mit seinem
+     Vokal steht im Arabischen nicht für sich: وَ klebt am folgenden Wort.
+     So greift der Knopf auch dort, wo die Datei kein Tatwîl schreibt. */
+  const endung_ = /^ـ/.test(wort), vorsilbe = /ـ$/.test(wort) || k.length === 1;
   const rein = wort.replace(/^ـ|ـ$/g,'');   // vokalisiert, ohne Tatweel
   const kk = k.replace(/^ـ|ـ$/g,'');
   return tokens(zeile).flatMap(t => {
@@ -281,7 +285,14 @@ export function wortTreffer(wort_, zeile){
       const stamm = tt.slice(0, tt.length - rein.length);
       return DIAKRIT.test(stamm.slice(-1)) ? [[t.s,t.e]] : [];
     }
-    if (vorsilbe) return tt.startsWith(rein) && ts !== kk ? [[t.s,t.e]] : [];
+    if (vorsilbe){
+      if (!tt.startsWith(rein)) return [];
+      /* Steht die Vorsilbe für sich allein, zählt sie nur, wenn die Datei
+         kein Tatwîl schreibt: „وَ" hat in Lektion 1 eine eigene Folie und
+         wird dort markiert; „بِـ" mit Tatwîl meint ausdrücklich das Kleben
+         am folgenden Wort und trifft die nackte Vorsilbe nicht. */
+      return (ts !== kk || !/ـ$/.test(wort)) ? [[t.s,t.e]] : [];
+    }
     for (const v of VORSILBEN) for (const n of NACHSILBEN)
       if (ts === v + kk + n) return [[t.s,t.e]];
     return [];

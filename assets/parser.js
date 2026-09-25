@@ -75,15 +75,22 @@ export const skelett = s => s.replace(DIAK_G, '').replace(/\u0671/g, '\u0627')
                              .replace(/[.,؟?·—→+«»]/g, '').trim();
 
 /* Wortzeile: <Markierung>  <arabisches Wort>  —  <Bedeutung>.
-   An der Struktur erkannt, nicht an einer Emoji-Liste. */
+   An der Struktur erkannt, nicht an einer Emoji-Liste.
+   Die Markierung davor ist ein Platzhalter für eine Zeichnung und darf
+   fehlen: „وَ  —  und" ist genauso ein Wort der Lektion wie „🛤️  سَبِيل  —  Weg"
+   und bekommt seinen Knopf. Links vom Gedankenstrich muß dann aber ein
+   einzelnes Wort stehen — „مَنۡ هٰذَا؟ — هٰذَا رَجُلٌ." bleibt ein Satz. */
 export function wortzeile(z){
   const t = z.trim();
   if (!t.includes('—')) return null;
   const links = t.slice(0, t.indexOf('—')).trim();
-  if (!links || ARAB.test(links[0])) return null;
+  const bedeutung = t.slice(t.indexOf('—')+1).trim();
+  if (!links || !bedeutung) return null;
+  if (ARAB.test(links[0]))
+    return /\s/.test(links) ? null : { markierung:'', wort:links, bedeutung };
   const m = links.match(/^(\S+)\s+(.+)$/);
   if (!m || !ARAB.test(m[2])) return null;
-  return { markierung:m[1], wort:m[2].trim(), bedeutung:t.slice(t.indexOf('—')+1).trim() };
+  return { markierung:m[1], wort:m[2].trim(), bedeutung };
 }
 
 /* Eine Zeile, auf die sich die Knöpfe beziehen können: arabisch, aber keine

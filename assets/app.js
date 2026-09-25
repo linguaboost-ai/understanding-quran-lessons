@@ -149,7 +149,10 @@ function folieHtml(folie, bisSchritt, karte, istZeile, mitPlus = false){
         /* zeileHtml liefert das arabische Wort schon in <bdi class="ar">.
            Noch eins drumherum hieße: 2,1em wirkt zweimal — dann stand das Wort
            gut doppelt so groß da wie der Beispielsatz auf derselben Folie. */
-        out.push(`<div class="zl wz${verdeckt}"><span class="mk">${esc(wz.markierung)}</span>`
+        /* Ohne Markierung entfällt das Kästchen ganz — ein leeres brächte
+           nur seinen Rand mit und schöbe das Wort aus der Mitte. */
+        out.push(`<div class="zl wz${verdeckt}">`
+               + (wz.markierung ? `<span class="mk">${esc(wz.markierung)}</span>` : '')
                + zeileHtml(wz.wort, eig)
                + `<span class="bd">— ${esc(wz.bedeutung)}</span></div>`);
         continue;
@@ -417,9 +420,7 @@ function zeichneWurzeln(){
 
 /* Links steht, was zu dieser Folie gesprochen wird: die Marke aus dem Skript
    als zweizeiliger Titel, darunter der Text. Eine Folie kann zwei Abschnitte
-   tragen — den zur Folie und den zu einem Knopf darauf.
-   Ohne Skript bleibt die Erklärung der Folie stehen; die „Notiz für mich"
-   nicht mehr, die gehört nicht vor die Kamera. */
+   tragen — den zur Folie und den zu einem Knopf darauf. */
 function zeichneSkript(){
   const box = $('#skript');
   box.replaceChildren();
